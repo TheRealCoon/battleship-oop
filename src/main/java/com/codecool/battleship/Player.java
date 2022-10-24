@@ -1,5 +1,7 @@
 package com.codecool.battleship;
 
+import java.util.List;
+
 public class Player {
     private Board board;
     private List<Ship> shipList;

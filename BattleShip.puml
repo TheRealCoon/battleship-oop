@@ -61,8 +61,8 @@ Ship -- Board
 Ship -- Square
 Ship *-- ShipType
 class Ship{
-- enum: ShipType
-- list: Square
+- type: ShipType
+- body: List<Square>
 }
 
 enum ShipType{
