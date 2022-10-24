@@ -38,8 +38,8 @@ Player -- Board
 class Player{
 - board: Board
 - shipList: List<Ship>
-- isAlive(): boolean
-- handlingShots()
++ isAlive(): boolean
++ handlingShots()
 }
 
 BoardFactory -- Board
