@@ -1,0 +1,84 @@
+@startuml
+
+Battleship -- Display
+Battleship -- Input
+Battleship -- Game
+class Battleship{
+- display : Display
+- input : Input
++ mainMenu()
++ startGame()
++ displayHighScore()
+}
+
+class Display{
++ printMenu()
++ printBoard()
++ printGameplay()
++ printTheOutcomeOfTheGame()
+}
+
+class Input{
+- scanner: Scanner
+- isValidInput(): boolean
+}
+
+Game -- Input
+Game -- Display
+Game -- Player
+class Game{
+- player1: Player
+- player2: Player
+- gameModeMenu()
+- play()
+- hasWon(): boolean
+}
+Player -- Board
+class Player{
+- board: Board
+- shipList: List<Ship>
+- isAlive(): boolean
+- handlingShots()
+}
+
+BoardFactory -- Board
+BoardFactory -- Input
+BoardFactory -- Display
+class BoardFactory{
+board: Board
++ randomPlacement()
++ manualPlacement()
+}
+
+class Board{
+- ocean: Square[][]
+- isPlacementOk()
+}
+
+Ship -- Player
+Ship -- Board
+Ship -- Square
+Ship *-- ShipType
+class Ship{
+- enum: ShipType
+- list: Square
+}
+
+enum ShipType{
+- length: int
+}
+Square *-- SquareStatus
+class Square{
+- x: int
+- y: int
+- enum: SquareStatus
+- toString() // return SquareStatusGraphRepresntation
+}
+
+enum SquareStatus{
+- character: char
+- getCharacter()
+}
+
+
+@enduml
