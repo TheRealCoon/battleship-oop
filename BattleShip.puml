@@ -78,7 +78,7 @@ class Square{
 
 enum SquareStatus{
 - character: char
-- getCharacter()
++ getCharacter()
 }
 
 
