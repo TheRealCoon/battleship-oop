@@ -12,4 +12,7 @@ public class Display {
     public void printGameMessage(String msg){
         System.out.println(msg);
     }
+    public void printTheOutcomeOfTheGame(){
+        //TODO probably receives game or player as argument
+    }
 }

@@ -12,15 +12,16 @@ class Battleship{
 }
 
 class Display{
-+ printMenu()
-+ printBoard()
-+ printGameplay()
++ printMenu(String, String[])
++ printBoard(String[][])
++ printGameMessage(String)
 + printTheOutcomeOfTheGame()
 }
 
 class Input{
 - scanner: Scanner
 - isValidInput(): boolean
+- readInput() : String
 }
 
 Game -- Input

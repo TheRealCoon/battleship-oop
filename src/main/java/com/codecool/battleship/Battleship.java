@@ -3,7 +3,7 @@ package com.codecool.battleship;
 public class Battleship {
     private Display display;
     private Input input;
-    //TODO List<Score> for highschore (Score is a PlayerName - Integer pair)
+    //TODO List<Score> for high score (Score is a PlayerName - Integer pair)
 
     public Battleship() {
         display = new Display();
