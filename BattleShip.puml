@@ -21,7 +21,7 @@ class Display{
 class Input{
 - scanner: Scanner
 - isValidInput(): boolean
-- readInput() : String
++ readInput() : String
 }
 
 Game -- Input
@@ -30,8 +30,8 @@ Game -- Player
 class Game{
 - player1: Player
 - player2: Player
-- gameModeMenu()
-- play()
++ gameModeMenu()
++ play()
 - hasWon(): boolean
 }
 Player -- Board
