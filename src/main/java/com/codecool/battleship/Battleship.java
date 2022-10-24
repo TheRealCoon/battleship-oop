@@ -14,7 +14,12 @@ public class Battleship {
     }
 
     public void mainMenu(){
-        //TODO
+        String[] menuElements = {
+                "Exit",
+                "Start Game",
+                "High Score"
+        };
+        display.printMenu("Main menu: ", menuElements);
     }
 
     public void startGame(){
