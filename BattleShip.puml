@@ -46,7 +46,7 @@ BoardFactory -- Board
 BoardFactory -- Input
 BoardFactory -- Display
 class BoardFactory{
-board: Board
+- board: Board
 + randomPlacement()
 + manualPlacement()
 }
