@@ -15,8 +15,8 @@ public class Input {
         return false;
     }
 
-    private String readInput() {
-        //TODO
-        return "";
+    public String readInput(String msg) {
+        System.out.println(msg);
+        return scanner.nextLine();
     }
 }
