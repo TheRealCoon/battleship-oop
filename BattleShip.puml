@@ -72,8 +72,8 @@ Square *-- SquareStatus
 class Square{
 - x: int
 - y: int
-- enum: SquareStatus
-- toString() // return SquareStatusGraphRepresntation
+- status : SquareStatus
++ toString() // return (y,x)
 }
 
 enum SquareStatus{
