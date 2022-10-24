@@ -1,4 +1,4 @@
-package com.codecool.battleship;
+package com.codecool.battleship.board;
 
 public enum SquareStatus {
     EMPTY(' '), SHIP('#'), HIT('¤'), MISS('×');

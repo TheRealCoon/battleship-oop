@@ -1,5 +1,8 @@
 package com.codecool.battleship;
 
+import com.codecool.battleship.utils.Display;
+import com.codecool.battleship.utils.Input;
+
 public class Battleship {
     private Display display;
     private Input input;

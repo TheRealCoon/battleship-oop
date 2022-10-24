@@ -1,4 +1,6 @@
-package com.codecool.battleship;
+package com.codecool.battleship.board;
+
+import com.codecool.battleship.ship.Ship;
 
 public class Board {
     private Square[][] ocean;

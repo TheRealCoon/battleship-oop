@@ -1,4 +1,4 @@
-package com.codecool.battleship;
+package com.codecool.battleship.board;
 
 public class Square {
     private int y;

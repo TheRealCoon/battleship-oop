@@ -1,4 +1,7 @@
-package com.codecool.battleship;
+package com.codecool.battleship.player;
+
+import com.codecool.battleship.ship.Ship;
+import com.codecool.battleship.board.Board;
 
 import java.util.List;
 

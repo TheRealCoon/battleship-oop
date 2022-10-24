@@ -1,4 +1,6 @@
-package com.codecool.battleship;
+package com.codecool.battleship.board;
+
+import com.codecool.battleship.board.Board;
 
 public class BoardFactory {
     private Board board;
