@@ -4,7 +4,7 @@ public class Game {
     private Player player1;
     private Player player2;
 
-    Game(){}
+    public Game(){}
 
     public String gameModeMenu(){
         //TODO

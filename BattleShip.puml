@@ -53,7 +53,7 @@ board: Board
 
 class Board{
 - ocean: Square[][]
-- isPlacementOk()
++ isPlacementOk(Square, Ship) : boolean
 }
 
 Ship -- Player

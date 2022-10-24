@@ -1,7 +1,7 @@
 package com.codecool.battleship;
 
 public class Display {
-    Display(){}
+    public Display(){}
 
     public void printMenu(String label, String[] menu){
         //TODO prints any menu given
