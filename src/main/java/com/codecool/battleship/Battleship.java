@@ -29,4 +29,8 @@ public class Battleship {
     public void displayHighScore(){
         //TODO
     }
+
+    public void printTitle(String title){
+        display.printTitle(title);
+    }
 }
