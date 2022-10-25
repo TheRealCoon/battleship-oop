@@ -3,6 +3,7 @@ package com.codecool.battleship.board;
 import com.codecool.battleship.board.Board;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.ship.ShipType;
+import com.codecool.battleship.utils.Input;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +52,7 @@ public class BoardFactory {
         return shipPosition;
     }
 
+
     private static String createRandomDirection() {
         Random random = new Random();
         int randomDirection = random.nextInt(4);
@@ -65,7 +67,31 @@ public class BoardFactory {
     }
 
 
-    public void manualPlacement() {
-        //TODO probably this should receive an 'Input' instance as parameter
+    public List<Square>  manualPlacement(Input input, ShipType shipType) {
+        List<Square> shipPosition = new ArrayList<>();
+        int coordinateY = Integer.parseInt(input.readInput("first coordinate"));
+        int coordinateX = Integer.parseInt(input.readInput("second coordinate"));
+        Square firstSquareOfPosition = new Square(coordinateY, coordinateX, SquareStatus.SHIP);
+        shipPosition.add(firstSquareOfPosition);
+        switch (input.readInput("ship direction")){
+            case "right":
+                for (int i = 1; i < shipType.getLength(); i++) {
+                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX()+i, SquareStatus.SHIP));
+                }
+            case "down":
+                for (int i = 1; i < shipType.getLength(); i++) {
+                    shipPosition.add(new Square(firstSquareOfPosition.getY()-i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
+                }
+            case "left":
+                for (int i = 1; i < shipType.getLength(); i++) {
+                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX()-i, SquareStatus.SHIP));
+                }
+            case "up":
+                for (int i = 1; i < shipType.getLength(); i++) {
+                    shipPosition.add(new Square(firstSquareOfPosition.getY()+i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
+                }
+        }
+
+        return shipPosition;
     }
 }
