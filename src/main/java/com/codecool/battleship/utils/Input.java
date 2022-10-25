@@ -16,7 +16,7 @@ public class Input {
     }
 
     public String readInput(String msg) {
-        System.out.println(msg);
+        new Display().printGameMessage(msg);
         return scanner.nextLine();
     }
 }

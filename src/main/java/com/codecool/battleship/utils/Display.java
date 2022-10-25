@@ -20,6 +20,10 @@ public class Display {
         System.out.println(msg);
     }
 
+    public void printErrorMessage(String msg){
+        System.out.println(msg);
+    }
+
     public void printTheOutcomeOfTheGame() {
         //TODO probably receives game or player as argument
     }

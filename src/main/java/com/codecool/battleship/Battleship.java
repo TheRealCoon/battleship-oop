@@ -22,9 +22,9 @@ public class Battleship {
                 menuIndex = Integer.parseInt(userInput);
                 loadModule(menuIndex);
             }catch(NumberFormatException e){
-                System.out.println("'" + userInput + "' is not a number!");
+                display.printErrorMessage("'" + userInput + "' is not a number!");
             }catch(IllegalArgumentException e){
-                System.out.println(e.getMessage());
+                display.printErrorMessage(e.getMessage());
             }
         }
         display.printGameMessage("Goodbye!");
