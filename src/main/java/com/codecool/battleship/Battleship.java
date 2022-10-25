@@ -1,16 +1,24 @@
 package com.codecool.battleship;
 
+import com.codecool.battleship.dao.BattleshipDAO;
+import com.codecool.battleship.player.Score;
 import com.codecool.battleship.utils.Display;
 import com.codecool.battleship.utils.Input;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Battleship {
     private Display display;
     private Input input;
+
+    private List<Score> highScore = new ArrayList<>();
     //TODO List<Score> for high score (Score is a PlayerName - Integer pair)
 
     public Battleship() {
         display = new Display();
         input = new Input();
+        highScore = BattleshipDAO.readHighScoreFromFile();
     }
 
     public void mainMenu(){
