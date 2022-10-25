@@ -24,4 +24,8 @@ public class Score {
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
+
+    public String[] toTableRow() {
+        return new String[]{playerName, String.valueOf(value)};
+    }
 }
