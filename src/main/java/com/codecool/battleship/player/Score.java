@@ -4,6 +4,11 @@ public class Score {
     private int value;
     private String playerName;
 
+    public Score(String playerName, int value) {
+        this.playerName = playerName;
+        this.value = value;
+    }
+
     public int getValue() {
         return value;
     }

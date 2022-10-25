@@ -5,23 +5,31 @@ import com.codecool.battleship.player.Score;
 import com.codecool.battleship.utils.Display;
 import com.codecool.battleship.utils.Input;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Battleship {
     private Display display;
     private Input input;
 
-    private List<Score> highScore = new ArrayList<>();
+    private List<Score> highScore;
     //TODO List<Score> for high score (Score is a PlayerName - Integer pair)
 
     public Battleship() {
         display = new Display();
         input = new Input();
-        highScore = BattleshipDAO.readHighScoreFromFile();
+        try {
+            highScore = BattleshipDAO.readHighScoreFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NoSuchElementException e) {
+            display.printErrorMessage(e.getMessage());
+        }
     }
 
-    public void mainMenu(){
+    public void mainMenu() {
         int menuIndex = -1;
         while (menuIndex != 0) {
             displayMainMenu();
@@ -29,16 +37,16 @@ public class Battleship {
             try {
                 menuIndex = Integer.parseInt(userInput);
                 loadModule(menuIndex);
-            }catch(NumberFormatException e){
+            } catch (NumberFormatException e) {
                 display.printErrorMessage("'" + userInput + "' is not a number!");
-            }catch(IllegalArgumentException e){
+            } catch (IllegalArgumentException e) {
                 display.printErrorMessage(e.getMessage());
             }
         }
         display.printGameMessage("Goodbye!");
     }
 
-    private void displayMainMenu(){
+    private void displayMainMenu() {
         String[] menuElements = {
                 "Exit",
                 "Start Game",
@@ -47,15 +55,15 @@ public class Battleship {
         display.printMenu("Main menu: ", menuElements);
     }
 
-    public void startGame(){
+    public void startGame() {
         //TODO
     }
 
-    public void displayHighScore(){
+    public void displayHighScore() {
         //TODO we need to save scores in a file, and read it from there
     }
 
-    public void printTitle(String title){
+    public void printTitle(String title) {
         display.printTitle(title);
     }
 
@@ -76,4 +84,11 @@ public class Battleship {
         }
     }
 
+    public List<Score> getHighScore() {
+        return highScore;
+    }
+
+    public void setHighScore(List<Score> highScore) {
+        this.highScore = highScore;
+    }
 }
