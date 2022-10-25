@@ -6,12 +6,17 @@ import java.util.List;
 
 public class Ship {
     private final ShipType type;
-    private final List<Square> body;
+    private List<Square> body;
 
-    public Ship(ShipType type, List<Square> body) {
+    public Ship(ShipType type) {
         this.type = type;
-        this.body = body;
     }
 
+    public List<Square> getBody() {
+        return body;
+    }
 
+    public void setBody(List<Square> body) {
+        this.body = body;
+    }
 }

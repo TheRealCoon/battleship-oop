@@ -25,73 +25,76 @@ public class BoardFactory {
 
 
     public List<Square> randomPlacement(ShipType shipType) {
-        //1 carrier, 1 battleship, 2 cruiser, 3 submarine, 4 destroyer
+
         Random random = new Random();
         List<Square> shipPosition = new ArrayList<>();
         Square firstSquareOfPosition = new Square(random.nextInt(10), random.nextInt(10), SquareStatus.SHIP);
         shipPosition.add(firstSquareOfPosition);
-        switch (createRandomDirection()){
-            case "right":
+        switch (createRandomDirection()) {
+            case "horizontal":
                 for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX()+i, SquareStatus.SHIP));
+                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX() + i, SquareStatus.SHIP));
                 }
-            case "down":
+            case "vertical":
                 for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY()-i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
+                    shipPosition.add(new Square(firstSquareOfPosition.getY() - i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
                 }
-            case "left":
-                for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX()-i, SquareStatus.SHIP));
-                }
-            case "up":
-                for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY()+i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
-                }
-        }
 
+        }
+//        for (Square square : shipPosition) {
+//            if (square.getX() <= 10 && square.getY() <= 10) return shipPosition;
+//            else randomPlacement(shipType);
+//        }
         return shipPosition;
+    }
+
+    public void putRandomShipsOnBoard(List<Ship> ships) {
+        for (Ship ship : ships) {
+            putOneShipRandomlyOnBoard(ship);
+        }
+    }
+
+    private void putOneShipRandomlyOnBoard(Ship ship) {
+
     }
 
 
     private static String createRandomDirection() {
         Random random = new Random();
-        int randomDirection = random.nextInt(4);
+        int randomDirection = random.nextInt(2);
         String direction = "";
-        switch (randomDirection){
-            case 0 -> direction = "right";
-            case 1 -> direction = "down";
-            case 2 -> direction = "left";
-            case 3 -> direction = "up";
+        switch (randomDirection) {
+            case 0 -> direction = "horizontal";
+            case 1 -> direction = "vertical";
+
         }
         return direction;
     }
 
-
-    public List<Square>  manualPlacement(Input input, ShipType shipType) {
+    public List<Square> manualPlacement(Input input, ShipType shipType) {
         List<Square> shipPosition = new ArrayList<>();
         int coordinateY = Integer.parseInt(input.readInput("first coordinate"));
         int coordinateX = Integer.parseInt(input.readInput("second coordinate"));
         Square firstSquareOfPosition = new Square(coordinateY, coordinateX, SquareStatus.SHIP);
         shipPosition.add(firstSquareOfPosition);
-        switch (input.readInput("ship direction")){
+        switch (input.readInput("ship direction")) {
             case "right":
                 for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX()+i, SquareStatus.SHIP));
+                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX() + i, SquareStatus.SHIP));
                 }
             case "down":
                 for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY()-i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
+                    shipPosition.add(new Square(firstSquareOfPosition.getY() - i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
                 }
             case "left":
                 for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX()-i, SquareStatus.SHIP));
+                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX() - i, SquareStatus.SHIP));
                 }
             case "up":
                 for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY()+i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
+                    shipPosition.add(new Square(firstSquareOfPosition.getY() + i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
                 }
         }
-
         return shipPosition;
     }
 }
