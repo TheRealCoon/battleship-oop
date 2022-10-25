@@ -16,6 +16,14 @@ public class Square {
         return status;
     }
 
+    public int getY() {
+        return y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
     @Override
     public String toString() {
         return  "y = "  + y + ", x = " + x;
