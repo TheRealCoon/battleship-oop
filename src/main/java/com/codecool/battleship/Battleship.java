@@ -6,9 +6,9 @@ import com.codecool.battleship.utils.Display;
 import com.codecool.battleship.utils.Input;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
+
+import static com.codecool.battleship.utils.Constans.HIGH_SCORE;
 
 public class Battleship {
     private Display display;
@@ -20,13 +20,6 @@ public class Battleship {
     public Battleship() {
         display = new Display();
         input = new Input();
-        try {
-            highScore = BattleshipDAO.readHighScoreFromFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NoSuchElementException e) {
-            display.printErrorMessage(e.getMessage());
-        }
     }
 
     public void mainMenu() {
@@ -52,7 +45,7 @@ public class Battleship {
                 "Start Game",
                 "High Score"
         };
-        display.printMenu("Main menu: ", menuElements);
+        display.printMenu("Main menu", menuElements);
     }
 
     public void startGame() {
@@ -60,7 +53,23 @@ public class Battleship {
     }
 
     public void displayHighScore() {
-        //TODO we need to save scores in a file, and read it from there
+        display.printTitle(HIGH_SCORE);
+        try {
+            highScore = BattleshipDAO.readHighScoreFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        } catch (NullPointerException e) {
+            display.printErrorMessage(e.getMessage());
+            return;
+        }
+        highScore.stream().sorted((score1, score2) -> ((score2.getValue() - (score1.getValue()))))
+                .forEach(score
+                        -> display.printGameMessage(
+                        String.format(
+                                /*"%3d |"*/ "%-20s" + ".".repeat(20 - String.valueOf(score.getValue()).length()) + "%d",
+                                /*i,*/ score.getPlayerName(), score.getValue()).replace(' ', '.')));
+
     }
 
     public void printTitle(String title) {

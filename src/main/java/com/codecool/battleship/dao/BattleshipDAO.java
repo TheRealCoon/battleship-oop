@@ -18,7 +18,7 @@ public class BattleshipDAO {
         String[] values;
         br = new BufferedReader(new FileReader(DATA_FILE));
         if (br.readLine() == null || br.readLine().isEmpty())
-            throw new NoSuchElementException("There are no entries in High Scores file!");
+            throw new NullPointerException("There are no entries in High Scores file!");
         while ((line = br.readLine()) != null) {
             values = line.split(COLUMN_SEPARATOR);
             Score record = new Score(values[NAME_TABLE_INDEX], Integer.parseInt(values[SCORE_TABLE_INDEX]));
