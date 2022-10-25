@@ -15,8 +15,11 @@ public class BoardFactory {
         this.board = board;
     }
 
+
     public void randomPlacement(){
-        //TODO
+        //1 carrier, 1 battleship, 2 cruiser, 3 submarine, 4 destroyer
+
+
     }
 
     public void manualPlacement(){

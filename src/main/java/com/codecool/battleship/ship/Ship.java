@@ -12,4 +12,6 @@ public class Ship {
         this.type = type;
         this.body = body;
     }
+
+
 }
