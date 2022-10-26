@@ -44,7 +44,7 @@ public class Game {
         boardFactory.putShipsOnBoard(shipPlacement, player1.getPlayerShipList());
         boardFactory.putShipsOnBoard(shipPlacement, player2.getPlayerShipList());
         display.printGameMessage("Ships have been placed! The game begins!");
-        while(hasWon()){
+        while(!hasWon()){
             Square targetedSquare = getMove(boardFactory.getBoard());
             currentPlayer = switchPlayer();
             currentPlayer.handlingShots(targetedSquare);

@@ -3,6 +3,8 @@ package com.codecool.battleship.utils;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
 
+import java.util.Arrays;
+
 import static com.codecool.battleship.utils.Constans.*;
 
 public class Display {
@@ -19,6 +21,17 @@ public class Display {
     }
 
     public void printBoard(String[][] board /* or char[][] board */) {
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("Placeholder for board");
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
         //TODO receives String/char board
     }
 
