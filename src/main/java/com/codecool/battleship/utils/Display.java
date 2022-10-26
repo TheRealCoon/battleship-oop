@@ -1,5 +1,7 @@
 package com.codecool.battleship.utils;
 
+import com.codecool.battleship.player.Score;
+
 import static com.codecool.battleship.utils.Constans.*;
 
 public class Display {
@@ -39,5 +41,18 @@ public class Display {
         System.out.println(" ".repeat(TITLE_INDENT_SIZE) + "*" + "*".repeat(sb.length()) + "*");
         System.out.println(" ".repeat(TITLE_INDENT_SIZE) + "*" + sb + "*");
         System.out.println(" ".repeat(TITLE_INDENT_SIZE) + "*" + "*".repeat(sb.length()) + "*");
+    }
+
+    public void printHighScore(String title, Score[] highScore) {
+        printTitle(title);
+        for (int i = 0; i < highScore.length; i++) {
+            System.out.println(
+                    " ".repeat(INDENT_SIZE) +
+                            String.format("%3d | ", i + 1) +
+                            String.format("%-20s" +
+                                            ".".repeat(20 - String.valueOf(highScore[i].getValue()).length()) +
+                                            "%d",
+                                    highScore[i].getPlayerName(), highScore[i].getValue()).replace(' ', '.'));
+        }
     }
 }

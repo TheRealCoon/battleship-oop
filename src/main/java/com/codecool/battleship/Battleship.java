@@ -14,8 +14,8 @@ public class Battleship {
     private Display display;
     private Input input;
 
-    private List<Score> highScore;
-    //TODO List<Score> for high score (Score is a PlayerName - Integer pair)
+    private Score[] highScore = new Score[10];
+
 
     public Battleship() {
         display = new Display();
@@ -33,6 +33,7 @@ public class Battleship {
             } catch (NumberFormatException e) {
                 display.printErrorMessage("'" + userInput + "' is not a number!");
             } catch (IllegalArgumentException e) {
+                e.printStackTrace(); //temporarily
                 display.printErrorMessage(e.getMessage());
             }
         }
@@ -53,7 +54,6 @@ public class Battleship {
     }
 
     public void displayHighScore() {
-        display.printTitle(HIGH_SCORE);
         try {
             highScore = BattleshipDAO.readHighScoreFromFile();
         } catch (IOException e) {
@@ -63,13 +63,7 @@ public class Battleship {
             display.printErrorMessage(e.getMessage());
             return;
         }
-        highScore.stream().sorted((score1, score2) -> ((score2.getValue() - (score1.getValue()))))
-                .forEach(score
-                        -> display.printGameMessage(
-                        String.format(
-                                /*"%3d |"*/ "%-20s" + ".".repeat(20 - String.valueOf(score.getValue()).length()) + "%d",
-                                /*i,*/ score.getPlayerName(), score.getValue()).replace(' ', '.')));
-
+        display.printHighScore(HIGH_SCORE, highScore);
     }
 
     public void printTitle(String title) {
@@ -93,11 +87,11 @@ public class Battleship {
         }
     }
 
-    public List<Score> getHighScore() {
+    public Score[] getHighScore() {
         return highScore;
     }
 
-    public void setHighScore(List<Score> highScore) {
+    public void setHighScore(Score[] highScore) {
         this.highScore = highScore;
     }
 }
