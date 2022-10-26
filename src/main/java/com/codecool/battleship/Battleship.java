@@ -33,7 +33,6 @@ public class Battleship {
             } catch (NumberFormatException e) {
                 display.printErrorMessage("'" + userInput + "' is not a number!");
             } catch (IllegalArgumentException e) {
-                e.printStackTrace(); //temporarily
                 display.printErrorMessage(e.getMessage());
             }
         }
