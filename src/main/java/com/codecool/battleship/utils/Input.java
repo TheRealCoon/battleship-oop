@@ -1,5 +1,7 @@
 package com.codecool.battleship.utils;
 
+import com.codecool.battleship.board.Square;
+
 import java.util.Scanner;
 
 
@@ -10,13 +12,20 @@ public class Input {
         scanner = new Scanner(System.in);
     }
 
-    private boolean isValidInput() {
+    public boolean isValidInput(Square square) {
         //TODO
-        return false;
+        throw new RuntimeException("Not implemented yet!");
+//        return false;
     }
 
     public String readInput(String msg) {
         new Display().printGameMessage(msg);
         return scanner.nextLine();
+    }
+
+    public boolean isPositionFormatValid(String inputPos) {
+        //TODO
+        throw new RuntimeException("Not implemented yet!");
+//        return false;
     }
 }

@@ -1,5 +1,6 @@
 package com.codecool.battleship.utils;
 
+import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
 
 import static com.codecool.battleship.utils.Constans.*;

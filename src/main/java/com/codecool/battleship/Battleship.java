@@ -1,16 +1,20 @@
 package com.codecool.battleship;
 
 import com.codecool.battleship.dao.BattleshipDAO;
+import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
 import com.codecool.battleship.utils.Display;
 import com.codecool.battleship.utils.Input;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 import static com.codecool.battleship.GameMode.PvAI;
 import static com.codecool.battleship.GameMode.PvP;
 import static com.codecool.battleship.ShipPlacement.MANUAL;
 import static com.codecool.battleship.ShipPlacement.RANDOMIZED;
+import static com.codecool.battleship.player.PlayerType.HUMAN;
 import static com.codecool.battleship.utils.Constans.HIGH_SCORE;
 import static com.codecool.battleship.utils.Constans.HIGH_SCORE_LENGTH;
 
@@ -182,6 +186,32 @@ public class Battleship {
         if (shipPlacement == null) return;
         if (game == null) this.game = new Game(input, display, gameMode, shipPlacement);
         game.play();
+        Player winner = game.getCurrentPlayer();
+        if (winner.getPlayerType().equals(HUMAN)) {
+            if (hasPlayerBeatenTheHighScore(winner)) {
+                game.getCurrentPlayer().setName(input.readInput("You beat the Highscore! What's your name?"));
+                addScoreToHighScore(new Score(winner.getName(), winner.getPoints()));
+                try {
+                    BattleshipDAO.writeHighScoreToFile(highScore);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    private void addScoreToHighScore(Score score) {
+        highScore = Stream
+                .concat(Arrays.stream(highScore), Stream.of(score))
+                .sorted((score1, score2) -> ((score2.getValue() - (score1.getValue()))))
+                .limit(10)
+                .toList()
+                .toArray(new Score[0]);
+
+    }
+
+    private boolean hasPlayerBeatenTheHighScore(Player player) {
+        return player.getPoints() > highScore[highScore.length - 1].getValue();
     }
 
     public void displayHighScore() {
@@ -204,4 +234,6 @@ public class Battleship {
     public void setHighScore(Score[] highScore) {
         this.highScore = highScore;
     }
+
+
 }
