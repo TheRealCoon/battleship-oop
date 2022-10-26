@@ -1,7 +1,7 @@
 package com.codecool.battleship.board;
 
 public enum SquareStatus {
-    EMPTY(' '), SHIP('#'), HIT('¤'), MISS('×');
+    EMPTY(' '), NEIGHBOUR('+'), SHIP('#'), HIT('¤'), MISS('×');
 private final char character;
     SquareStatus(char character) {
     this.character = character;
@@ -10,4 +10,7 @@ private final char character;
     public char getCharacter() {
         return character;
     }
+
+
+
 }
