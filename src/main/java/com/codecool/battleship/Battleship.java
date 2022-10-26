@@ -7,12 +7,17 @@ import com.codecool.battleship.utils.Input;
 
 import java.io.IOException;
 
+import static com.codecool.battleship.GameMode.PvAI;
+import static com.codecool.battleship.GameMode.PvP;
+import static com.codecool.battleship.ShipPlacement.MANUAL;
+import static com.codecool.battleship.ShipPlacement.RANDOMIZED;
 import static com.codecool.battleship.utils.Constans.HIGH_SCORE;
 import static com.codecool.battleship.utils.Constans.HIGH_SCORE_LENGTH;
 
 public class Battleship {
     private Display display;
     private Input input;
+    private Game game;
 
     private Score[] highScore = new Score[HIGH_SCORE_LENGTH];
 
@@ -20,6 +25,10 @@ public class Battleship {
     public Battleship() {
         display = new Display();
         input = new Input();
+    }
+
+    public void printTitle(String title) {
+        display.printTitle(title);
     }
 
     public void mainMenu() {
@@ -48,27 +57,6 @@ public class Battleship {
         display.printMenu("Main menu", menuElements);
     }
 
-    public void startGame() {
-        //TODO
-    }
-
-    public void displayHighScore() {
-        try {
-            highScore = BattleshipDAO.readHighScoreFromFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        } catch (NullPointerException e) {
-            display.printErrorMessage(e.getMessage());
-            return;
-        }
-        display.printHighScore(HIGH_SCORE, highScore);
-    }
-
-    public void printTitle(String title) {
-        display.printTitle(title);
-    }
-
     public void loadModule(int menuPoint) {
         switch (menuPoint) {
             case 1: {
@@ -84,6 +72,129 @@ public class Battleship {
             default:
                 throw new IllegalArgumentException(menuPoint + " is not a valid menu point!");
         }
+    }
+
+    public GameMode gameModeMenu() {
+        int menuPoint = -1;
+        GameMode gameMode = null;
+        while (gameMode == null) {
+            displayGameModeMenu();
+            String userInput = input.readInput("Select!");
+            try {
+                menuPoint = Integer.parseInt(userInput);
+                gameMode = getGameMode(menuPoint);
+            } catch (NumberFormatException e) {
+                display.printErrorMessage("'" + userInput + "' is not a number!");
+            } catch (IllegalArgumentException e) {
+                display.printErrorMessage(e.getMessage());
+            }
+            if (menuPoint == 0) {
+                display.printGameMessage("Returning to Main menu...");
+                break;
+            }
+        }
+        return gameMode;
+    }
+
+    private void displayGameModeMenu() {
+        String[] menuElements = {
+                "Back to Main Menu",
+                "Player vs Player",
+                "Player vs AI"
+        };
+        display.printMenu("game mode", menuElements);
+    }
+
+    private GameMode getGameMode(int menuPoint) {
+        GameMode gameMode;
+        switch (menuPoint) {
+            case 1: {
+                gameMode = PvP;
+                break;
+            }
+            case 2: {
+                gameMode = PvAI;
+                break;
+            }
+            case 0:
+                return null;
+            default:
+                throw new IllegalArgumentException(menuPoint + " is not a valid menu point!");
+        }
+        return gameMode;
+    }
+
+    private ShipPlacement shipPlacementMenu() {
+        int menuPoint = -1;
+        ShipPlacement shipPlacement = null;
+        while (shipPlacement == null) {
+            displayShipPlacementMenu();
+            String userInput = input.readInput("Select!");
+            try {
+                menuPoint = Integer.parseInt(userInput);
+                shipPlacement = getShipPlacementMode(menuPoint);
+            } catch (NumberFormatException e) {
+                display.printErrorMessage("'" + userInput + "' is not a number!");
+            } catch (IllegalArgumentException e) {
+                display.printErrorMessage(e.getMessage());
+            }
+            if (menuPoint == 0) {
+                display.printGameMessage("Returning to Main menu...");
+                break;
+            }
+        }
+        return shipPlacement;
+    }
+
+    private ShipPlacement getShipPlacementMode(int menuPoint) {
+        ShipPlacement shipPlacement;
+        switch (menuPoint) {
+            case 1: {
+                shipPlacement = MANUAL;
+                break;
+            }
+            case 2: {
+                shipPlacement = RANDOMIZED;
+                break;
+            }
+            case 0:
+                shipPlacement = null;
+                break;
+            default:
+                throw new IllegalArgumentException(menuPoint + " is not a valid menu point!");
+        }
+        return shipPlacement;
+    }
+
+    private void displayShipPlacementMenu() {
+        String[] menuElements = {
+                "Back to Main menu",
+                "Manual",
+                "Randomized"
+        };
+        display.printMenu("Ship placement", menuElements);
+    }
+
+    public void startGame() {
+        GameMode gameMode = gameModeMenu();
+        if (gameMode == null) return;
+        ShipPlacement shipPlacement = shipPlacementMenu();
+        if (shipPlacement == null) return;
+        if (game == null) this.game = new Game(input, display, gameMode, shipPlacement);
+        game.play();
+    }
+
+    public void displayHighScore() {
+        try {
+            highScore = BattleshipDAO.readHighScoreFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        } catch (NullPointerException e) {
+            display.printErrorMessage(e.getMessage());
+            return;
+        }
+        display.printHighScore(HIGH_SCORE, highScore);
     }
 
     public Score[] getHighScore() {
