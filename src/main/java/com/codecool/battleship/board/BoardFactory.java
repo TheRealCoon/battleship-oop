@@ -1,6 +1,5 @@
 package com.codecool.battleship.board;
 
-import com.codecool.battleship.board.Board;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.ship.ShipType;
 import com.codecool.battleship.utils.Input;
@@ -41,20 +40,27 @@ public class BoardFactory {
                 }
 
         }
-//        for (Square square : shipPosition) {
-//            if (square.getX() <= 10 && square.getY() <= 10) return shipPosition;
-//            else randomPlacement(shipType);
-//        }
         return shipPosition;
     }
 
-    public void putRandomShipsOnBoard(List<Ship> ships) {
+    public void putShipsOnBoard(List<Ship> ships) {
         for (Ship ship : ships) {
-            putOneShipRandomlyOnBoard(ship);
+            putOneShipOnBoard(ship, ship.getBody());
         }
     }
 
-    private void putOneShipRandomlyOnBoard(Ship ship) {
+    private void putOneShipOnBoard(Ship ship, List<Square> body) {
+        for (Square square : body) {
+            board.getOcean()[square.getY()][square.getX()] = square;
+            //fill neighbors
+            if(body.get(0).getX()==body.get(1).getX()){ /*horizontal ship*/
+                if(body.get(0).getX()!=0){
+                    board.getOcean()[body.get(0).getY()][body.get(0).getX()].setStatus(SquareStatus.NEIGHBOUR);/*first square of ship*/
+                }
+            }
+            //TODO under, over and after ship set SquareStatus NEIGHBOUR
+            //TODO same for vertical ship
+        }
 
     }
 
