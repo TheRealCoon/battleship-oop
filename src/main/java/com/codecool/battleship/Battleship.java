@@ -6,15 +6,15 @@ import com.codecool.battleship.utils.Display;
 import com.codecool.battleship.utils.Input;
 
 import java.io.IOException;
-import java.util.*;
 
 import static com.codecool.battleship.utils.Constans.HIGH_SCORE;
+import static com.codecool.battleship.utils.Constans.HIGH_SCORE_LENGTH;
 
 public class Battleship {
     private Display display;
     private Input input;
 
-    private Score[] highScore = new Score[10];
+    private Score[] highScore = new Score[HIGH_SCORE_LENGTH];
 
 
     public Battleship() {
