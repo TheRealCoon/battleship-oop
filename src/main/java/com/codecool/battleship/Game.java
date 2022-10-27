@@ -42,7 +42,7 @@ public class Game {
         boardFactory.putShipsOnBoard(shipPlacement, player1.getPlayerShipList());
         boardFactory.putShipsOnBoard(shipPlacement, player2.getPlayerShipList());
         display.printGameMessage("Ships have been placed! The game begins!");
-        while(!hasWon()){
+        while (!hasWon(switchPlayer())) {
             Square targetedSquare = getMove(boardFactory.getBoard());
             currentPlayer = switchPlayer();
             currentPlayer.handlingShots(targetedSquare);
@@ -90,9 +90,8 @@ public class Game {
         }
     }
 
-    private boolean hasWon() {
-        //TODO did currentplayer win?
-        return false;
+    private boolean hasWon(Player player) {
+        return player.getPlayerShipList().size() == 0;
     }
 
     public Player getPlayer1() {
