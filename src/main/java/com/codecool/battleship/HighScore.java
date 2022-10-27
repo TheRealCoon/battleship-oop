@@ -28,7 +28,7 @@ public class HighScore extends JLayeredPane {
         add(highScoreLabel, Integer.valueOf(2));
         highScoreLabel.setVisible(true);
 
-        ImageIcon highScoreBackgroundIMG= new ImageIcon("src/main/java/org/example/iconsOfComponents/HSBackground.png");
+        ImageIcon highScoreBackgroundIMG= new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/HSBackground.png");
         JLabel backGround= new JLabel(highScoreBackgroundIMG);
         backGround.setBounds(0,0,1600,800);
         backGround.setLayout(null);
