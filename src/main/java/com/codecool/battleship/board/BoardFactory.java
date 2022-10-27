@@ -1,5 +1,7 @@
 package com.codecool.battleship.board;
 
+
+import com.codecool.battleship.ShipPlacement;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.ship.ShipType;
 import com.codecool.battleship.utils.Input;
@@ -8,20 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static com.codecool.battleship.ShipPlacement.MANUAL;
+import static com.codecool.battleship.ShipPlacement.RANDOMIZED;
+
 public class BoardFactory {
     private Board board;
 
-    //TODO decide which constructor to use: - Create board here,
-    // or create board somewhere else, and just pass it to the constructor
     public BoardFactory(int size) {
         board = new Board(size);
     }
-
-
-    public BoardFactory(Board board) {
-        this.board = board;
-    }
-
 
     public List<Square> randomPlacement(ShipType shipType) {
 
@@ -64,6 +61,21 @@ public class BoardFactory {
 
     }
 
+    public void putShipsOnBoard(ShipPlacement shipPlacement, List<Ship> shipList) {
+        for (Ship ship : shipList) {
+            if (shipPlacement.equals(MANUAL)) {
+                //TODO get a Square and direction as Input
+            } else {
+                //TODO get a random Square and direction
+            }
+            //putShipOnBoard(square, direction);
+        }
+
+    }
+
+    public void putShipsOnBoardManually(List<Ship> shipList) {
+        //TODO
+    }
 
     private static String createRandomDirection() {
         Random random = new Random();
@@ -102,5 +114,9 @@ public class BoardFactory {
                 }
         }
         return shipPosition;
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

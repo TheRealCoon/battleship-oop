@@ -1,0 +1,162 @@
+@startuml
+
+class com.codecool.battleship.Battleship {
+	{field} +highScore : [Lcom.codecool.battleship.player.Score;
+	{method} -displayGameModeMenu () : void
+	{method} +displayHighScore () : void
+	{method} -displayMainMenu () : void
+	{method} -displayShipPlacementMenu () : void
+	{method} +gameModeMenu () : com.codecool.battleship.GameMode
+	{method} -getGameMode ( paramint1 : int ) : com.codecool.battleship.GameMode
+	{method} -getShipPlacementMode ( paramint1 : int ) : com.codecool.battleship.ShipPlacement
+	{method} +loadModule ( paramint1 : int ) : void
+	{method} +mainMenu () : void
+	{method} +printTitle ( paramString1 : String ) : void
+	{method} -shipPlacementMenu () : com.codecool.battleship.ShipPlacement
+	{method} +startGame () : void
+}
+
+
+class com.codecool.battleship.Game {
+	{method} -hasWon () : boolean
+	{method} +play () : void
+}
+
+
+enum com.codecool.battleship.GameMode {
+	{field} +PvAI
+	{field} +PvP
+}
+
+
+class com.codecool.battleship.Main {
+	{method}  {static} +main ( paramString;1 : [Ljava.lang.String; ) : void
+}
+
+
+enum com.codecool.battleship.ShipPlacement {
+	{field} +MANUAL
+	{field} +RANDOMIZED
+}
+
+
+class com.codecool.battleship.board.Board {
+	{field} -ocean : [[Lcom.codecool.battleship.board.Square;
+	{field} -size : int
+	{method} +createEmptyBoard () : [[Lcom.codecool.battleship.board.Square;
+	{method} +isPlacementOk ( paramSquare1 : com.codecool.battleship.board.Square , paramShip2 : com.codecool.battleship.ship.Ship ) : boolean
+}
+
+
+class com.codecool.battleship.board.BoardFactory {
+	{method}  {static} -createRandomDirection () : String
+	{method} +manualPlacement ( paramInput1 : com.codecool.battleship.utils.Input , paramShipType2 : com.codecool.battleship.ship.ShipType ) : java.util.List
+	{method} -putOneShipRandomlyOnBoard ( paramShip1 : com.codecool.battleship.ship.Ship ) : void
+	{method} +putRandomShipsOnBoard ( paramList1 : java.util.List ) : void
+	{method} +randomPlacement ( paramShipType1 : com.codecool.battleship.ship.ShipType ) : java.util.List
+}
+
+
+class com.codecool.battleship.board.Square {
+	{field} -x : int
+	{field} -y : int
+	{method} +toString () : String
+}
+
+
+enum com.codecool.battleship.board.SquareStatus {
+	{field} +EMPTY
+	{field} +HIT
+	{field} +MISS
+	{field} +SHIP
+}
+
+
+class com.codecool.battleship.dao.BattleshipDAO {
+	{method}  {static} -isFileEmpty ( paramString1 : String ) : boolean
+	{method}  {static} -lambda$readHighScoreFromFile$0 ( paramScore1 : com.codecool.battleship.player.Score , paramScore2 : com.codecool.battleship.player.Score ) : int
+	{method}  {static} +readHighScoreFromFile () : [Lcom.codecool.battleship.player.Score;
+	{method}  {static} +writeHighScoreToFile ( paramScore;1 : [Lcom.codecool.battleship.player.Score; ) : void
+}
+
+
+class com.codecool.battleship.player.Player {
+	{method} +handlingShots () : void
+	{method} +isAlive () : boolean
+}
+
+
+class com.codecool.battleship.player.Score {
+	{field} +playerName : String
+	{field} +value : int
+	{method} +toTableRow () : [Ljava.lang.String;
+}
+
+
+class com.codecool.battleship.ship.Ship {
+}
+
+
+enum com.codecool.battleship.ship.ShipType {
+	{field} +BATTLESHIP
+	{field} +CARRIER
+	{field} +CRUISER
+	{field} +DESTROYER
+	{field} +SUBMARINE
+}
+
+
+class com.codecool.battleship.utils.Constans {
+	{field} {static} +COLUMN_SEPARATOR : String
+	{field} {static} +DATA_FILE : String
+	{field} {static} +GAME_TITLE : String
+	{field} {static} +HIGH_SCORE : String
+	{field} {static} +HIGH_SCORE_LENGTH : int
+	{field} {static} +INDENT_SIZE : int
+	{field} {static} +MENU_ITEM_INDENT_SIZE : int
+	{field} {static} +NAME_TABLE_INDEX : int
+	{field} {static} +SCORE_TABLE_INDEX : int
+	{field} {static} +TITLE_INDENT_SIZE : int
+}
+
+
+class com.codecool.battleship.utils.Display {
+	{method} +printBoard ( paramString;1 : [[Ljava.lang.String; ) : void
+	{method} +printErrorMessage ( paramString1 : String ) : void
+	{method} +printGameMessage ( paramString1 : String ) : void
+	{method} +printHighScore ( paramString1 : String , paramScore;2 : [Lcom.codecool.battleship.player.Score; ) : void
+	{method} +printMenu ( paramString1 : String , paramString;2 : [Ljava.lang.String; ) : void
+	{method} +printTheOutcomeOfTheGame () : void
+	{method} +printTitle ( paramString1 : String ) : void
+}
+
+
+class com.codecool.battleship.utils.Input {
+	{field} -scanner : java.util.Scanner
+	{method} -isValidInput () : boolean
+	{method} +readInput ( paramString1 : String ) : String
+}
+
+
+
+
+com.codecool.battleship.Battleship -->  com.codecool.battleship.Game : game
+com.codecool.battleship.Battleship -->  com.codecool.battleship.utils.Display : display
+com.codecool.battleship.Battleship -->  com.codecool.battleship.utils.Input : input
+com.codecool.battleship.Game -->  com.codecool.battleship.GameMode : gameMode
+com.codecool.battleship.Game -->  com.codecool.battleship.ShipPlacement : shipPlacement
+com.codecool.battleship.Game -->  com.codecool.battleship.player.Player : player1
+com.codecool.battleship.Game -->  com.codecool.battleship.player.Player : player2
+com.codecool.battleship.Game -->  com.codecool.battleship.utils.Display : display
+com.codecool.battleship.Game -->  com.codecool.battleship.utils.Input : input
+com.codecool.battleship.board.Board "1" o-- "0..*"  com.codecool.battleship.board.Square : shipSquares
+com.codecool.battleship.board.BoardFactory -->  com.codecool.battleship.board.Board : board
+com.codecool.battleship.board.Square -->  com.codecool.battleship.board.SquareStatus : status
+com.codecool.battleship.player.Player "1" o-- "0..*"  com.codecool.battleship.ship.Ship : playerShipList
+com.codecool.battleship.player.Player "1" o-- "0..*"  com.codecool.battleship.ship.Ship : shipList
+com.codecool.battleship.player.Player -->  com.codecool.battleship.board.Board : board
+com.codecool.battleship.ship.Ship "1" o-- "0..*"  com.codecool.battleship.board.Square : body
+com.codecool.battleship.ship.Ship -->  com.codecool.battleship.ship.ShipType : type
+
+
+@enduml

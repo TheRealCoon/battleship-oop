@@ -2,10 +2,7 @@ package com.codecool.battleship.board;
 
 import com.codecool.battleship.ship.Ship;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Board {
     private Square[][] ocean;
@@ -27,6 +24,23 @@ public class Board {
         return ocean;
     }
 
+    public Square getSquareByPosition(int y, int x) throws NoSuchElementException {
+        for (Square[] row : ocean) {
+            for (Square square : row) {
+                if (square.getY() == y && square.getX() == x) {
+                    return square;
+                }
+            }
+        }
+        throw new NoSuchElementException("Couldn't find square in position (" + y + ", " + x + ")!");
+    }
+
+    public Square getSquareByPosition(Square square) throws NoSuchElementException {
+        int y = square.getY();
+        int x = square.getX();
+        return getSquareByPosition(y, x);
+    }
+
     public Square[][] getOcean() {
         return ocean;
     }
@@ -43,12 +57,14 @@ public class Board {
         this.shipSquares = shipSquares;
     }
 
+
     public boolean isPlacementOk(Ship ship) {
-        for (Square body:ship.getBody()) {
+        for (Square body : ship.getBody()) {
             return ((body.getX() <= size && body.getY() <= size)
                     && ocean[body.getX()][body.getY()].getStatus().equals(SquareStatus.EMPTY)
                     && !ocean[body.getX()][body.getY()].getStatus().equals(SquareStatus.NEIGHBOUR));
         }
         return false;
+
     }
 }

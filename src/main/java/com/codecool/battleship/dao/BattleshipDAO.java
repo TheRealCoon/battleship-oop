@@ -6,30 +6,37 @@ import static com.codecool.battleship.utils.Constans.*;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BattleshipDAO {
 
-    public static List<Score> readHighScoreFromFile() throws IOException {
+    public static Score[] readHighScoreFromFile() throws IOException {
         String line;
         String[] values;
-        List<Score> highScore = new ArrayList<>();
+        List<Score> highScoreList = new ArrayList<>();
+        Score[] highScore;
         if (isFileEmpty(DATA_FILE)) throw new NullPointerException("There are no entries in High Scores file!");
         BufferedReader br = new BufferedReader(new FileReader(DATA_FILE));
         while ((line = br.readLine()) != null) {
             values = line.split(COLUMN_SEPARATOR);
             Score record = new Score(values[NAME_TABLE_INDEX], Integer.parseInt(values[SCORE_TABLE_INDEX]));
-            highScore.add(record);
+            highScoreList.add(record);
         }
+        highScore = highScoreList.stream()
+                .sorted((score1, score2) -> ((score2.getValue() - (score1.getValue()))))
+                .limit(10)
+                .toList()
+                .toArray(new Score[0]);
         return highScore;
     }
 
     private static boolean isFileEmpty(String dataFile) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(dataFile));
-        return (br.readLine()==null || br.readLine().isEmpty());
+        return (br.readLine() == null || br.readLine().isEmpty());
     }
 
-    public static void writeHighScoreToFile(List<Score> highScore) throws IOException {
+    public static void writeHighScoreToFile(Score[] highScore) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(DATA_FILE, false));
         for (Score score : highScore) {
             StringBuilder sb = new StringBuilder();
