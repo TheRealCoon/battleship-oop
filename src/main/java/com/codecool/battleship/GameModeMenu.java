@@ -24,7 +24,7 @@ public class GameModeMenu extends JLayeredPane {
         int width = 310;
         int fontSize = 24;
 
-        ImageIcon stripeIMG = new ImageIcon("src/main/java/org/example/iconsOfComponents/BattleshipStripe.png");
+        ImageIcon stripeIMG = new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/BattleshipStripe.png");
         JLabel stripeBattleship = new JLabel(stripeIMG);
         stripeBattleship.setBounds(0, 0, 800, 140);
         stripeBattleship.setVisible(true);
@@ -87,7 +87,7 @@ public class GameModeMenu extends JLayeredPane {
             }
         });
 
-        ImageIcon GameMenuIMG = new ImageIcon("com/codecool/battleship/iconsOfComponents/GamemodeMenu.png");
+        ImageIcon GameMenuIMG = new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/GamemodeMenu.png");
         JLabel GameMenuBackground = new JLabel(GameMenuIMG);
         GameMenuBackground.setBounds(0, 0, 1600, 800);
         this.add(GameMenuBackground, Integer.valueOf(0));
