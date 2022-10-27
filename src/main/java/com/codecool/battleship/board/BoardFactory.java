@@ -50,16 +50,36 @@ public class BoardFactory {
     private void putOneShipOnBoard(Ship ship, List<Square> body) {
         for (Square square : body) {
             board.getOcean()[square.getY()][square.getX()] = square;
-            //fill neighbors
-            if(body.get(0).getX()==body.get(1).getX()){ /*horizontal ship*/
-                if(body.get(0).getX()!=0){
-                    board.getOcean()[body.get(0).getY()][body.get(0).getX()].setStatus(SquareStatus.NEIGHBOUR);/*first square of ship*/
+            //fill neighbour squares
+            if (body.get(0).getX() == body.get(1).getX()) { /*horizontal ship*/
+                if (body.get(0).getX() > 0) {/*before the first square of ship if it is not on the left border*/
+                    board.getOcean()[body.get(0).getY()][body.get(0).getX() - 1].setStatus(SquareStatus.NEIGHBOUR);
+                }
+                if (square.getY() < body.size() - 1) { /*under ship if it is not at the bottom*/
+                    board.getOcean()[square.getY() + 1][square.getX()].setStatus(SquareStatus.NEIGHBOUR);
+                }
+                if (body.get(0).getY() > 0) { /*over the ship if it is not at the top*/
+                    board.getOcean()[square.getY() - 1][square.getX()].setStatus(SquareStatus.NEIGHBOUR);
+                }
+                if (body.get(body.size() - 1).getX() < body.size() - 1) {/*after the last square of ship if it is not on the right border*/
+                    board.getOcean()[body.get(body.size() - 1).getY()][body.get(0).getX() + 1].setStatus(SquareStatus.NEIGHBOUR);
                 }
             }
-            //TODO under, over and after ship set SquareStatus NEIGHBOUR
-            //TODO same for vertical ship
+            if (body.get(0).getY() == body.get(1).getY()) { /*vertical ship*/
+                if (body.get(0).getY() > 0) {/*over the first square of ship if it is not on the top*/
+                    board.getOcean()[body.get(0).getY() - 1][body.get(0).getX()].setStatus(SquareStatus.NEIGHBOUR);
+                }
+                if (square.getX() > 0) { /*left side of the ship if it is not at the left border*/
+                    board.getOcean()[square.getY()][square.getX() - 1].setStatus(SquareStatus.NEIGHBOUR);
+                }
+                if(square.getX()< body.size()-1){ /*right side of the ship if it is not at the right border*/
+                    board.getOcean()[square.getY()][square.getX()+1].setStatus(SquareStatus.NEIGHBOUR);
+                }
+                if(body.get(body.size()-1).getY()< body.size()-1){/*under the last square of ship if it is not on the bottom*/
+                    board.getOcean()[body.get(body.size()-1).getY()+1][body.get(0).getX()].setStatus(SquareStatus.NEIGHBOUR);
+                }
+            }
         }
-
     }
 
     public void putShipsOnBoard(ShipPlacement shipPlacement, List<Ship> shipList) {
