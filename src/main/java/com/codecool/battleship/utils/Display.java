@@ -3,7 +3,7 @@ package com.codecool.battleship.utils;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
 
-import java.util.Arrays;
+import java.util.StringJoiner;
 
 import static com.codecool.battleship.utils.Constans.*;
 
@@ -21,14 +21,38 @@ public class Display {
     }
 
     public void printBoard(char[][] board) {
-        System.out.println();
-        for (int i = 0; i < BOARD_SIZE; i++) {
-            for (int j = 0; j < BOARD_SIZE; j++) {
-
-            }
+        StringBuilder sb = new StringBuilder();
+        String verticalSeparator = "-".repeat(BOARD_SIZE * 6 +1);
+        sb.append(getHeader());
+        sb.append(" ".repeat(TABLE_INDENT_SIZE)).append(verticalSeparator).append(System.lineSeparator());
+        for (int y = 0; y < BOARD_SIZE; y++) {
+            sb
+                    .append(String.format(" ".repeat(INDENT_SIZE) + "%s", getStringRow(board[y], y + 1)))
+                    .append(System.lineSeparator())
+                    .append(" ".repeat(TABLE_INDENT_SIZE))
+                    .append(verticalSeparator)
+                    .append(System.lineSeparator());
         }
+        sb.append(getHeader());
+        System.out.println(sb);
     }
 
+
+    private String getStringRow(char[] row, int lineIndex) {
+        StringJoiner sj = new StringJoiner("  |  ", " |  ", "  | ");
+        for (int x = 0; x < BOARD_SIZE; x++) {
+            sj.add(Character.toString(row[x]));
+        }
+        return String.format(" %2d%s%2d", lineIndex, sj, lineIndex);
+    }
+
+    private String getHeader() {
+        StringJoiner sjHeader = new StringJoiner("     ", "   ", " ");
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            sjHeader.add(String.valueOf((char) ('A' + i)));
+        }
+        return " ".repeat(TABLE_INDENT_SIZE) + sjHeader + System.lineSeparator();
+    }
 
     public void printGameMessage(String msg) {
         System.out.println(" ".repeat(INDENT_SIZE) + msg);

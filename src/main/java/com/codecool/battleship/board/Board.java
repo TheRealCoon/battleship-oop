@@ -14,11 +14,12 @@ public class Board {
 
     public Board(int size) {
         this.size = size;
-        ocean = new Square[this.size][this.size];
+        ocean = createEmptyBoard();
         shipSquares = new HashSet<>();
     }
 
     public Square[][] createEmptyBoard() {
+        Square[][] ocean = new Square[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 ocean[i][j] = new Square(i, j, SquareStatus.EMPTY);
