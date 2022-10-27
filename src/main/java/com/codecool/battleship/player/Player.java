@@ -1,12 +1,14 @@
 package com.codecool.battleship.player;
 
 import com.codecool.battleship.board.Square;
+import com.codecool.battleship.board.SquareStatus;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.board.Board;
 import com.codecool.battleship.ship.ShipType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Player {
     private Board board;
@@ -36,12 +38,15 @@ public class Player {
     }
 
     public boolean isAlive() {
-        //TODO
-        return false;
+        if(playerShipList.size() < 0.5){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public void handlingShots(Square targetedSquare) {
-        //TODO probably we need to separate this to multiple functions
+
     }
 
     public String getName() {

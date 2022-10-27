@@ -16,6 +16,10 @@ public class Square {
         return status;
     }
 
+    public void setStatus(SquareStatus status) {
+        this.status = status;
+    }
+
     public int getY() {
         return y;
     }
