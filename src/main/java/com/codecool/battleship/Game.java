@@ -48,9 +48,7 @@ public class Game {
             currentPlayer.handlingShots(targetedSquare);
         }
         currentPlayer = switchPlayer();
-        display.printTheOutcomeOfTheGame();
-
-
+        display.printTheOutcomeOfTheGame(currentPlayer);
     }
 
 
