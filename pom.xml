@@ -13,5 +13,39 @@
         <maven.compiler.target>18</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
+    <dependencies>
+        <dependency>
+            <groupId>de.elnarion.util</groupId>
+            <artifactId>plantuml-generator-util</artifactId>
+            <version>1.5.4</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>plantuml-generator-maven-plugin</artifactId>
+                <groupId>de.elnarion.maven</groupId>
+                <version>1.5.4</version>
+                <executions>
+                    <execution>
+                        <id>default-cli</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <phase>generate-test-sources</phase>
+                        <configuration>
+                            <outputDirectory>${basedir}</outputDirectory>
+                            <outputFilename>generated.puml</outputFilename>
+                            <scanPackages>
+                                <scanPackage>
+                                    com.codecool.battleship
+                                </scanPackage>
+                            </scanPackages>
+                            <whitelistRegexp>.*</whitelistRegexp>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
