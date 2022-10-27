@@ -20,20 +20,15 @@ public class Display {
         System.out.println(" ".repeat(MENU_ITEM_INDENT_SIZE) + 0 + " - " + menu[0]);
     }
 
-    public void printBoard(String[][] board /* or char[][] board */) {
+    public void printBoard(char[][] board) {
         System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println("Placeholder for board");
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        //TODO receives String/char board
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+
+            }
+        }
     }
+
 
     public void printGameMessage(String msg) {
         System.out.println(" ".repeat(INDENT_SIZE) + msg);
