@@ -43,8 +43,8 @@ public class Display {
         System.out.println(" ".repeat(INDENT_SIZE) + msg);
     }
 
-    public void printTheOutcomeOfTheGame() {
-        //TODO probably receives game or player as argument
+    public void printTheOutcomeOfTheGame(Player player) {
+        printTitle(player.getName() + " has won!");
     }
 
     public void printTitle(String title) {
