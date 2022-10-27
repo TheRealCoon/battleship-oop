@@ -14,8 +14,6 @@ import com.codecool.battleship.utils.Input;
 import java.util.NoSuchElementException;
 
 import static com.codecool.battleship.GameMode.PvAI;
-import static com.codecool.battleship.GameMode.PvP;
-import static com.codecool.battleship.ShipPlacement.RANDOMIZED;
 import static com.codecool.battleship.player.PlayerType.AI;
 import static com.codecool.battleship.player.PlayerType.HUMAN;
 import static com.codecool.battleship.utils.Constans.*;

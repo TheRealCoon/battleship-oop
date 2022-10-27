@@ -64,6 +64,7 @@ public class Board {
                     && ocean[body.getX()][body.getY()].getStatus().equals(SquareStatus.EMPTY)
                     && !ocean[body.getX()][body.getY()].getStatus().equals(SquareStatus.NEIGHBOUR));
         }
+
         return false;
 
     }

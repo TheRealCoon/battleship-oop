@@ -2,6 +2,7 @@ package com.codecool.battleship.board;
 
 
 import com.codecool.battleship.ShipPlacement;
+import com.codecool.battleship.board.Board;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.ship.ShipType;
 import com.codecool.battleship.utils.Input;
