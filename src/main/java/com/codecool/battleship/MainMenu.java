@@ -21,25 +21,25 @@ public class MainMenu extends JLayeredPane {
         mainMenuContainer.setOpaque(false);
 
 
-        ImageIcon stripeIMG = new ImageIcon("src/main/java/org/example/iconsOfComponents/BattleshipStripe.png");
+        ImageIcon stripeIMG = new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/BattleshipStripe.png");
         JLabel stripeBattleship = new JLabel(stripeIMG);
         stripeBattleship.setBounds(0, 0, 800, 140);
         stripeBattleship.setVisible(true);
         mainMenuContainer.add(stripeBattleship, Integer.valueOf(1));
         int buttonsXPos = 255;
-        ImageIcon gameStart = new ImageIcon("src/main/java/org/example/iconsOfComponents/gameStart.png");
+        ImageIcon gameStart = new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/gameStart.png");
         JButton buttonStartGame = new JButton("New Game", gameStart);
         buttonStartGame.setBounds(buttonsXPos, 160, 300, 42);
         buttonStartGame.setFont(new Font("Lucida", Font.BOLD, 30));
         buttonStartGame.setMargin(new Insets(2, 2, 2, 2));
 
-        ImageIcon trophy = new ImageIcon("src/main/java/org/example/iconsOfComponents/trophy.png");
+        ImageIcon trophy = new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/trophy.png");
         JButton buttonHighScore = new JButton("High Score", trophy);
         buttonHighScore.setBounds(buttonsXPos, 220, 300, 42);
         buttonHighScore.setFont(new Font("Lucida", Font.BOLD, 30));
         buttonHighScore.setMargin(new Insets(2, 2, 2, 2));
 
-        ImageIcon exit = new ImageIcon("src/main/java/org/example/iconsOfComponents/exit.png");
+        ImageIcon exit = new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/exit.png");
         JButton buttonExit = new JButton("Exit", exit);
         buttonExit.setBounds(buttonsXPos, 280, 300, 42);
         buttonExit.setFont(new Font("Lucida", Font.BOLD, 30));
@@ -79,7 +79,7 @@ public class MainMenu extends JLayeredPane {
 //        MainMenuBackground.setVisible(true);
 //        add(MainMenuBackground, Integer.valueOf(0));
 
-        ImageIcon GameMenuIMG = new ImageIcon("src/main/java/org/example/iconsOfComponents/GamemodeMenu.png");
+        ImageIcon GameMenuIMG = new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/GamemodeMenu.png");
         JLabel GameMenuBackground = new JLabel(GameMenuIMG);
         GameMenuBackground.setBounds(0, 0, 1600, 800);
         this.add(GameMenuBackground, Integer.valueOf(0));

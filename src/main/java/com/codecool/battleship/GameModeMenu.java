@@ -87,7 +87,7 @@ public class GameModeMenu extends JLayeredPane {
             }
         });
 
-        ImageIcon GameMenuIMG = new ImageIcon("src/main/java/org/example/iconsOfComponents/GamemodeMenu.png");
+        ImageIcon GameMenuIMG = new ImageIcon("com/codecool/battleship/iconsOfComponents/GamemodeMenu.png");
         JLabel GameMenuBackground = new JLabel(GameMenuIMG);
         GameMenuBackground.setBounds(0, 0, 1600, 800);
         this.add(GameMenuBackground, Integer.valueOf(0));
