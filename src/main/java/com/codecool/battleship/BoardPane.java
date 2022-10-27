@@ -15,6 +15,7 @@ public class BoardPane extends JFrame {
     private GameModeMenu gameModeMenu;
     private JLabel labelShip2, labelMissileToLeft;
     private BoardPane display;
+    private final int INPUTFIELD_SWITCH = 400;
 
     BoardPane(int dimX, int dimY) {
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -172,7 +173,7 @@ public class BoardPane extends JFrame {
 
                 makeMove(fieldMove.getX());
                 fieldMove.setText("");
-                if (fieldMove.getX() == 360) {
+                if (fieldMove.getX() < INPUTFIELD_SWITCH) {
                     fieldMove.setLocation(1240, 700);
                     player1.setVisible(false);
                     player2.setVisible(true);
