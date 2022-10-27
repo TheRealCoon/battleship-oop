@@ -79,7 +79,7 @@ public class BoardPane extends JFrame {
             }
         }
 
-        JLabel backGround = new JLabel(new ImageIcon("src/main/java/org/example/iconsOfComponents/ocean.jpg"));
+        JLabel backGround = new JLabel(new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/ocean.jpg"));
         backGround.setBounds(0, 0, 1600, 800);
         backGround.setLayout(null);
         backGround.setVisible(true);
@@ -122,13 +122,13 @@ public class BoardPane extends JFrame {
 //        label2X.setBackground(Color.GREEN);
 //        player2Board.add(label2X, Integer.valueOf(2));
 
-        labelMissileToLeft = new JLabel(new ImageIcon("src/main/java/org/example/iconsOfComponents/missile.png"));
+        labelMissileToLeft = new JLabel(new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/missile.png"));
         labelMissileToLeft.setBounds(820, 300, 80, 60);
         labelMissileToLeft.setVisible(false);
         labelMissileToLeft.setOpaque(false);
         this.gameBoard.add(labelMissileToLeft, Integer.valueOf(2));
 
-        ImageIcon shipImg = new ImageIcon("src/main/java/org/example/iconsOfComponents/cruiserSmallVertical.png");
+        ImageIcon shipImg = new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/cruiserSmallVertical.png");
         JLabel labelShip = new JLabel(shipImg);
         labelShip.setBounds(810, 300, shipImg.getIconWidth(), shipImg.getIconHeight());
         labelShip.setVisible(true);
@@ -187,7 +187,7 @@ public class BoardPane extends JFrame {
                 int fieldSizeInPixel=60;
                 int putPosX = (int) (getFieldMove().getText().substring(0,1).toUpperCase().charAt(0)-64)*fieldSizeInPixel;
                 int putPosY = Integer.parseInt(fieldMove.getText().substring(1))*fieldSizeInPixel;
-                ImageIcon missedHitIMG = new ImageIcon("src/main/java/org/example/iconsOfComponents/blown-up.png");
+                ImageIcon missedHitIMG = new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/blown-up.png");
                 JLabel missedHit = new JLabel(missedHitIMG);
                 missedHit.setBounds(putPosX, putPosY, 60, 60);
                 missedHit.setVisible(true);
