@@ -1,5 +1,6 @@
 package com.codecool.battleship.utils;
 
+import com.codecool.battleship.game.InterfaceMode;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
 
@@ -8,7 +9,10 @@ import java.util.StringJoiner;
 import static com.codecool.battleship.utils.Constans.*;
 
 public class Display {
-    public Display() {
+    public Display(){} // TODO rework usage and delete this constructor
+     private InterfaceMode interfaceMode;
+    public Display(InterfaceMode interfaceMode) {
+        this.interfaceMode = interfaceMode;
     }
 
     public void printMenu(String label, String[] menu) {
