@@ -62,15 +62,15 @@ public class Board {
     }
 
 
-    public boolean isPlacementOk(Ship ship) {
-        for (Square body : ship.getBody()) {
-            return ((body.getX() <= size && body.getY() <= size)
-                    && ocean[body.getY()][body.getX()].getStatus().equals(SquareStatus.EMPTY)
-                    && !ocean[body.getY()][body.getX()].getStatus().equals(SquareStatus.NEIGHBOUR)
-                    && !ocean[body.getY()][body.getX()].getStatus().equals(SquareStatus.SHIP));
+    public boolean isPlacementOk(List<Square> shipBody) {
+        for (Square body : shipBody) {
+            if (body.getX() >= size || body.getY() >= size
+                    || body.getX() < 0 || body.getY() < 0
+                    || ocean[body.getY()][body.getX()].getStatus().equals(SquareStatus.NEIGHBOUR)
+                    || ocean[body.getY()][body.getX()].getStatus().equals(SquareStatus.SHIP)) return false;
         }
 
-        return false;
+        return true;
     }
 
     public char[][] getCharBoard() {
