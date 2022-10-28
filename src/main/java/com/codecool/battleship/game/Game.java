@@ -1,20 +1,18 @@
-package com.codecool.battleship;
+package com.codecool.battleship.game;
 
+import com.codecool.battleship.board.ShipPlacement;
 import com.codecool.battleship.board.Board;
 import com.codecool.battleship.board.BoardFactory;
 import com.codecool.battleship.board.Square;
 import com.codecool.battleship.board.SquareStatus;
-import com.codecool.battleship.dao.BattleshipDAO;
 import com.codecool.battleship.player.Player;
-import com.codecool.battleship.player.PlayerType;
-import com.codecool.battleship.utils.Constans;
 import com.codecool.battleship.utils.Display;
 import com.codecool.battleship.utils.Input;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import static com.codecool.battleship.GameMode.PvAI;
+import static com.codecool.battleship.game.GameMode.PvAI;
 import static com.codecool.battleship.player.PlayerType.AI;
 import static com.codecool.battleship.player.PlayerType.HUMAN;
 import static com.codecool.battleship.utils.Constans.*;

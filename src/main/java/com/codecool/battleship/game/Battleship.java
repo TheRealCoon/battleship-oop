@@ -1,6 +1,9 @@
-package com.codecool.battleship;
+package com.codecool.battleship.game;
 
+import com.codecool.battleship.board.ShipPlacement;
 import com.codecool.battleship.dao.BattleshipDAO;
+import com.codecool.battleship.game.Game;
+import com.codecool.battleship.game.GameMode;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
 import com.codecool.battleship.utils.Display;
@@ -10,10 +13,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import static com.codecool.battleship.GameMode.PvAI;
-import static com.codecool.battleship.GameMode.PvP;
-import static com.codecool.battleship.ShipPlacement.MANUAL;
-import static com.codecool.battleship.ShipPlacement.RANDOMIZED;
+import static com.codecool.battleship.game.GameMode.PvAI;
+import static com.codecool.battleship.game.GameMode.PvP;
+import static com.codecool.battleship.board.ShipPlacement.MANUAL;
+import static com.codecool.battleship.board.ShipPlacement.RANDOMIZED;
 import static com.codecool.battleship.player.PlayerType.HUMAN;
 import static com.codecool.battleship.utils.Constans.HIGH_SCORE;
 import static com.codecool.battleship.utils.Constans.HIGH_SCORE_LENGTH;

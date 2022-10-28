@@ -1,4 +1,4 @@
-package com.codecool.battleship;
+package com.codecool.battleship.GUI;
 
 import javax.swing.*;
 import javax.swing.border.Border;
