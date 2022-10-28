@@ -2,9 +2,10 @@ package com.codecool.battleship.board;
 
 
 import com.codecool.battleship.ShipPlacement;
-import com.codecool.battleship.board.Board;
+import com.codecool.battleship.player.Player;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.ship.ShipType;
+import com.codecool.battleship.utils.Display;
 import com.codecool.battleship.utils.Input;
 
 import java.util.ArrayList;
@@ -12,16 +13,18 @@ import java.util.List;
 import java.util.Random;
 
 import static com.codecool.battleship.ShipPlacement.MANUAL;
-import static com.codecool.battleship.ShipPlacement.RANDOMIZED;
 import static com.codecool.battleship.utils.Constans.ASCII_DEC_CODE_UPPERCASE_LETTER_A;
+import static com.codecool.battleship.utils.Constans.BOARD_SIZE;
 
 public class BoardFactory {
     private Board board;
     private Input input;
+    private Display display;
 
-    public BoardFactory(int size, Input input) {
+    public BoardFactory(int size, Input input, Display display) {
         board = new Board(size);
         this.input = input;
+        this.display = display;
     }
 
     public List<Square> randomPlacement(ShipType shipType) {
@@ -32,16 +35,22 @@ public class BoardFactory {
         shipBody.add(firstBodySquare);
         Square nextBodySquare;
         switch (createRandomDirection()) {
-            case "horizontal":
+            case "horizontal": {
                 for (int i = 1; i < shipType.getLength(); i++) {
                     nextBodySquare = board.getSquareByPosition(firstBodySquare.getY(), firstBodySquare.getX() + i);
                     nextBodySquare.setStatus(SquareStatus.SHIP);
+                    shipBody.add(nextBodySquare);
                 }
-            case "vertical":
+                break;
+            }
+            case "vertical": {
                 for (int i = 1; i < shipType.getLength(); i++) {
-                    nextBodySquare = board.getSquareByPosition(firstBodySquare.getY()+i, firstBodySquare.getX());
+                    nextBodySquare = board.getSquareByPosition(firstBodySquare.getY() + i, firstBodySquare.getX());
                     nextBodySquare.setStatus(SquareStatus.SHIP);
+                    shipBody.add(nextBodySquare);
                 }
+                break;
+            }
         }
         //TODO validate shipbody positions
         //TODO handle exceptions thrown because ship hangs out of the board
@@ -49,50 +58,35 @@ public class BoardFactory {
     }
 
 
-    private void putOneShipOnBoard(Ship ship) {
+    private void updateNeighbouringSquares(Ship ship) {
         List<Square> body = ship.getBody();
-        for (Square square : body) {
-            board.getOcean()[square.getY()][square.getX()] = square;
-            //fill neighbour squares
-            if (body.get(0).getX() == body.get(1).getX()) { /*horizontal ship*/
-                if (body.get(0).getX() > 0) {/*before the first square of ship if it is not on the left border*/
-                    board.getOcean()[body.get(0).getY()][body.get(0).getX() - 1].setStatus(SquareStatus.NEIGHBOUR);
-                }
-                if (square.getY() < body.size() - 1) { /*under ship if it is not at the bottom*/
-                    board.getOcean()[square.getY() + 1][square.getX()].setStatus(SquareStatus.NEIGHBOUR);
-                }
-                if (body.get(0).getY() > 0) { /*over the ship if it is not at the top*/
-                    board.getOcean()[square.getY() - 1][square.getX()].setStatus(SquareStatus.NEIGHBOUR);
-                }
-                if (body.get(body.size() - 1).getX() < body.size() - 1) {/*after the last square of ship if it is not on the right border*/
-                    board.getOcean()[body.get(body.size() - 1).getY()][body.get(0).getX() + 1].setStatus(SquareStatus.NEIGHBOUR);
-                }
-            }
-            if (body.get(0).getY() == body.get(1).getY()) { /*vertical ship*/
-                if (body.get(0).getY() > 0) {/*over the first square of ship if it is not on the top*/
-                    board.getOcean()[body.get(0).getY() - 1][body.get(0).getX()].setStatus(SquareStatus.NEIGHBOUR);
-                }
-                if (square.getX() > 0) { /*left side of the ship if it is not at the left border*/
-                    board.getOcean()[square.getY()][square.getX() - 1].setStatus(SquareStatus.NEIGHBOUR);
-                }
-                if (square.getX() < body.size() - 1) { /*right side of the ship if it is not at the right border*/
-                    board.getOcean()[square.getY()][square.getX() + 1].setStatus(SquareStatus.NEIGHBOUR);
-                }
-                if (body.get(body.size() - 1).getY() < body.size() - 1) {/*under the last square of ship if it is not on the bottom*/
-                    board.getOcean()[body.get(body.size() - 1).getY() + 1][body.get(0).getX()].setStatus(SquareStatus.NEIGHBOUR);
+        int startY = body.get(0).getY() - 1;
+        int startX = body.get(0).getX() - 1;
+        int endY = body.get(body.size() - 1).getY() + 1;
+        int endX = body.get(body.size() - 1).getX() + 1;
+        for (int y = startY; y <= endY; y++) {
+            for (int x = startX; x <= endX; x++) {
+                if (x >= 0 && y >= 0 &&
+                        x < BOARD_SIZE &&
+                        y < BOARD_SIZE &&
+                        !body.contains(board.getSquareByPosition(y, x))) {
+                    board.getSquareByPosition(y,x).setStatus(SquareStatus.NEIGHBOUR);
                 }
             }
         }
     }
 
-    public void putShipsOnBoard(ShipPlacement shipPlacement, List<Ship> shipList) {
+    public void putShipsOnBoard(ShipPlacement shipPlacement, Player player) {
+        List<Ship> shipList = player.getPlayerShipList();
         for (Ship ship : shipList) {
+            display.printBoard(player.getBoard().getCharBoard());
+            display.printGameMessage("ship type:" + ship.getType());
             if (shipPlacement.equals(MANUAL)) {
                 ship.setBody(manualPlacement(ship.getType()));
             } else {
                 ship.setBody(randomPlacement(ship.getType()));
             }
-            putOneShipOnBoard(ship);
+            updateNeighbouringSquares(ship);
         }
 
     }
@@ -120,26 +114,38 @@ public class BoardFactory {
         shipBody.add(firstBodySquare);
         Square nextBodySquare;
         switch (input.readInput("ship direction")) {
-            case "right":
+            case "right": {
                 for (int i = 1; i < shipType.getLength(); i++) {
                     nextBodySquare = board.getSquareByPosition(firstBodySquare.getY(), firstBodySquare.getX() + i);
                     nextBodySquare.setStatus(SquareStatus.SHIP);
+                    shipBody.add(nextBodySquare);
                 }
-            case "down":
+                break;
+            }
+            case "down": {
                 for (int i = 1; i < shipType.getLength(); i++) {
                     nextBodySquare = board.getSquareByPosition(firstBodySquare.getY() + i, firstBodySquare.getX());
                     nextBodySquare.setStatus(SquareStatus.SHIP);
+                    shipBody.add(nextBodySquare);
                 }
-            case "left":
+                break;
+            }
+            case "left": {
                 for (int i = 1; i < shipType.getLength(); i++) {
                     nextBodySquare = board.getSquareByPosition(firstBodySquare.getY(), firstBodySquare.getX() - i);
                     nextBodySquare.setStatus(SquareStatus.SHIP);
+                    shipBody.add(nextBodySquare);
                 }
-            case "up":
+                break;
+            }
+            case "up": {
                 for (int i = 1; i < shipType.getLength(); i++) {
                     nextBodySquare = board.getSquareByPosition(firstBodySquare.getY() - i, firstBodySquare.getX());
                     nextBodySquare.setStatus(SquareStatus.SHIP);
+                    shipBody.add(nextBodySquare);
                 }
+                break;
+            }
         }
         //TODO validate shipbody positions
         //TODO handle exceptions thrown because ship hangs out of the board

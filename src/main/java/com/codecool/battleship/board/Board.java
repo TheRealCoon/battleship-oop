@@ -65,8 +65,9 @@ public class Board {
     public boolean isPlacementOk(Ship ship) {
         for (Square body : ship.getBody()) {
             return ((body.getX() <= size && body.getY() <= size)
-                    && ocean[body.getX()][body.getY()].getStatus().equals(SquareStatus.EMPTY)
-                    && !ocean[body.getX()][body.getY()].getStatus().equals(SquareStatus.NEIGHBOUR));
+                    && ocean[body.getY()][body.getX()].getStatus().equals(SquareStatus.EMPTY)
+                    && !ocean[body.getY()][body.getX()].getStatus().equals(SquareStatus.NEIGHBOUR)
+                    && !ocean[body.getY()][body.getX()].getStatus().equals(SquareStatus.SHIP));
         }
 
         return false;
