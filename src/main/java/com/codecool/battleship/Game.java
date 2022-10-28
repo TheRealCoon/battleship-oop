@@ -12,6 +12,7 @@ import com.codecool.battleship.utils.Display;
 import com.codecool.battleship.utils.Input;
 
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 import static com.codecool.battleship.GameMode.PvAI;
 import static com.codecool.battleship.player.PlayerType.AI;
@@ -104,4 +105,25 @@ public class Game {
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
+
+    public void handlingShots(Square square) {
+        int x;
+        int y;
+        currentPlayer = player1;
+        while(currentPlayer.isAlive()){
+            Scanner scannerX = new Scanner(System.in);
+            x = scannerX.nextInt();
+            Scanner scannerY = new Scanner(System.in);
+            y = scannerY.nextInt();
+
+            if (x == square.getX() && y == square.getY()) {
+                square.setStatus(SquareStatus.HIT);
+            } else {
+                square.setStatus(SquareStatus.MISS);
+                switchPlayer();
+            }
+        }
+    }
+
+
 }
