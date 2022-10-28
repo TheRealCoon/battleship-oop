@@ -19,4 +19,8 @@ public class Ship {
     public void setBody(List<Square> body) {
         this.body = body;
     }
+
+    public ShipType getType() {
+        return type;
+    }
 }

@@ -4,6 +4,8 @@ import com.codecool.battleship.board.Square;
 
 import java.util.Scanner;
 
+import static com.codecool.battleship.utils.Constans.BOARD_SIZE;
+
 
 public class Input {
     private Scanner scanner;
@@ -20,11 +22,10 @@ public class Input {
 
     public boolean isValidCoordinate(String input) {
         String X = input.substring(0, 1);
-        int XintValue = (int) X.toUpperCase().charAt(0);
-        if(XintValue<65 || XintValue>74) return false;
+        int XintValue = X.toUpperCase().charAt(0);
+        if (XintValue < 'A' || XintValue > 'A' + BOARD_SIZE - 1) return false;
         String Y = input.substring(1);
-
-        return Y.chars().allMatch(Character::isDigit) && Integer.parseInt(Y)>=1 && Integer.parseInt(Y)<=10;
+        return Y.chars().allMatch(Character::isDigit) && Integer.parseInt(Y) >= 1 && Integer.parseInt(Y) <= BOARD_SIZE;
     }
 
     public String readInput(String msg) {

@@ -37,7 +37,7 @@ public class Game {
 
 
     public void play() {
-        BoardFactory boardFactory = new BoardFactory(BOARD_SIZE);
+        BoardFactory boardFactory = new BoardFactory(BOARD_SIZE, input);
         setUpPlayers(boardFactory.getBoard());
         currentPlayer = player1;
         boardFactory.putShipsOnBoard(shipPlacement, player1.getPlayerShipList());

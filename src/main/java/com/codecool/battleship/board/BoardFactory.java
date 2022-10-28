@@ -13,41 +13,44 @@ import java.util.Random;
 
 import static com.codecool.battleship.ShipPlacement.MANUAL;
 import static com.codecool.battleship.ShipPlacement.RANDOMIZED;
+import static com.codecool.battleship.utils.Constans.ASCII_DEC_CODE_UPPERCASE_LETTER_A;
 
 public class BoardFactory {
     private Board board;
+    private Input input;
 
-    public BoardFactory(int size) {
+    public BoardFactory(int size, Input input) {
         board = new Board(size);
+        this.input = input;
     }
 
     public List<Square> randomPlacement(ShipType shipType) {
-
         Random random = new Random();
-        List<Square> shipPosition = new ArrayList<>();
-        Square firstSquareOfPosition = new Square(random.nextInt(10), random.nextInt(10), SquareStatus.SHIP);
-        shipPosition.add(firstSquareOfPosition);
+        List<Square> shipBody = new ArrayList<>();
+        Square firstBodySquare = board.getSquareByPosition(random.nextInt(10), random.nextInt(10));
+        firstBodySquare.setStatus(SquareStatus.SHIP);
+        shipBody.add(firstBodySquare);
+        Square nextBodySquare;
         switch (createRandomDirection()) {
             case "horizontal":
                 for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX() + i, SquareStatus.SHIP));
+                    nextBodySquare = board.getSquareByPosition(firstBodySquare.getY(), firstBodySquare.getX() + i);
+                    nextBodySquare.setStatus(SquareStatus.SHIP);
                 }
             case "vertical":
                 for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY() - i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
+                    nextBodySquare = board.getSquareByPosition(firstBodySquare.getY()+i, firstBodySquare.getX());
+                    nextBodySquare.setStatus(SquareStatus.SHIP);
                 }
-
         }
-        return shipPosition;
+        //TODO validate shipbody positions
+        //TODO handle exceptions thrown because ship hangs out of the board
+        return shipBody;
     }
 
-    public void putShipsOnBoard(List<Ship> ships) {
-        for (Ship ship : ships) {
-            putOneShipOnBoard(ship, ship.getBody());
-        }
-    }
 
-    private void putOneShipOnBoard(Ship ship, List<Square> body) {
+    private void putOneShipOnBoard(Ship ship) {
+        List<Square> body = ship.getBody();
         for (Square square : body) {
             board.getOcean()[square.getY()][square.getX()] = square;
             //fill neighbour squares
@@ -72,11 +75,11 @@ public class BoardFactory {
                 if (square.getX() > 0) { /*left side of the ship if it is not at the left border*/
                     board.getOcean()[square.getY()][square.getX() - 1].setStatus(SquareStatus.NEIGHBOUR);
                 }
-                if(square.getX()< body.size()-1){ /*right side of the ship if it is not at the right border*/
-                    board.getOcean()[square.getY()][square.getX()+1].setStatus(SquareStatus.NEIGHBOUR);
+                if (square.getX() < body.size() - 1) { /*right side of the ship if it is not at the right border*/
+                    board.getOcean()[square.getY()][square.getX() + 1].setStatus(SquareStatus.NEIGHBOUR);
                 }
-                if(body.get(body.size()-1).getY()< body.size()-1){/*under the last square of ship if it is not on the bottom*/
-                    board.getOcean()[body.get(body.size()-1).getY()+1][body.get(0).getX()].setStatus(SquareStatus.NEIGHBOUR);
+                if (body.get(body.size() - 1).getY() < body.size() - 1) {/*under the last square of ship if it is not on the bottom*/
+                    board.getOcean()[body.get(body.size() - 1).getY() + 1][body.get(0).getX()].setStatus(SquareStatus.NEIGHBOUR);
                 }
             }
         }
@@ -85,17 +88,13 @@ public class BoardFactory {
     public void putShipsOnBoard(ShipPlacement shipPlacement, List<Ship> shipList) {
         for (Ship ship : shipList) {
             if (shipPlacement.equals(MANUAL)) {
-                //TODO get a Square and direction as Input
+                ship.setBody(manualPlacement(ship.getType()));
             } else {
-                //TODO get a random Square and direction
+                ship.setBody(randomPlacement(ship.getType()));
             }
-            //putShipOnBoard(square, direction);
+            putOneShipOnBoard(ship);
         }
 
-    }
-
-    public void putShipsOnBoardManually(List<Ship> shipList) {
-        //TODO
     }
 
     private static String createRandomDirection() {
@@ -110,31 +109,41 @@ public class BoardFactory {
         return direction;
     }
 
-    public List<Square> manualPlacement(Input input, ShipType shipType) {
-        List<Square> shipPosition = new ArrayList<>();
-        int coordinateY = Integer.parseInt(input.readInput("first coordinate"));
-        int coordinateX = Integer.parseInt(input.readInput("second coordinate"));
-        Square firstSquareOfPosition = new Square(coordinateY, coordinateX, SquareStatus.SHIP);
-        shipPosition.add(firstSquareOfPosition);
+    private Square convertInputToSquare(String input) {
+        return board.getSquareByPosition(Integer.parseInt(input.substring(1)) - 1, input.charAt(0) - ASCII_DEC_CODE_UPPERCASE_LETTER_A);
+    }
+
+    public List<Square> manualPlacement(ShipType shipType) {
+        List<Square> shipBody = new ArrayList<>();
+        Square firstBodySquare = convertInputToSquare(input.readInput("Ship Starting square:"));
+        firstBodySquare.setStatus(SquareStatus.SHIP);
+        shipBody.add(firstBodySquare);
+        Square nextBodySquare;
         switch (input.readInput("ship direction")) {
             case "right":
                 for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX() + i, SquareStatus.SHIP));
+                    nextBodySquare = board.getSquareByPosition(firstBodySquare.getY(), firstBodySquare.getX() + i);
+                    nextBodySquare.setStatus(SquareStatus.SHIP);
                 }
             case "down":
                 for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY() - i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
+                    nextBodySquare = board.getSquareByPosition(firstBodySquare.getY() + i, firstBodySquare.getX());
+                    nextBodySquare.setStatus(SquareStatus.SHIP);
                 }
             case "left":
                 for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX() - i, SquareStatus.SHIP));
+                    nextBodySquare = board.getSquareByPosition(firstBodySquare.getY(), firstBodySquare.getX() - i);
+                    nextBodySquare.setStatus(SquareStatus.SHIP);
                 }
             case "up":
                 for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY() + i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
+                    nextBodySquare = board.getSquareByPosition(firstBodySquare.getY() - i, firstBodySquare.getX());
+                    nextBodySquare.setStatus(SquareStatus.SHIP);
                 }
         }
-        return shipPosition;
+        //TODO validate shipbody positions
+        //TODO handle exceptions thrown because ship hangs out of the board
+        return shipBody;
     }
 
     public Board getBoard() {
