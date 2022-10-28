@@ -10,15 +10,17 @@ import static com.codecool.battleship.utils.Constans.BOARD_SIZE;
 
 public class Input {
     private Scanner scanner;
-    private InterfaceMode interfaceMode;
+    private final InterfaceMode interfaceMode;
+    private final Display display;
 
-    public Input(InterfaceMode interfaceMode) {
+    public Input(InterfaceMode interfaceMode, Display display) {
         this.interfaceMode = interfaceMode;
+        this.display = display;
         if (this.interfaceMode.equals(InterfaceMode.Console)) {
             scanner = new Scanner(System.in);
         }
     }
-
+//TODO need to create methods for GUI input
     public boolean isValidInput(Square square) {
         //TODO
         throw new RuntimeException("Not implemented yet!");
@@ -34,7 +36,7 @@ public class Input {
     }
 
     public String readInput(String msg) {
-        new Display().printGameMessage(msg);
+        display.printGameMessage(msg);
         return scanner.nextLine();
     }
 

@@ -9,12 +9,12 @@ import java.util.StringJoiner;
 import static com.codecool.battleship.utils.Constans.*;
 
 public class Display {
-    public Display(){} // TODO rework usage and delete this constructor
-     private InterfaceMode interfaceMode;
+
+     private final InterfaceMode interfaceMode;
     public Display(InterfaceMode interfaceMode) {
         this.interfaceMode = interfaceMode;
     }
-
+//TODO need to create methods for GUI display
     public void printMenu(String label, String[] menu) {
         printTitle(label);
         System.out.println();

@@ -31,7 +31,7 @@ public class Battleship {
 
     public Battleship(InterfaceMode interfaceMode) {
         display = new Display(interfaceMode);
-        input = new Input(interfaceMode);
+        input = new Input(interfaceMode, display);
     }
 
     public void printTitle(String title) {
