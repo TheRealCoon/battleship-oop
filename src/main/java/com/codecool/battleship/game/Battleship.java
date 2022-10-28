@@ -29,9 +29,9 @@ public class Battleship {
     private Score[] highScore = new Score[HIGH_SCORE_LENGTH];
 
 
-    public Battleship() {
-        display = new Display();
-        input = new Input();
+    public Battleship(InterfaceMode interfaceMode) {
+        display = new Display(interfaceMode);
+        input = new Input(interfaceMode);
     }
 
     public void printTitle(String title) {
