@@ -4,6 +4,9 @@ import com.codecool.battleship.ship.Ship;
 
 import java.util.*;
 
+import static com.codecool.battleship.utils.Constans.BOARD_SIZE;
+import static com.codecool.battleship.utils.Constans.INDENT_SIZE;
+
 public class Board {
     private Square[][] ocean;
     private int size;
@@ -11,11 +14,12 @@ public class Board {
 
     public Board(int size) {
         this.size = size;
-        ocean = new Square[this.size][this.size];
+        ocean = createEmptyBoard();
         shipSquares = new HashSet<>();
     }
 
     public Square[][] createEmptyBoard() {
+        Square[][] ocean = new Square[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 ocean[i][j] = new Square(i, j, SquareStatus.EMPTY);
@@ -66,6 +70,16 @@ public class Board {
         }
 
         return false;
-
     }
+
+    public char[][] getCharBoard() {
+        char[][] charBoard = new char[BOARD_SIZE][BOARD_SIZE];
+        for (int i = 0; i < BOARD_SIZE; i++) {
+            for (int j = 0; j < BOARD_SIZE; j++) {
+                charBoard[i][j] = ocean[i][j].getStatus().getCharacter();
+            }
+        }
+        return charBoard;
+    }
+
 }
