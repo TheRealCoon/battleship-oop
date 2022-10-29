@@ -38,15 +38,24 @@ public class Player {
     }
 
     public boolean isAlive() {
-        if(playerShipList.size() < 0.5){
-            return false;
-        }else{
-            return true;
-        }
+        return playerShipList.size() > 0;
     }
 
     public void handlingShots(Square targetedSquare) {
+        int x;
+        int y;
+        while (isAlive()) {
+            Scanner scannerX = new Scanner(System.in);
+            x = scannerX.nextInt();
+            Scanner scannerY = new Scanner(System.in);
+            y = scannerY.nextInt();
 
+            if (x == targetedSquare.getX() && y == targetedSquare.getY()) {
+                targetedSquare.setStatus(SquareStatus.HIT);
+            } else {
+                targetedSquare.setStatus(SquareStatus.MISS);
+            }
+        }
     }
 
     public String getName() {
@@ -60,7 +69,8 @@ public class Player {
     public List<Ship> getPlayerShipList() {
         return playerShipList;
     }
-    public Board getBoard(){
+
+    public Board getBoard() {
         return board;
     }
 
@@ -69,6 +79,6 @@ public class Player {
     }
 
     public PlayerType getPlayerType() {
-    return playerType;
+        return playerType;
     }
 }

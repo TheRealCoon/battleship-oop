@@ -52,8 +52,8 @@ public class Game {
         while (!hasWon(switchPlayer())) {
             display.printBoard(switchPlayer().getBoard().getCharBoard(), false); //Shows the enemy board without ships, we will mark shots on this
             Square targetedSquare = getMove(boardFactory.getBoard());
-            currentPlayer = switchPlayer();
             currentPlayer.handlingShots(targetedSquare);
+            currentPlayer = switchPlayer();
         }
         currentPlayer = switchPlayer();
         display.printTheOutcomeOfTheGame(currentPlayer);
@@ -107,25 +107,4 @@ public class Game {
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
-
-    public void handlingShots(Square square) {
-        int x;
-        int y;
-        currentPlayer = player1;
-        while (currentPlayer.isAlive()) {
-            Scanner scannerX = new Scanner(System.in);
-            x = scannerX.nextInt();
-            Scanner scannerY = new Scanner(System.in);
-            y = scannerY.nextInt();
-
-            if (x == square.getX() && y == square.getY()) {
-                square.setStatus(SquareStatus.HIT);
-            } else {
-                square.setStatus(SquareStatus.MISS);
-                switchPlayer();
-            }
-        }
-    }
-
-
 }
