@@ -16,4 +16,7 @@ public class Constans {
     public static final int BOARD_SIZE = 10;
     public static final int INDEX_CORRECTION = 1;
     public static final char ASCII_DEC_CODE_UPPERCASE_LETTER_A = 'A';
+    public static final int FIELD_SIZE_IN_PIXEL = 60;
+    public static final int GUI_PLAYER_INPUT_SWITCH = 400;
+    public static final int CHARACTER_TO_BOARD_CORRECTION=64;
 }
