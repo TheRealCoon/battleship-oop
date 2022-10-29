@@ -2,6 +2,7 @@ package com.codecool.battleship.player;
 
 import com.codecool.battleship.board.Square;
 import com.codecool.battleship.board.SquareStatus;
+import com.codecool.battleship.exception.GameMessage;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.board.Board;
 import com.codecool.battleship.ship.ShipType;
@@ -41,19 +42,23 @@ public class Player {
         return playerShipList.size() > 0;
     }
 
-    public void handlingShots(Square targetedSquare) {
+    public void handlingShots(Square targetedSquare) throws GameMessage{
         switch (targetedSquare.getStatus()) {
             case HIT -> throw new GameMessage("You already hit a ship on this square!");
             case MISS -> throw new GameMessage("You already tried this square, and missed!");
             case SHIP -> {
+                StringBuilder msg = new StringBuilder();
                 targetedSquare.setStatus(SquareStatus.HIT);
                 for (Ship ship : shipList) {
                     if (ship.getBody().contains(targetedSquare)) {
-                        throw new GameMessage("You hit a ship!");
+                        msg.append("You hit a ship!");
                         if (ship.isSunk()) {
                             shipList.remove(ship);
-                            throw new GameMessage("You sank a " + ship.getType().toString().toLowerCase() + "!");
+                            msg.append("You sank a ")
+                                    .append(ship.getType().toString().toLowerCase())
+                                    .append("!");
                         }
+                        throw new GameMessage(msg.toString());
                     }
                 }
             }

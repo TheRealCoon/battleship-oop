@@ -5,6 +5,7 @@ import com.codecool.battleship.board.BoardFactory;
 import com.codecool.battleship.board.Square;
 import com.codecool.battleship.board.SquareStatus;
 import com.codecool.battleship.dao.BattleshipDAO;
+import com.codecool.battleship.exception.GameMessage;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.PlayerType;
 import com.codecool.battleship.utils.Constans;
@@ -53,7 +54,11 @@ public class Game {
             display.printBoard(switchPlayer().getBoard().getCharBoard(), false); //Shows the enemy board without ships, we will mark shots on this
             Square targetedSquare = getMove(boardFactory.getBoard());
             currentPlayer = switchPlayer();
-            currentPlayer.handlingShots(targetedSquare);
+            try {
+                currentPlayer.handlingShots(targetedSquare);
+            } catch (GameMessage e) {
+                display.printGameMessage(e.getMessage());
+            }
         }
         currentPlayer = switchPlayer();
         display.printTheOutcomeOfTheGame(currentPlayer);
@@ -73,7 +78,7 @@ public class Game {
         do {
             inputPos = input.readInput("Aim at: ");
             if (input.isValidCoordinate(inputPos)) {
-                    targetedSquare = board.getSquareByPosition(convertToSquare(inputPos));
+                targetedSquare = board.getSquareByPosition(convertToSquare(inputPos));
             }
         } while (!input.isValidCoordinate(inputPos));
         return targetedSquare;
