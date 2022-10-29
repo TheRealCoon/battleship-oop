@@ -47,6 +47,9 @@ public class Game {
             boardFactory.putShipsOnBoard(shipPlacement, player1);
             display.printGameMessage(player2.getName() + ", place your ships on Board!");
             boardFactory.putShipsOnBoard(shipPlacement, player2);
+        }else{
+            boardFactory.putShipsOnBoard(shipPlacement, player1);
+            boardFactory.putShipsOnBoard(shipPlacement, player2);
         }
         display.printGameMessage("Ships have been placed! The game begins!");
 
