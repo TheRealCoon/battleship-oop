@@ -64,20 +64,6 @@ public class Player {
             }
             case EMPTY, NEIGHBOUR -> targetedSquare.setStatus(SquareStatus.MISS);
         }
-//        int x;
-//        int y;
-//        while (isAlive()) {
-//            Scanner scannerX = new Scanner(System.in);
-//            x = scannerX.nextInt();
-//            Scanner scannerY = new Scanner(System.in);
-//            y = scannerY.nextInt();
-//
-//            if (x == targetedSquare.getX() && y == targetedSquare.getY()) {
-//                targetedSquare.setStatus(SquareStatus.HIT);
-//            } else {
-//                targetedSquare.setStatus(SquareStatus.MISS);
-//            }
-//        }
     }
 
     public String getName() {

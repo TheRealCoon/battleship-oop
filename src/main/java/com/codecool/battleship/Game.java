@@ -39,7 +39,7 @@ public class Game {
 
     public void play() {
         BoardFactory boardFactory = new BoardFactory(BOARD_SIZE, input, display);
-        setUpPlayers(boardFactory.getBoard());
+        setUpPlayers();
         currentPlayer = player1;
 
         if (shipPlacement.equals(ShipPlacement.MANUAL)) {
@@ -88,12 +88,12 @@ public class Game {
         return new Square(Integer.parseInt(inputPos.substring(1)) - INDEX_CORRECTION, Character.toUpperCase(inputPos.charAt(0)) - ASCII_DEC_CODE_UPPERCASE_LETTER_A, null);
     }
 
-    private void setUpPlayers(Board board) {
-        player1 = new Player(board, HUMAN, "Player1");
+    private void setUpPlayers() {
+        player1 = new Player(new Board(BOARD_SIZE), HUMAN, "Player1");
         if (gameMode.equals(PvAI)) {
-            player2 = new Player(board, AI, "Computer");
+            player2 = new Player(new Board(BOARD_SIZE), AI, "Computer");
         } else {
-            player2 = new Player(board, HUMAN, "Player2");
+            player2 = new Player(new Board(BOARD_SIZE), HUMAN, "Player2");
         }
     }
 
