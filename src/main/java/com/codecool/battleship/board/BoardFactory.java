@@ -2,6 +2,7 @@ package com.codecool.battleship.board;
 
 
 import com.codecool.battleship.ShipPlacement;
+import com.codecool.battleship.exception.NoSuchDirectionException;
 import com.codecool.battleship.exception.WrongSquareException;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.ship.Ship;
@@ -53,7 +54,7 @@ public class BoardFactory {
         Board board = player.getBoard();
         for (Ship ship : shipList) {
             display.printBoard(board.getCharBoard());
-            display.printGameMessage("ship type:" + ship.getType() + "(length: " + ship.getType().getLength() + ")");
+            display.printGameMessage("Ship type:" + ship.getType() + " (length: " + ship.getType().getLength() + ")");
             do {
                 if (shipPlacement.equals(MANUAL)) {
                     try {
@@ -90,13 +91,20 @@ public class BoardFactory {
                 Character.toUpperCase(input.charAt(0)) - ASCII_DEC_CODE_UPPERCASE_LETTER_A);
     }
 
-    public List<Square> manualPlacement(ShipType shipType) throws WrongSquareException, NoSuchElementException {
+    public List<Square> manualPlacement(ShipType shipType) throws WrongSquareException, NoSuchElementException, NoSuchDirectionException {
         List<Square> shipBody = new ArrayList<>();
-        Square firstBodySquare = convertInputToSquare(input.readInput("Ship Starting square:"));
+        Square firstBodySquare = convertInputToSquare(input.readInput("Ship starting square ('a1', 'b2' etc.):"));
         Square nextBodySquare;
         shipBody.add(firstBodySquare);
-
-        switch (input.readInput("Ship direction ('right', 'left', 'up', 'down')")) {
+        String directionInput = input.readInput("Ship direction ('right', 'left', 'up', 'down'):");
+        while (!input.isValidDirectionInput(directionInput))
+            try {
+                display.printErrorMessage("Please select a valid ship direction!");
+                directionInput = input.readInput("Ship direction ('right', 'left', 'up', 'down'):");
+            }
+            catch (NoSuchDirectionException ignored){
+            }
+        switch (directionInput) {
             case "right" -> {
                 for (int i = 1; i < shipType.getLength(); i++) {
                     nextBodySquare = board.getSquareByPosition(firstBodySquare.getY(), firstBodySquare.getX() + i);
@@ -122,8 +130,9 @@ public class BoardFactory {
                 }
             }
         }
-        //TODO validate shipbody positions
+
         //TODO change error msg if user wants to put the ship outside of the board
+        //TODO neughbours not ok when direction is up or left
         if (board.isPlacementOk(shipBody)) {
             for (Square body : shipBody) {
                 body.setStatus(SquareStatus.SHIP);
