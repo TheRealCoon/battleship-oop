@@ -1,6 +1,7 @@
 package com.codecool.battleship.ship;
 
 import com.codecool.battleship.board.Square;
+import com.codecool.battleship.board.SquareStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,5 +24,14 @@ public class Ship {
 
     public ShipType getType() {
         return type;
+    }
+
+    public boolean isSunk() {
+        for (Square bodyPiece: body) {
+            if (bodyPiece.getStatus().equals(SquareStatus.SHIP)) {
+                return false;
+            }
+        }
+        return false;
     }
 }
