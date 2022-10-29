@@ -50,7 +50,7 @@ public class Game {
         boardFactory.putShipsOnBoard(shipPlacement, player2);
         display.printGameMessage("Ships have been placed! The game begins!");
         while (!hasWon(switchPlayer())) {
-            display.printBoard(boardFactory.getBoard().getCharBoard());
+            display.printBoard(switchPlayer().getBoard().getCharBoard(), false); //Shows the enemy board without ships, we will mark shots on this
             Square targetedSquare = getMove(boardFactory.getBoard());
             currentPlayer = switchPlayer();
             currentPlayer.handlingShots(targetedSquare);
@@ -72,14 +72,10 @@ public class Game {
         Square targetedSquare = null;
         do {
             inputPos = input.readInput("Aim at: ");
-            if (input.isPositionFormatValid(inputPos)) {
-                try {
+            if (input.isValidCoordinate(inputPos)) {
                     targetedSquare = board.getSquareByPosition(convertToSquare(inputPos));
-                } catch (NoSuchElementException e) {
-                    display.printErrorMessage(e.getMessage());
-                }
             }
-        } while (!input.isValidInput(targetedSquare));
+        } while (!input.isValidCoordinate(inputPos));
         return targetedSquare;
     }
 
@@ -116,7 +112,7 @@ public class Game {
         int x;
         int y;
         currentPlayer = player1;
-        while(currentPlayer.isAlive()){
+        while (currentPlayer.isAlive()) {
             Scanner scannerX = new Scanner(System.in);
             x = scannerX.nextInt();
             Scanner scannerY = new Scanner(System.in);

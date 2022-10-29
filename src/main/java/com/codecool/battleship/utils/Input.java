@@ -18,11 +18,6 @@ public class Input {
         scanner = new Scanner(System.in);
     }
 
-    public boolean isValidInput(Square square) {
-        //TODO
-        throw new RuntimeException("Not implemented yet!");
-//        return false;
-    }
 
     public boolean isValidCoordinate(String input) {
         String X = input.substring(0, 1);

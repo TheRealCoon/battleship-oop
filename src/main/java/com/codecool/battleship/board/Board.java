@@ -39,7 +39,7 @@ public class Board {
         throw new NoSuchElementException("Couldn't find square in position (" + y + ", " + x + ")!");
     }
 
-    public Square getSquareByPosition(Square square) throws NoSuchElementException {
+    public Square getSquareByPosition(Square square) {
         int y = square.getY();
         int x = square.getX();
         return getSquareByPosition(y, x);

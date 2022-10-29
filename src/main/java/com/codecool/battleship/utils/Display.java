@@ -1,7 +1,9 @@
 package com.codecool.battleship.utils;
 
+import com.codecool.battleship.board.SquareStatus;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
+import com.codecool.battleship.ship.ShipType;
 
 import java.util.StringJoiner;
 
@@ -20,14 +22,14 @@ public class Display {
         System.out.println(" ".repeat(MENU_ITEM_INDENT_SIZE) + 0 + " - " + menu[0]);
     }
 
-    public void printBoard(char[][] board) {
+    public void printBoard(char[][] board, boolean showShips) {
         StringBuilder sb = new StringBuilder();
-        String verticalSeparator = "-".repeat(BOARD_SIZE * 6 +1);
+        String verticalSeparator = "-".repeat(BOARD_SIZE * 6 + 1);
         sb.append(getHeader());
         sb.append(" ".repeat(TABLE_INDENT_SIZE)).append(verticalSeparator).append(System.lineSeparator());
         for (int y = 0; y < BOARD_SIZE; y++) {
             sb
-                    .append(String.format(" ".repeat(INDENT_SIZE) + "%s", getStringRow(board[y], y + 1)))
+                    .append(String.format(" ".repeat(INDENT_SIZE) + "%s", getStringRow(board[y], y + 1, showShips)))
                     .append(System.lineSeparator())
                     .append(" ".repeat(TABLE_INDENT_SIZE))
                     .append(verticalSeparator)
@@ -38,13 +40,20 @@ public class Display {
     }
 
 
-    private String getStringRow(char[] row, int lineIndex) {
+    private String getStringRow(char[] row, int lineIndex, boolean showShips) {
         StringJoiner sj = new StringJoiner("  |  ", " |  ", "  | ");
         for (int x = 0; x < BOARD_SIZE; x++) {
-            sj.add(Character.toString(row[x]));
+            if (showShips) {
+                sj.add(Character.toString(row[x]));
+            } else {
+                if (row[x] == SquareStatus.SHIP.getCharacter() && row[x] == SquareStatus.NEIGHBOUR.getCharacter()) {
+                    row[x] = SquareStatus.EMPTY.getCharacter();
+                }
+            }
         }
         return String.format(" %2d%s%2d", lineIndex, sj, lineIndex);
     }
+
 
     private String getHeader() {
         StringJoiner sjHeader = new StringJoiner("     ", "   ", " ");
@@ -88,4 +97,6 @@ public class Display {
                                     highScore[i].getPlayerName(), highScore[i].getValue()).replace(' ', '.'));
         }
     }
+
+
 }

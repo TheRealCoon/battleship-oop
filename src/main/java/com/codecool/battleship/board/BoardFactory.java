@@ -53,7 +53,7 @@ public class BoardFactory {
         List<Ship> shipList = player.getPlayerShipList();
         Board board = player.getBoard();
         for (Ship ship : shipList) {
-            display.printBoard(board.getCharBoard());
+            display.printBoard(board.getCharBoard(), true);
             display.printGameMessage("Ship type:" + ship.getType() + " (length: " + ship.getType().getLength() + ")");
             do {
                 if (shipPlacement.equals(MANUAL)) {
