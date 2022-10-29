@@ -14,6 +14,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.codecool.battleship.ShipPlacement.MANUAL;
+import static com.codecool.battleship.ShipPlacement.RANDOMIZED;
 import static com.codecool.battleship.utils.Constans.ASCII_DEC_CODE_UPPERCASE_LETTER_A;
 import static com.codecool.battleship.utils.Constans.BOARD_SIZE;
 
@@ -53,8 +54,11 @@ public class BoardFactory {
         List<Ship> shipList = player.getPlayerShipList();
         Board board = player.getBoard();
         for (Ship ship : shipList) {
-            display.printBoard(board.getCharBoard(), true);
-            display.printGameMessage("Ship type:" + ship.getType() + " (length: " + ship.getType().getLength() + ")");
+            if (shipPlacement.equals(MANUAL)) {
+                display.printBoard(board.getCharBoard(), true);
+                display.printGameMessage("Current player:" + player.getName());
+                display.printGameMessage("Ship type:" + ship.getType() + " (length: " + ship.getType().getLength() + ")");
+            }
             do {
                 if (shipPlacement.equals(MANUAL)) {
                     try {
@@ -71,8 +75,13 @@ public class BoardFactory {
             } while (ship.getBody().size() == 0);
             updateNeighbouringSquares(ship);
         }
-
+        if (shipPlacement.equals(RANDOMIZED)) {
+            display.printGameMessage(player.getName() + "'s final board:");
+            display.printBoard(board.getCharBoard(), true);
+        }
     }
+
+
 
     private static String createRandomDirection() {
         Random random = new Random();
@@ -99,18 +108,20 @@ public class BoardFactory {
             try {
                 display.printErrorMessage("Please type a valid coordinate!");
                 shipStartInput = input.readInput(inputMessageAtShipPlacement);
-            } catch (NoSuchElementException ignored) {}
+            } catch (NoSuchElementException ignored) {
+            }
         Square firstBodySquare = convertInputToSquare(shipStartInput);
         Square nextBodySquare;
         shipBody.add(firstBodySquare);
-        if (shipType!=ShipType.DESTROYER){
+        if (shipType != ShipType.DESTROYER) {
             String inputMessageForShipDirection = "Ship direction ('right', 'left', 'up', 'down'):";
             String directionInput = input.readInput(inputMessageForShipDirection);
             while (!input.isValidDirectionInput(directionInput))
                 try {
                     display.printErrorMessage("Please select a valid ship direction!");
                     directionInput = input.readInput(inputMessageForShipDirection);
-                } catch (NoSuchDirectionException ignored) {}
+                } catch (NoSuchDirectionException ignored) {
+                }
             switch (directionInput) {
                 case "right" -> {
                     for (int i = 1; i < shipType.getLength(); i++) {
@@ -136,7 +147,8 @@ public class BoardFactory {
                         shipBody.add(nextBodySquare);
                     }
                 }
-            }}
+            }
+        }
 
         //TODO change error msg if user wants to put the ship outside of the board
 

@@ -85,20 +85,20 @@ public class Game {
     }
 
     private Square convertToSquare(String inputPos) {
-        return new Square(Integer.parseInt(inputPos.substring(1)) - INDEX_CORRECTION, inputPos.charAt(0) - ASCII_DEC_CODE_UPPERCASE_LETTER_A, null);
+        return new Square(Integer.parseInt(inputPos.substring(1)) - INDEX_CORRECTION, Character.toUpperCase(inputPos.charAt(0)) - ASCII_DEC_CODE_UPPERCASE_LETTER_A, null);
     }
 
     private void setUpPlayers(Board board) {
         player1 = new Player(board, HUMAN, "Player1");
         if (gameMode.equals(PvAI)) {
-            player2 = new Player(board, HUMAN, "Player2");
-        } else {
             player2 = new Player(board, AI, "Computer");
+        } else {
+            player2 = new Player(board, HUMAN, "Player2");
         }
     }
 
     private boolean hasWon(Player player) {
-        return player.isAlive();
+        return !player.isAlive();
     }
 
     public Player getPlayer1() {

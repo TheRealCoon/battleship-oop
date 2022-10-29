@@ -43,13 +43,13 @@ public class Display {
     private String getStringRow(char[] row, int lineIndex, boolean showShips) {
         StringJoiner sj = new StringJoiner("  |  ", " |  ", "  | ");
         for (int x = 0; x < BOARD_SIZE; x++) {
-            if (showShips) {
-                sj.add(Character.toString(row[x]));
+            String boardElement;
+            if (!showShips && (row[x] == SquareStatus.SHIP.getCharacter() || row[x] == SquareStatus.NEIGHBOUR.getCharacter())) {
+                boardElement = Character.toString(SquareStatus.EMPTY.getCharacter());
             } else {
-                if (row[x] == SquareStatus.SHIP.getCharacter() && row[x] == SquareStatus.NEIGHBOUR.getCharacter()) {
-                    row[x] = SquareStatus.EMPTY.getCharacter();
-                }
+                boardElement = Character.toString(row[x]);
             }
+            sj.add(boardElement);
         }
         return String.format(" %2d%s%2d", lineIndex, sj, lineIndex);
     }
