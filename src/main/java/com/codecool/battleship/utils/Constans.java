@@ -11,6 +11,7 @@ public class Constans {
     public static final int MENU_ITEM_INDENT_SIZE = TITLE_INDENT_SIZE + 2;
     public static final int INDENT_SIZE = 9;
     public static final int TABLE_INDENT_SIZE = INDENT_SIZE + 4;
+    public static final int TABLE_SQUARE_SIZE = 3;
 
     public static final int HIGH_SCORE_LENGTH = 10;
     public static final int BOARD_SIZE = 10;

@@ -54,7 +54,7 @@ public class Game {
         display.printGameMessage("Ships have been placed! The game begins!");
 
         while (!hasWon(switchPlayer())) {
-            display.printBoard(switchPlayer().getBoard().getCharBoard(), false); //Shows the enemy board without ships, we will mark shots on this
+            display.printBoard(switchPlayer().getBoard().getStringBoard(), false); //Shows the enemy board without ships, we will mark shots on this
             Square targetedSquare = getMove(currentPlayer.getBoard());
             currentPlayer = switchPlayer();
             try {

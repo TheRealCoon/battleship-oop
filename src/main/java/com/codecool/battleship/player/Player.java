@@ -54,7 +54,7 @@ public class Player {
                         msg.append("You hit a ship!");
                         if (ship.isSunk()) {
                             shipList.remove(ship);
-                            msg.append("You sank a ")
+                            msg.append(" You sank a ")
                                     .append(ship.getType().toString().toLowerCase())
                                     .append("!");
                         }

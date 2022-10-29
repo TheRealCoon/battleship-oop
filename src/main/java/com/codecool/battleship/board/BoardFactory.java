@@ -50,7 +50,7 @@ public class BoardFactory {
         Board board = player.getBoard();
         for (Ship ship : shipList) {
             if (shipPlacement.equals(MANUAL)) {
-                display.printBoard(board.getCharBoard(), true);
+                display.printBoard(board.getStringBoard(), true);
                 display.printGameMessage("Current player:" + player.getName());
                 display.printGameMessage("Ship type:" + ship.getType() + " (length: " + ship.getType().getLength() + ")");
             }
@@ -72,7 +72,7 @@ public class BoardFactory {
         }
         if (shipPlacement.equals(RANDOMIZED)) {
             display.printGameMessage(player.getName() + "'s final board:");
-            display.printBoard(board.getCharBoard(), true);
+            display.printBoard(board.getStringBoard(), true);
         }
     }
 
