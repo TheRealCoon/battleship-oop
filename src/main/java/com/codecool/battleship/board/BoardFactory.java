@@ -1,98 +1,78 @@
 package com.codecool.battleship.board;
 
 
+
+import com.codecool.battleship.exception.NoSuchDirectionException;
+import com.codecool.battleship.exception.WrongSquareException;
+import com.codecool.battleship.player.Player;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.ship.ShipType;
+import com.codecool.battleship.utils.Display;
 import com.codecool.battleship.utils.Input;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+
 
 import static com.codecool.battleship.board.ShipPlacement.MANUAL;
+import static com.codecool.battleship.utils.Constans.ASCII_DEC_CODE_UPPERCASE_LETTER_A;
+import static com.codecool.battleship.utils.Constans.BOARD_SIZE;
+
 
 public class BoardFactory {
     private Board board;
+    private Input input;
+    private Display display;
 
-    public BoardFactory(int size) {
+    public BoardFactory(int size, Input input, Display display) {
         board = new Board(size);
+        this.input = input;
+        this.display = display;
     }
 
-    public List<Square> randomPlacement(ShipType shipType) {
 
-        Random random = new Random();
-        List<Square> shipPosition = new ArrayList<>();
-        Square firstSquareOfPosition = new Square(random.nextInt(10), random.nextInt(10), SquareStatus.SHIP);
-        shipPosition.add(firstSquareOfPosition);
-        switch (createRandomDirection()) {
-            case "horizontal":
-                for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX() + i, SquareStatus.SHIP));
-                }
-            case "vertical":
-                for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY() - i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
-                }
+    private void updateNeighbouringSquares(Ship ship) {
+        //TODO neighbours are not ok when direction is left
 
-        }
-        return shipPosition;
-    }
-
-    public void putShipsOnBoard(List<Ship> ships) {
-        for (Ship ship : ships) {
-            putOneShipOnBoard(ship, ship.getBody());
-        }
-    }
-
-    private void putOneShipOnBoard(Ship ship, List<Square> body) {
-        for (Square square : body) {
-            board.getOcean()[square.getY()][square.getX()] = square;
-            //fill neighbour squares
-            if (body.get(0).getX() == body.get(1).getX()) { /*horizontal ship*/
-                if (body.get(0).getX() > 0) {/*before the first square of ship if it is not on the left border*/
-                    board.getOcean()[body.get(0).getY()][body.get(0).getX() - 1].setStatus(SquareStatus.NEIGHBOUR);
-                }
-                if (square.getY() < body.size() - 1) { /*under ship if it is not at the bottom*/
-                    board.getOcean()[square.getY() + 1][square.getX()].setStatus(SquareStatus.NEIGHBOUR);
-                }
-                if (body.get(0).getY() > 0) { /*over the ship if it is not at the top*/
-                    board.getOcean()[square.getY() - 1][square.getX()].setStatus(SquareStatus.NEIGHBOUR);
-                }
-                if (body.get(body.size() - 1).getX() < body.size() - 1) {/*after the last square of ship if it is not on the right border*/
-                    board.getOcean()[body.get(body.size() - 1).getY()][body.get(0).getX() + 1].setStatus(SquareStatus.NEIGHBOUR);
-                }
-            }
-            if (body.get(0).getY() == body.get(1).getY()) { /*vertical ship*/
-                if (body.get(0).getY() > 0) {/*over the first square of ship if it is not on the top*/
-                    board.getOcean()[body.get(0).getY() - 1][body.get(0).getX()].setStatus(SquareStatus.NEIGHBOUR);
-                }
-                if (square.getX() > 0) { /*left side of the ship if it is not at the left border*/
-                    board.getOcean()[square.getY()][square.getX() - 1].setStatus(SquareStatus.NEIGHBOUR);
-                }
-                if(square.getX()< body.size()-1){ /*right side of the ship if it is not at the right border*/
-                    board.getOcean()[square.getY()][square.getX()+1].setStatus(SquareStatus.NEIGHBOUR);
-                }
-                if(body.get(body.size()-1).getY()< body.size()-1){/*under the last square of ship if it is not on the bottom*/
-                    board.getOcean()[body.get(body.size()-1).getY()+1][body.get(0).getX()].setStatus(SquareStatus.NEIGHBOUR);
+        List<Square> body = ship.getBody().stream().sorted(Comparator.comparing(Square::getY)).toList();
+        int startY = body.get(0).getY() - 1;
+        int startX = body.get(0).getX() - 1;
+        int endY = body.get(body.size() - 1).getY() + 1;
+        int endX = body.get(body.size() - 1).getX() + 1;
+        for (int y = startY; y <= endY; y++) {
+            for (int x = startX; x <= endX; x++) {
+                if (x >= 0 && y >= 0 &&
+                        x < BOARD_SIZE &&
+                        y < BOARD_SIZE &&
+                        !body.contains(board.getSquareByPosition(y, x))) {
+                    board.getSquareByPosition(y, x).setStatus(SquareStatus.NEIGHBOUR);
                 }
             }
         }
     }
 
-    public void putShipsOnBoard(ShipPlacement shipPlacement, List<Ship> shipList) {
+    public void putShipsOnBoard(ShipPlacement shipPlacement, Player player) {
+        List<Ship> shipList = player.getPlayerShipList();
+        Board board = player.getBoard();
         for (Ship ship : shipList) {
-            if (shipPlacement.equals(MANUAL)) {
-                //TODO get a Square and direction as Input
-            } else {
-                //TODO get a random Square and direction
-            }
-            //putShipOnBoard(square, direction);
+            display.printBoard(board.getCharBoard());
+            display.printGameMessage("Ship type:" + ship.getType() + " (length: " + ship.getType().getLength() + ")");
+            do {
+                if (shipPlacement.equals(MANUAL)) {
+                    try {
+                        ship.setBody(manualPlacement(ship.getType()));
+                    } catch (WrongSquareException | NoSuchElementException e) {
+                        display.printErrorMessage(e.getMessage());
+                    }
+                } else {
+                    try {
+                        ship.setBody(randomPlacement(ship.getType()));
+                    } catch (WrongSquareException | NoSuchElementException ignored) {
+                    }
+                }
+            } while (ship.getBody().size() == 0);
+            updateNeighbouringSquares(ship);
         }
 
-    }
-
-    public void putShipsOnBoardManually(List<Ship> shipList) {
-        //TODO
     }
 
     private static String createRandomDirection() {
@@ -107,31 +87,97 @@ public class BoardFactory {
         return direction;
     }
 
-    public List<Square> manualPlacement(Input input, ShipType shipType) {
-        List<Square> shipPosition = new ArrayList<>();
-        int coordinateY = Integer.parseInt(input.readInput("first coordinate"));
-        int coordinateX = Integer.parseInt(input.readInput("second coordinate"));
-        Square firstSquareOfPosition = new Square(coordinateY, coordinateX, SquareStatus.SHIP);
-        shipPosition.add(firstSquareOfPosition);
-        switch (input.readInput("ship direction")) {
-            case "right":
-                for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX() + i, SquareStatus.SHIP));
+    private Square convertInputToSquare(String input) {
+        return board.getSquareByPosition(Integer.parseInt(input.substring(1)) - 1,
+                Character.toUpperCase(input.charAt(0)) - ASCII_DEC_CODE_UPPERCASE_LETTER_A);
+    }
+
+    public List<Square> manualPlacement(ShipType shipType) throws WrongSquareException, NoSuchElementException, NoSuchDirectionException {
+        List<Square> shipBody = new ArrayList<>();
+        String inputMessageAtShipPlacement = "Ship starts from ('a1' - 'j10'):";
+        String shipStartInput = input.readInput(inputMessageAtShipPlacement);
+        while (!input.isValidCoordinate(shipStartInput))
+            try {
+                display.printErrorMessage("Please type a valid coordinate!");
+                shipStartInput = input.readInput(inputMessageAtShipPlacement);
+            } catch (NoSuchElementException ignored) {}
+        Square firstBodySquare = convertInputToSquare(shipStartInput);
+        Square nextBodySquare;
+        shipBody.add(firstBodySquare);
+        if (shipType!=ShipType.DESTROYER){
+            String inputMessageForShipDirection = "Ship direction ('right', 'left', 'up', 'down'):";
+            String directionInput = input.readInput(inputMessageForShipDirection);
+            while (!input.isValidDirectionInput(directionInput))
+                try {
+                    display.printErrorMessage("Please select a valid ship direction!");
+                    directionInput = input.readInput(inputMessageForShipDirection);
+                } catch (NoSuchDirectionException ignored) {}
+            switch (directionInput) {
+                case "right" -> {
+                    for (int i = 1; i < shipType.getLength(); i++) {
+                        nextBodySquare = board.getSquareByPosition(firstBodySquare.getY(), firstBodySquare.getX() + i);
+                        shipBody.add(nextBodySquare);
+                    }
                 }
-            case "down":
-                for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY() - i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
+                case "down" -> {
+                    for (int i = 1; i < shipType.getLength(); i++) {
+                        nextBodySquare = board.getSquareByPosition(firstBodySquare.getY() + i, firstBodySquare.getX());
+                        shipBody.add(nextBodySquare);
+                    }
                 }
-            case "left":
-                for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY(), firstSquareOfPosition.getX() - i, SquareStatus.SHIP));
+                case "left" -> {
+                    for (int i = 1; i < shipType.getLength(); i++) {
+                        nextBodySquare = board.getSquareByPosition(firstBodySquare.getY(), firstBodySquare.getX() - i);
+                        shipBody.add(nextBodySquare);
+                    }
                 }
-            case "up":
-                for (int i = 1; i < shipType.getLength(); i++) {
-                    shipPosition.add(new Square(firstSquareOfPosition.getY() + i, firstSquareOfPosition.getX(), SquareStatus.SHIP));
+                case "up" -> {
+                    for (int i = 1; i < shipType.getLength(); i++) {
+                        nextBodySquare = board.getSquareByPosition(firstBodySquare.getY() - i, firstBodySquare.getX());
+                        shipBody.add(nextBodySquare);
+                    }
                 }
+            }}
+
+        //TODO change error msg if user wants to put the ship outside of the board
+
+        if (board.isPlacementOk(shipBody)) {
+            for (Square body : shipBody) {
+                body.setStatus(SquareStatus.SHIP);
+            }
+            return shipBody;
         }
-        return shipPosition;
+        throw new WrongSquareException("You can't place that ship there!");
+    }
+
+    public List<Square> randomPlacement(ShipType shipType) throws WrongSquareException, NoSuchElementException {
+        Random random = new Random();
+        List<Square> shipBody = new ArrayList<>();
+        Square firstBodySquare = board.getSquareByPosition(random.nextInt(10), random.nextInt(10));
+        shipBody.add(firstBodySquare);
+        Square nextBodySquare;
+        switch (createRandomDirection()) {
+            case "horizontal" -> {
+                for (int i = 1; i < shipType.getLength(); i++) {
+                    nextBodySquare = board.getSquareByPosition(firstBodySquare.getY(), firstBodySquare.getX() + i);
+                    shipBody.add(nextBodySquare);
+                }
+            }
+            case "vertical" -> {
+                for (int i = 1; i < shipType.getLength(); i++) {
+                    nextBodySquare = board.getSquareByPosition(firstBodySquare.getY() + i, firstBodySquare.getX());
+                    shipBody.add(nextBodySquare);
+                }
+            }
+        }
+        //TODO validate shipbody positions
+        if (board.isPlacementOk(shipBody)) {
+            for (Square body : shipBody) {
+                body.setStatus(SquareStatus.SHIP);
+            }
+            return shipBody;
+        }
+        throw new WrongSquareException("You can't place that ship there!");
     }
 
     public Board getBoard() {

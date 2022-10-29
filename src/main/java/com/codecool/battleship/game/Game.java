@@ -35,15 +35,14 @@ public class Game {
 
 
     public void play() {
-        BoardFactory boardFactory = new BoardFactory(BOARD_SIZE);
+        BoardFactory boardFactory = new BoardFactory(BOARD_SIZE, input, display);
         setUpPlayers(boardFactory.getBoard());
         currentPlayer = player1;
-        boardFactory.putShipsOnBoard(shipPlacement, player1.getPlayerShipList());
-        boardFactory.putShipsOnBoard(shipPlacement, player2.getPlayerShipList());
+        boardFactory.putShipsOnBoard(shipPlacement, player1);
+        boardFactory.putShipsOnBoard(shipPlacement, player2);
         display.printGameMessage("Ships have been placed! The game begins!");
         while (!hasWon(switchPlayer())) {
             display.printBoard(boardFactory.getBoard().getCharBoard());
-
             Square targetedSquare = getMove(boardFactory.getBoard());
             currentPlayer = switchPlayer();
             currentPlayer.handlingShots(targetedSquare);
