@@ -25,7 +25,7 @@ public class Input {
     public boolean isValidCoordinate(String input) {
         String X = input.substring(0, 1);
         int XintValue = X.toUpperCase().charAt(0);
-        if (XintValue < 'A' || XintValue > 'A' + BOARD_SIZE - 1) return false;
+        if (XintValue < 'A' || XintValue > 'A' + BOARD_SIZE) return false;
         String Y = input.substring(1);
         return Y.chars().allMatch(Character::isDigit) && Integer.parseInt(Y) >= 1 && Integer.parseInt(Y) <= BOARD_SIZE;
     }

@@ -32,6 +32,7 @@ public class BoardFactory {
 
 
     private void updateNeighbouringSquares(Ship ship) {
+        //TODO neighbours are not ok when direction is up or left
         List<Square> body = ship.getBody();
         int startY = body.get(0).getY() - 1;
         int startX = body.get(0).getX() - 1;
@@ -93,7 +94,13 @@ public class BoardFactory {
 
     public List<Square> manualPlacement(ShipType shipType) throws WrongSquareException, NoSuchElementException, NoSuchDirectionException {
         List<Square> shipBody = new ArrayList<>();
-        Square firstBodySquare = convertInputToSquare(input.readInput("Ship starting square ('a1', 'b2' etc.):"));
+        String shipStartInput = input.readInput("Ship starts from ('a1' - 'j10'):");
+        while (!input.isValidCoordinate(shipStartInput))
+            try {
+                display.printErrorMessage("Please type a valid coordinate!");
+                shipStartInput = input.readInput("Ship starts from ('a1' - 'j10'):");
+            } catch (NoSuchElementException ignored) {}
+        Square firstBodySquare = convertInputToSquare(shipStartInput);
         Square nextBodySquare;
         shipBody.add(firstBodySquare);
         String directionInput = input.readInput("Ship direction ('right', 'left', 'up', 'down'):");
@@ -101,9 +108,7 @@ public class BoardFactory {
             try {
                 display.printErrorMessage("Please select a valid ship direction!");
                 directionInput = input.readInput("Ship direction ('right', 'left', 'up', 'down'):");
-            }
-            catch (NoSuchDirectionException ignored){
-            }
+            } catch (NoSuchDirectionException ignored) {}
         switch (directionInput) {
             case "right" -> {
                 for (int i = 1; i < shipType.getLength(); i++) {
@@ -132,7 +137,7 @@ public class BoardFactory {
         }
 
         //TODO change error msg if user wants to put the ship outside of the board
-        //TODO neughbours not ok when direction is up or left
+
         if (board.isPlacementOk(shipBody)) {
             for (Square body : shipBody) {
                 body.setStatus(SquareStatus.SHIP);
