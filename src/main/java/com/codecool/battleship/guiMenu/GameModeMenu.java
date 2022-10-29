@@ -1,4 +1,6 @@
-package com.codecool.battleship;
+package com.codecool.battleship.guiMenu;
+
+import com.codecool.battleship.guiMenu.BoardPane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +23,7 @@ public class GameModeMenu extends JLayeredPane {
         buttonContainer.setVisible(false);
         buttonContainer.setOpaque(false);
 
-        int width = 310;
+        int width = 250;
         int fontSize = 24;
 
         ImageIcon stripeIMG = new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/BattleshipStripe.png");
@@ -40,8 +42,13 @@ public class GameModeMenu extends JLayeredPane {
         PvsP.setFont(new Font("Lucida", Font.BOLD, fontSize));
         PvsP.setOpaque(false);
         PvsP.setForeground(Color.WHITE);
+        JLabel textBetweenOptions1 = new JLabel("or");
+        textBetweenOptions1.setOpaque(false);
+        textBetweenOptions1.setFont(new Font("Lucida", Font.BOLD, fontSize));
+        textBetweenOptions1.setBounds(380, 200, 30, 30);
+        textBetweenOptions1.setForeground(Color.WHITE);
         PvsAI = new JRadioButton("Player vs AI");
-        PvsAI.setBounds(410, 200, width, 30);
+        PvsAI.setBounds(450, 200, width, 30);
         PvsAI.setFont(new Font("Lucida", Font.BOLD, fontSize));
         PvsAI.setOpaque(false);
         PvsAI.setForeground(Color.WHITE);
@@ -50,8 +57,13 @@ public class GameModeMenu extends JLayeredPane {
         randomPlacement.setFont(new Font("Lucida", Font.BOLD, fontSize));
         randomPlacement.setOpaque(false);
         randomPlacement.setForeground(Color.WHITE);
+        JLabel textBetweenOptions2 = new JLabel("or");
+        textBetweenOptions2.setOpaque(false);
+        textBetweenOptions2.setFont(new Font("Lucida", Font.BOLD, fontSize));
+        textBetweenOptions2.setBounds(380, 250, 30, 30);
+        textBetweenOptions2.setForeground(Color.WHITE);
         manualPlacement = new JRadioButton("Manual Placement");
-        manualPlacement.setBounds(410, 250, width, 30);
+        manualPlacement.setBounds(450, 250, width, 30);
         manualPlacement.setFont(new Font("Lucida", Font.BOLD, fontSize));
         manualPlacement.setOpaque(false);
         manualPlacement.setForeground(Color.WHITE);
@@ -59,31 +71,45 @@ public class GameModeMenu extends JLayeredPane {
         chooseGameMod.setBounds(110, 300, 150, 30);
         chooseGameMod.setFont(new Font("Lucida", Font.BOLD, 20));
         chooseGameMod.setMargin(new Insets(2, 2, 2, 2));
+        JButton backMainMenu = new JButton("Main menu");
+        backMainMenu.setBounds(540, 300, 150, 30);
+        backMainMenu.setFont(new Font("Lucida", Font.BOLD, 20));
+        backMainMenu.setMargin(new Insets(2, 2, 2, 2));
 
-        buttonContainer.add(stripeBattleship,Integer.valueOf(1));
+        buttonContainer.add(stripeBattleship, Integer.valueOf(1));
         buttonContainer.add(gameModeStripe, Integer.valueOf(1));
         buttonContainer.add(PvsP, Integer.valueOf(1));
+        buttonContainer.add(textBetweenOptions1, Integer.valueOf(1));
         buttonContainer.add(PvsAI, Integer.valueOf(1));
         buttonContainer.add(randomPlacement, Integer.valueOf(1));
+        buttonContainer.add(textBetweenOptions2, Integer.valueOf(1));
         buttonContainer.add(manualPlacement, Integer.valueOf(1));
         buttonContainer.add(chooseGameMod, Integer.valueOf(1));
+        buttonContainer.add(backMainMenu, Integer.valueOf(1));
         add(buttonContainer);
 
         chooseGameMod.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                if((getPvsP().isSelected() ^ getPvsAI().isSelected()) && (getManualPlacement().isSelected() ^ getRandomPlacement().isSelected()))
-                {
+                if ((getPvsP().isSelected() ^ getPvsAI().isSelected()) && (getManualPlacement().isSelected() ^ getRandomPlacement().isSelected())) {
                     display.getGameModeMenu().setVisible(false);
                     display.getGameBoard().setVisible(true);
                     display.getFieldMove().requestFocus();
-                }else{
+                } else {
                     System.out.println("Bad selection !!");
                 }
+
                 display.getGameModeMenu().getPvsP().setSelected(false);
                 display.getGameModeMenu().getPvsAI().setSelected(false);
                 display.getGameModeMenu().getRandomPlacement().setSelected(false);
                 display.getGameModeMenu().getManualPlacement().setSelected(false);
+            }
+        });
+
+        backMainMenu.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                display.getMainMenu().setVisible(true);
+                display.getGameModeMenu().setVisible(false);
             }
         });
 

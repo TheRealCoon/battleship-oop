@@ -1,4 +1,6 @@
-package com.codecool.battleship;
+package com.codecool.battleship.guiMenu;
+
+import com.codecool.battleship.guiMenu.BoardPane;
 
 import javax.swing.*;
 import java.awt.*;

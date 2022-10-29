@@ -1,6 +1,7 @@
-package com.codecool.battleship;
+package com.codecool.battleship.guiMenu;
 
 import com.codecool.battleship.dao.BattleshipDAO;
+import com.codecool.battleship.guiMenu.BoardPane;
 import com.codecool.battleship.player.Score;
 import com.codecool.battleship.utils.Display;
 
@@ -9,7 +10,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class HighScore extends JLayeredPane {
     JLabel highScoreLabel;
