@@ -42,20 +42,37 @@ public class Player {
     }
 
     public void handlingShots(Square targetedSquare) {
-        int x;
-        int y;
-        while (isAlive()) {
-            Scanner scannerX = new Scanner(System.in);
-            x = scannerX.nextInt();
-            Scanner scannerY = new Scanner(System.in);
-            y = scannerY.nextInt();
-
-            if (x == targetedSquare.getX() && y == targetedSquare.getY()) {
+        switch (targetedSquare.getStatus()) {
+            case HIT -> throw new GameMessage("You already hit a ship on this square!");
+            case MISS -> throw new GameMessage("You already tried this square, and missed!");
+            case SHIP -> {
                 targetedSquare.setStatus(SquareStatus.HIT);
-            } else {
-                targetedSquare.setStatus(SquareStatus.MISS);
+                for (Ship ship : shipList) {
+                    if (ship.getBody().contains(targetedSquare)) {
+                        throw new GameMessage("You hit a ship!");
+                        if (ship.isSunk()) {
+                            shipList.remove(ship);
+                            throw new GameMessage("You sank a " + ship.getType().toString().toLowerCase() + "!");
+                        }
+                    }
+                }
             }
+            case EMPTY, NEIGHBOUR -> targetedSquare.setStatus(SquareStatus.MISS);
         }
+//        int x;
+//        int y;
+//        while (isAlive()) {
+//            Scanner scannerX = new Scanner(System.in);
+//            x = scannerX.nextInt();
+//            Scanner scannerY = new Scanner(System.in);
+//            y = scannerY.nextInt();
+//
+//            if (x == targetedSquare.getX() && y == targetedSquare.getY()) {
+//                targetedSquare.setStatus(SquareStatus.HIT);
+//            } else {
+//                targetedSquare.setStatus(SquareStatus.MISS);
+//            }
+//        }
     }
 
     public String getName() {

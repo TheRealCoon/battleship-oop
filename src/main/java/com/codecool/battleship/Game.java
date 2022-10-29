@@ -52,8 +52,8 @@ public class Game {
         while (!hasWon(switchPlayer())) {
             display.printBoard(switchPlayer().getBoard().getCharBoard(), false); //Shows the enemy board without ships, we will mark shots on this
             Square targetedSquare = getMove(boardFactory.getBoard());
-            currentPlayer.handlingShots(targetedSquare);
             currentPlayer = switchPlayer();
+            currentPlayer.handlingShots(targetedSquare);
         }
         currentPlayer = switchPlayer();
         display.printTheOutcomeOfTheGame(currentPlayer);
@@ -93,7 +93,7 @@ public class Game {
     }
 
     private boolean hasWon(Player player) {
-        return player.getPlayerShipList().size() == 0;
+        return player.isAlive();
     }
 
     public Player getPlayer1() {
