@@ -53,7 +53,7 @@ public class BoardFactory {
         Board board = player.getBoard();
         for (Ship ship : shipList) {
             display.printBoard(board.getCharBoard());
-            display.printGameMessage("ship type:" + ship.getType() + "(length: " + ship.getType().getLength() + ")" );
+            display.printGameMessage("ship type:" + ship.getType() + "(length: " + ship.getType().getLength() + ")");
             do {
                 if (shipPlacement.equals(MANUAL)) {
                     try {
@@ -95,37 +95,35 @@ public class BoardFactory {
         Square firstBodySquare = convertInputToSquare(input.readInput("Ship Starting square:"));
         Square nextBodySquare;
         shipBody.add(firstBodySquare);
+
         switch (input.readInput("Ship direction ('right', 'left', 'up', 'down')")) {
-            case "right": {
+            case "right" -> {
                 for (int i = 1; i < shipType.getLength(); i++) {
                     nextBodySquare = board.getSquareByPosition(firstBodySquare.getY(), firstBodySquare.getX() + i);
                     shipBody.add(nextBodySquare);
                 }
-                break;
             }
-            case "down": {
+            case "down" -> {
                 for (int i = 1; i < shipType.getLength(); i++) {
                     nextBodySquare = board.getSquareByPosition(firstBodySquare.getY() + i, firstBodySquare.getX());
                     shipBody.add(nextBodySquare);
                 }
-                break;
             }
-            case "left": {
+            case "left" -> {
                 for (int i = 1; i < shipType.getLength(); i++) {
                     nextBodySquare = board.getSquareByPosition(firstBodySquare.getY(), firstBodySquare.getX() - i);
                     shipBody.add(nextBodySquare);
                 }
-                break;
             }
-            case "up": {
+            case "up" -> {
                 for (int i = 1; i < shipType.getLength(); i++) {
                     nextBodySquare = board.getSquareByPosition(firstBodySquare.getY() - i, firstBodySquare.getX());
                     shipBody.add(nextBodySquare);
                 }
-                break;
             }
         }
         //TODO validate shipbody positions
+        //TODO change error msg if user wants to put the ship outside of the board
         if (board.isPlacementOk(shipBody)) {
             for (Square body : shipBody) {
                 body.setStatus(SquareStatus.SHIP);
