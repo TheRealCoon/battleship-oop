@@ -38,7 +38,7 @@ public class Game {
 
 
     public void play() {
-        BoardFactory boardFactory = new BoardFactory(BOARD_SIZE, input, display);
+        BoardFactory boardFactory = new BoardFactory(input, display);
         setUpPlayers();
         currentPlayer = player1;
 
@@ -52,7 +52,7 @@ public class Game {
 
         while (!hasWon(switchPlayer())) {
             display.printBoard(switchPlayer().getBoard().getCharBoard(), false); //Shows the enemy board without ships, we will mark shots on this
-            Square targetedSquare = getMove(boardFactory.getBoard());
+            Square targetedSquare = getMove(currentPlayer.getBoard());
             currentPlayer = switchPlayer();
             try {
                 currentPlayer.handlingShots(targetedSquare);

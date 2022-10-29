@@ -9,9 +9,7 @@ import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.ship.ShipType;
 import com.codecool.battleship.utils.Display;
 import com.codecool.battleship.utils.Input;
-
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.codecool.battleship.ShipPlacement.MANUAL;
 import static com.codecool.battleship.ShipPlacement.RANDOMIZED;
@@ -19,18 +17,15 @@ import static com.codecool.battleship.utils.Constans.ASCII_DEC_CODE_UPPERCASE_LE
 import static com.codecool.battleship.utils.Constans.BOARD_SIZE;
 
 public class BoardFactory {
-    private Board board;
     private Input input;
     private Display display;
 
-    public BoardFactory(int size, Input input, Display display) {
-        board = new Board(size);
+    public BoardFactory(Input input, Display display) {
         this.input = input;
         this.display = display;
     }
 
-
-    private void updateNeighbouringSquares(Ship ship) {
+    private void updateNeighbouringSquares(Ship ship, Board board) {
         //TODO neighbours are not ok when direction is left
 
         List<Square> body = ship.getBody().stream().sorted(Comparator.comparing(Square::getY)).toList();
@@ -62,22 +57,22 @@ public class BoardFactory {
             do {
                 if (shipPlacement.equals(MANUAL)) {
                     try {
-                        ship.setBody(manualPlacement(ship.getType()));
+                        ship.setBody(manualPlacement(ship.getType(), board));
                     } catch (WrongSquareException | NoSuchElementException e) {
                         display.printErrorMessage(e.getMessage());
                     }
                 } else {
                     try {
-                        ship.setBody(randomPlacement(ship.getType()));
+                        ship.setBody(randomPlacement(ship.getType(), board));
                     } catch (WrongSquareException | NoSuchElementException ignored) {
                     }
                 }
             } while (ship.getBody().size() == 0);
-            updateNeighbouringSquares(ship);
+            updateNeighbouringSquares(ship, board);
         }
         if (shipPlacement.equals(RANDOMIZED)) {
             display.printGameMessage(player.getName() + "'s final board:");
-            display.printBoard(player.getBoard().getCharBoard(), true);
+            display.printBoard(board.getCharBoard(), true);
         }
     }
 
@@ -95,12 +90,12 @@ public class BoardFactory {
         return direction;
     }
 
-    private Square convertInputToSquare(String input) {
+    private Square convertInputToSquare(String input, Board board) {
         return board.getSquareByPosition(Integer.parseInt(input.substring(1)) - 1,
                 Character.toUpperCase(input.charAt(0)) - ASCII_DEC_CODE_UPPERCASE_LETTER_A);
     }
 
-    public List<Square> manualPlacement(ShipType shipType) throws WrongSquareException, NoSuchElementException, NoSuchDirectionException {
+    public List<Square> manualPlacement(ShipType shipType, Board board) throws WrongSquareException, NoSuchElementException, NoSuchDirectionException {
         List<Square> shipBody = new ArrayList<>();
         String inputMessageAtShipPlacement = "Ship starts from ('a1' - 'j10'):";
         String shipStartInput = input.readInput(inputMessageAtShipPlacement);
@@ -110,7 +105,7 @@ public class BoardFactory {
                 shipStartInput = input.readInput(inputMessageAtShipPlacement);
             } catch (NoSuchElementException ignored) {
             }
-        Square firstBodySquare = convertInputToSquare(shipStartInput);
+        Square firstBodySquare = convertInputToSquare(shipStartInput, board);
         Square nextBodySquare;
         shipBody.add(firstBodySquare);
         if (shipType != ShipType.DESTROYER) {
@@ -161,7 +156,7 @@ public class BoardFactory {
         throw new WrongSquareException("You can't place that ship there!");
     }
 
-    public List<Square> randomPlacement(ShipType shipType) throws WrongSquareException, NoSuchElementException {
+    public List<Square> randomPlacement(ShipType shipType, Board board) throws WrongSquareException, NoSuchElementException {
         Random random = new Random();
         List<Square> shipBody = new ArrayList<>();
         Square firstBodySquare = board.getSquareByPosition(random.nextInt(10), random.nextInt(10));
@@ -191,7 +186,4 @@ public class BoardFactory {
         throw new WrongSquareException("You can't place that ship there!");
     }
 
-    public Board getBoard() {
-        return board;
-    }
 }
