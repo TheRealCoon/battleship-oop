@@ -95,7 +95,7 @@ public class BoardFactory {
         Square firstBodySquare = convertInputToSquare(input.readInput("Ship Starting square:"));
         Square nextBodySquare;
         shipBody.add(firstBodySquare);
-        switch (input.readInput("ship direction")) {
+        switch (input.readInput("Ship direction ('right', 'left', 'up', 'down')")) {
             case "right": {
                 for (int i = 1; i < shipType.getLength(); i++) {
                     nextBodySquare = board.getSquareByPosition(firstBodySquare.getY(), firstBodySquare.getX() + i);
@@ -142,19 +142,17 @@ public class BoardFactory {
         shipBody.add(firstBodySquare);
         Square nextBodySquare;
         switch (createRandomDirection()) {
-            case "horizontal": {
+            case "horizontal" -> {
                 for (int i = 1; i < shipType.getLength(); i++) {
                     nextBodySquare = board.getSquareByPosition(firstBodySquare.getY(), firstBodySquare.getX() + i);
                     shipBody.add(nextBodySquare);
                 }
-                break;
             }
-            case "vertical": {
+            case "vertical" -> {
                 for (int i = 1; i < shipType.getLength(); i++) {
                     nextBodySquare = board.getSquareByPosition(firstBodySquare.getY() + i, firstBodySquare.getX());
                     shipBody.add(nextBodySquare);
                 }
-                break;
             }
         }
         //TODO validate shipbody positions
