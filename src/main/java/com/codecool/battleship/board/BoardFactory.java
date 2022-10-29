@@ -77,7 +77,7 @@ public class BoardFactory {
         }
         if (shipPlacement.equals(RANDOMIZED)) {
             display.printGameMessage(player.getName() + "'s final board:");
-            display.printBoard(board.getCharBoard(), true);
+            display.printBoard(player.getBoard().getCharBoard(), true);
         }
     }
 

@@ -20,6 +20,7 @@ public class Input {
 
 
     public boolean isValidCoordinate(String input) {
+        if (input.length() < 2) return false;
         String X = input.substring(0, 1);
         int XintValue = X.toUpperCase().charAt(0);
         if (XintValue < 'A' || XintValue > 'A' + BOARD_SIZE) return false;
