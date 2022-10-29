@@ -38,7 +38,13 @@ public class Game {
         BoardFactory boardFactory = new BoardFactory(BOARD_SIZE, input, display);
         setUpPlayers(boardFactory.getBoard());
         currentPlayer = player1;
+        if (shipPlacement.equals(ShipPlacement.MANUAL)) {
+            display.printGameMessage("Player1, place your ships on Board!");
+        }
         boardFactory.putShipsOnBoard(shipPlacement, player1);
+        if (shipPlacement.equals(ShipPlacement.MANUAL)) {
+            display.printGameMessage("Player2, place your ships on Board!");
+        }
         boardFactory.putShipsOnBoard(shipPlacement, player2);
         display.printGameMessage("Ships have been placed! The game begins!");
         while (!hasWon(switchPlayer())) {
