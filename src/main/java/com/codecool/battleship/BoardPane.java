@@ -1,10 +1,14 @@
 package com.codecool.battleship;
 
+import com.codecool.battleship.utils.Input;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.concurrent.TimeUnit;
+
+import static com.codecool.battleship.utils.Constans.*;
 
 public class BoardPane extends JFrame {
     private JLayeredPane gameBoard;
@@ -15,9 +19,10 @@ public class BoardPane extends JFrame {
     private GameModeMenu gameModeMenu;
     private JLabel labelShip2, labelMissileToLeft;
     private BoardPane display;
-    private final int INPUTFIELD_SWITCH = 400;
+    private Input input;
 
     BoardPane(int dimX, int dimY) {
+        input=new Input();
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setBounds(0, 0, 1600, 800);
         this.setLayout(null);
@@ -173,7 +178,7 @@ public class BoardPane extends JFrame {
 
                 makeMove(fieldMove.getX());
                 fieldMove.setText("");
-                if (fieldMove.getX() < INPUTFIELD_SWITCH) {
+                if (fieldMove.getX() < GUI_PLAYER_INPUT_SWITCH) {
                     fieldMove.setLocation(1240, 700);
                     player1.setVisible(false);
                     player2.setVisible(true);
@@ -185,14 +190,12 @@ public class BoardPane extends JFrame {
             }
 
             private void makeMove(int side) {
-                int fieldSizeInPixel=60;
-                int putPosX = (int) (getFieldMove().getText().substring(0,1).toUpperCase().charAt(0)-64)*fieldSizeInPixel;
-                int putPosY = Integer.parseInt(fieldMove.getText().substring(1))*fieldSizeInPixel;
+                int[] putPosition=input.guiInputToPositionInPixel(getFieldMove().getText());
                 ImageIcon missedHitIMG = new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/blown-up.png");
                 JLabel missedHit = new JLabel(missedHitIMG);
-                missedHit.setBounds(putPosX, putPosY, 60, 60);
+                missedHit.setBounds(putPosition[0], putPosition[1], FIELD_SIZE_IN_PIXEL, FIELD_SIZE_IN_PIXEL);
                 missedHit.setVisible(true);
-                if(side<400){
+                if(side< GUI_PLAYER_INPUT_SWITCH){
                     getPlayer1Board().add(missedHit);
                     getPlayer1Board().add(missedHit, Integer.valueOf(5));
                 }
