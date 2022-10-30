@@ -1,5 +1,7 @@
 package com.codecool.battleship.board;
 
+import com.codecool.battleship.exception.WrongSquareException;
+
 import java.util.*;
 
 import static com.codecool.battleship.utils.Constans.BOARD_SIZE;
@@ -25,7 +27,7 @@ public class Board {
         return ocean;
     }
 
-    public Square getSquareByPosition(int y, int x) throws NoSuchElementException {
+    public Square getSquareByPosition(int y, int x) throws WrongSquareException {
         for (Square[] row : ocean) {
             for (Square square : row) {
                 if (square.getY() == y && square.getX() == x) {
@@ -33,7 +35,7 @@ public class Board {
                 }
             }
         }
-        throw new NoSuchElementException("Couldn't find square in position (" + y + ", " + x + ")!");
+        throw new WrongSquareException("You can't place that ship there!");
     }
 
     public Square getSquareByPosition(Square square) {
