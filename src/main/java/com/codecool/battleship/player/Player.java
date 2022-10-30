@@ -23,17 +23,17 @@ public class Player {
         this.playerType = playerType;
         this.name = name;
         playerShipList = new ArrayList<>() {{
-            add(new Ship(ShipType.CARRIER));
-            add(new Ship(ShipType.BATTLESHIP));
-            add(new Ship(ShipType.CRUISER));
-            add(new Ship(ShipType.CRUISER));
+//            add(new Ship(ShipType.CARRIER));
+//            add(new Ship(ShipType.BATTLESHIP));
+//            add(new Ship(ShipType.CRUISER));
+//            add(new Ship(ShipType.CRUISER));
+//            add(new Ship(ShipType.SUBMARINE));
+//            add(new Ship(ShipType.SUBMARINE));
             add(new Ship(ShipType.SUBMARINE));
-            add(new Ship(ShipType.SUBMARINE));
-            add(new Ship(ShipType.SUBMARINE));
             add(new Ship(ShipType.DESTROYER));
-            add(new Ship(ShipType.DESTROYER));
-            add(new Ship(ShipType.DESTROYER));
-            add(new Ship(ShipType.DESTROYER));
+//            add(new Ship(ShipType.DESTROYER));
+//            add(new Ship(ShipType.DESTROYER));
+//            add(new Ship(ShipType.DESTROYER));
         }};
     }
 

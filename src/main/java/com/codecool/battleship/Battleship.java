@@ -29,6 +29,13 @@ public class Battleship {
     public Battleship() {
         display = new Display();
         input = new Input();
+        try {
+            highScore = BattleshipDAO.readHighScoreFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            display.printErrorMessage(e.getMessage());
+        }
     }
 
     public void printTitle(String title) {

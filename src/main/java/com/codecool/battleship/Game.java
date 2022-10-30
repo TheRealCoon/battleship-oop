@@ -45,6 +45,7 @@ public class Game {
         if (shipPlacement.equals(ShipPlacement.MANUAL)) {
             display.printGameMessage(player1.getName() + ", place your ships on Board!");
             boardFactory.putShipsOnBoard(shipPlacement, player1);
+            input.readInput("Hit enter to continue!");
             display.printGameMessage(player2.getName() + ", place your ships on Board!");
             boardFactory.putShipsOnBoard(shipPlacement, player2);
         }else{
@@ -52,8 +53,9 @@ public class Game {
             boardFactory.putShipsOnBoard(shipPlacement, player2);
         }
         display.printGameMessage("Ships have been placed! The game begins!");
+        input.readInput("Hit enter to continue!");
 
-        while (!hasWon(switchPlayer())) {
+        while (!hasWon(currentPlayer)) {
             display.printBoard(switchPlayer().getBoard().getStringBoard(), false); //Shows the enemy board without ships, we will mark shots on this
             display.printGameMessage("It's " + currentPlayer.getName() + "'s turn!");
             Square targetedSquare = getMove(switchPlayer().getBoard());
@@ -64,7 +66,8 @@ public class Game {
             } catch (GameMessage e) {
                 display.printGameMessage(e.getMessage());
             }
-            display.printGameMessage("It's " + currentPlayer.getName() + "'s turn!");
+            display.printBoard(currentPlayer.getBoard().getStringBoard(), false);
+            input.readInput("Hit enter to continue!");
         }
         currentPlayer = switchPlayer();
         display.printTheOutcomeOfTheGame(currentPlayer);
