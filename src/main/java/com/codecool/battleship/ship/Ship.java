@@ -32,6 +32,6 @@ public class Ship {
                 return false;
             }
         }
-        return false;
+        return true;
     }
 }
