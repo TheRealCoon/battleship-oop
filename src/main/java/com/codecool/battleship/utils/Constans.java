@@ -5,14 +5,16 @@ public class Constans {
     public static final String GAME_TITLE = "Battleship";
     public static final String HIGH_SCORE = "High score";
     public static final String COLUMN_SEPARATOR = ";";
+    public static final String START_Y = "startY";
+    public static final String START_X = "startX";
+    public static final String END_Y = "endY";
+    public static final String END_X = "endX";
     public static final int NAME_TABLE_INDEX = 0;
     public static final int SCORE_TABLE_INDEX = 1;
     public static final int TITLE_INDENT_SIZE = 18;
     public static final int MENU_ITEM_INDENT_SIZE = TITLE_INDENT_SIZE + 2;
     public static final int INDENT_SIZE = 9;
     public static final int TABLE_INDENT_SIZE = INDENT_SIZE + 4;
-    public static final int TABLE_SQUARE_SIZE = 3;
-
     public static final int HIGH_SCORE_LENGTH = 10;
     public static final int BOARD_SIZE = 10;
     public static final int INDEX_CORRECTION = 1;
