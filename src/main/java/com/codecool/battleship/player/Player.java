@@ -17,25 +17,24 @@ public class Player {
     private PlayerType playerType;
     private String name;
     private int points;
-    private static final List<Ship> shipList = new ArrayList<>() {{
-        add(new Ship(ShipType.CARRIER));
-        add(new Ship(ShipType.BATTLESHIP));
-        add(new Ship(ShipType.CRUISER));
-        add(new Ship(ShipType.CRUISER));
-        add(new Ship(ShipType.SUBMARINE));
-        add(new Ship(ShipType.SUBMARINE));
-        add(new Ship(ShipType.SUBMARINE));
-        add(new Ship(ShipType.DESTROYER));
-        add(new Ship(ShipType.DESTROYER));
-        add(new Ship(ShipType.DESTROYER));
-        add(new Ship(ShipType.DESTROYER));
-    }};
 
     public Player(Board board, PlayerType playerType, String name) {
         this.board = board;
         this.playerType = playerType;
         this.name = name;
-        playerShipList = shipList;
+        playerShipList = new ArrayList<>() {{
+            add(new Ship(ShipType.CARRIER));
+            add(new Ship(ShipType.BATTLESHIP));
+            add(new Ship(ShipType.CRUISER));
+            add(new Ship(ShipType.CRUISER));
+            add(new Ship(ShipType.SUBMARINE));
+            add(new Ship(ShipType.SUBMARINE));
+            add(new Ship(ShipType.SUBMARINE));
+            add(new Ship(ShipType.DESTROYER));
+            add(new Ship(ShipType.DESTROYER));
+            add(new Ship(ShipType.DESTROYER));
+            add(new Ship(ShipType.DESTROYER));
+        }};
     }
 
     public boolean isAlive() {
@@ -49,11 +48,11 @@ public class Player {
             case SHIP -> {
                 StringBuilder msg = new StringBuilder();
                 targetedSquare.setStatus(SquareStatus.HIT);
-                for (Ship ship : shipList) {
+                for (Ship ship : playerShipList) {
                     if (ship.getBody().contains(targetedSquare)) {
                         msg.append("You hit a ship!");
                         if (ship.isSunk()) {
-                            shipList.remove(ship);
+                            playerShipList.remove(ship);
                             msg.append(" You sank a ")
                                     .append(ship.getType().toString().toLowerCase())
                                     .append("!");

@@ -182,8 +182,9 @@ public class BoardFactory {
                 body.setStatus(SquareStatus.SHIP);
             }
             return shipBody;
+        }else{
+            throw new WrongSquareException("You can't place that ship there!");
         }
-        throw new WrongSquareException("You can't place that ship there!");
     }
 
 }
