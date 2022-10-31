@@ -6,10 +6,13 @@ import com.codecool.battleship.exception.GameMessage;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.board.Board;
 import com.codecool.battleship.ship.ShipType;
+import com.codecool.battleship.utils.Constans;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import static com.codecool.battleship.utils.Constans.*;
 
 public class Player {
     private Board board;
@@ -41,17 +44,25 @@ public class Player {
         return playerShipList.size() > 0;
     }
 
-    public void handlingShots(Square targetedSquare) throws GameMessage{
+    public void handlingShots(Square targetedSquare, Player player) throws GameMessage{
         switch (targetedSquare.getStatus()) {
-            case HIT -> throw new GameMessage("You already hit a ship on this square!");
-            case MISS -> throw new GameMessage("You already tried this square, and missed!");
+            case HIT -> {
+                player.addToPoints(PENALTY_FOR_MISSING);
+                throw new GameMessage("You already hit a ship on this square!");
+            }
+            case MISS -> {
+                player.addToPoints(PENALTY_FOR_MISSING);
+                throw new GameMessage("You already tried this square, and missed!");
+            }
             case SHIP -> {
                 StringBuilder msg = new StringBuilder();
                 targetedSquare.setStatus(SquareStatus.HIT);
                 for (Ship ship : playerShipList) {
                     if (ship.getBody().contains(targetedSquare)) {
+                        player.addToPoints(REWARD_FOR_HITTING_SHIP);
                         msg.append("You hit a ship!");
                         if (ship.isSunk()) {
+                            player.addToPoints(REWARD_FOR_SINKING_SHIP);
                             playerShipList.remove(ship);
                             msg.append(" You sank a ")
                                     .append(ship.getType().toString().toLowerCase())
@@ -61,7 +72,10 @@ public class Player {
                     }
                 }
             }
-            case EMPTY, NEIGHBOUR -> targetedSquare.setStatus(SquareStatus.MISS);
+            case EMPTY, NEIGHBOUR -> {
+                player.addToPoints(PENALTY_FOR_MISSING);
+                targetedSquare.setStatus(SquareStatus.MISS);
+            }
         }
     }
 
@@ -83,6 +97,10 @@ public class Player {
 
     public int getPoints() {
         return points;
+    }
+
+    public void addToPoints(int reward){
+        points += reward;
     }
 
     public PlayerType getPlayerType() {

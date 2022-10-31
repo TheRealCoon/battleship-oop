@@ -9,6 +9,11 @@ public class Constans {
     public static final String START_X = "startX";
     public static final String END_Y = "endY";
     public static final String END_X = "endX";
+
+    public static final int REWARD_FOR_HITTING_SHIP = 50;
+    public static final int REWARD_FOR_SINKING_SHIP = 100;
+    public static final int REWARD_FOR_WINNING = 1000;
+    public static final int PENALTY_FOR_MISSING = -20;
     public static final int NAME_TABLE_INDEX = 0;
     public static final int SCORE_TABLE_INDEX = 1;
     public static final int TITLE_INDENT_SIZE = 18;

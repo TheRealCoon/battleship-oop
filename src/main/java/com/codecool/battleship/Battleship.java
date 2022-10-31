@@ -196,7 +196,7 @@ public class Battleship {
         Player winner = game.getCurrentPlayer();
         if (winner.getPlayerType().equals(HUMAN)) {
             if (hasPlayerBeatenTheHighScore(winner)) {
-                game.getCurrentPlayer().setName(input.readInput("You beat the Highscore! What's your name?"));
+                game.getCurrentPlayer().setName(input.readInput("You beat the High score! What's your name?"));
                 addScoreToHighScore(new Score(winner.getName(), winner.getPoints()));
                 try {
                     BattleshipDAO.writeHighScoreToFile(highScore);

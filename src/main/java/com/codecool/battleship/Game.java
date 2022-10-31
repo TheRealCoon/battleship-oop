@@ -63,7 +63,7 @@ public class Game {
             currentPlayer = switchPlayer();
             display.printGameMessage("Results:");
             try {
-                currentPlayer.handlingShots(targetedSquare);
+                currentPlayer.handlingShots(targetedSquare, switchPlayer());
             } catch (GameMessage e) {
                 display.printGameMessage(e.getMessage());
             }
