@@ -6,7 +6,8 @@ import com.codecool.battleship.player.Player;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.ship.ShipType;
 import com.codecool.battleship.utils.Display;
-import com.codecool.battleship.utils.Input;
+import com.codecool.battleship.utils.input.Input;
+
 import java.util.*;
 
 import static com.codecool.battleship.board.ShipPlacement.MANUAL;

@@ -1,9 +1,8 @@
 
 package com.codecool.battleship.guiMenu;
 
-import com.codecool.battleship.game.InterfaceMode;
-import com.codecool.battleship.utils.Input;
 
+import com.codecool.battleship.utils.input.Input;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -26,7 +25,7 @@ public class BoardPane extends JFrame {
 
     public BoardPane(int dimX, int dimY) {
 
-        input=new Input(); //TODO change it to GraphicInput
+        input=new GraphicInput(); //TODO change it to GraphicInput
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setBounds(0, 0, 1600, 800);
         this.setLayout(null);

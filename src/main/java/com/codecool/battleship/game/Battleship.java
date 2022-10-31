@@ -5,13 +5,11 @@ import com.codecool.battleship.dao.BattleshipDAO;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
 import com.codecool.battleship.utils.Display;
-import com.codecool.battleship.utils.Input;
 import com.codecool.battleship.utils.input.ConsoleInput;
+import com.codecool.battleship.utils.input.Input;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Stream;
 
 import static com.codecool.battleship.game.GameMode.PvAI;
@@ -30,8 +28,14 @@ public class Battleship {
     private Score[] highScore = new Score[HIGH_SCORE_LENGTH];
 
     public Battleship(InterfaceMode interfaceMode) {
-        display = new Display(interfaceMode);
-        input = new Input(interfaceMode, display);
+        if (interfaceMode.equals(InterfaceMode.Console)){
+            display = new Display(interfaceMode);
+            input = new ConsoleInput();
+        }else{
+            display = new Display(interfaceMode);
+            input = new GraphicInput();
+
+        }
         try {
             highScore = BattleshipDAO.readHighScoreFromFile();
         } catch (IOException e) {
