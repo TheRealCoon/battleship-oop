@@ -21,12 +21,11 @@ public class BoardPane extends JFrame {
     private JLayeredPane player1Board, player2Board;
     private GameModeMenu gameModeMenu;
     private JLabel labelShip2, labelMissileToLeft;
-    private BoardPane display;
     private Input input;
 
     public BoardPane(int dimX, int dimY) {
 
-        input = new GraphicInput(); //TODO change it to GraphicInput
+        input = new GraphicInput();
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setBounds(0, 0, 1600, 800);
         this.setLayout(null);

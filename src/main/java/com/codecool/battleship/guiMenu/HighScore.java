@@ -2,9 +2,9 @@ package com.codecool.battleship.guiMenu;
 
 import com.codecool.battleship.dao.BattleshipDAO;
 import com.codecool.battleship.game.InterfaceMode;
-import com.codecool.battleship.guiMenu.BoardPane;
 import com.codecool.battleship.player.Score;
-import com.codecool.battleship.utils.Display;
+import com.codecool.battleship.utils.display.Display;
+import com.codecool.battleship.utils.display.GraphicDisplay;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ import java.io.IOException;
 public class HighScore extends JLayeredPane {
     JLabel highScoreLabel;
     Score[] highScore;
-    Display errorMsg = new Display(InterfaceMode.GUI); //TODO try to pass this to the constructor
+    Display errorMsg = new GraphicDisplay(); //TODO try to pass this to the constructor
 
     HighScore(BoardPane display) {
         setBounds(0, 0, 1600, 800);

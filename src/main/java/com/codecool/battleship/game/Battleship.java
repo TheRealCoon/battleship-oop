@@ -4,7 +4,9 @@ import com.codecool.battleship.board.ShipPlacement;
 import com.codecool.battleship.dao.BattleshipDAO;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
-import com.codecool.battleship.utils.Display;
+import com.codecool.battleship.utils.display.ConsoleDisplay;
+import com.codecool.battleship.utils.display.Display;
+import com.codecool.battleship.utils.display.GraphicDisplay;
 import com.codecool.battleship.utils.input.ConsoleInput;
 import com.codecool.battleship.utils.input.GraphicInput;
 import com.codecool.battleship.utils.input.Input;
@@ -30,10 +32,10 @@ public class Battleship {
 
     public Battleship(InterfaceMode interfaceMode) {
         if (interfaceMode.equals(InterfaceMode.Console)){
-            display = new Display(interfaceMode);
+            display = new ConsoleDisplay();
             input = new ConsoleInput();
         }else{
-            display = new Display(interfaceMode);
+            display = new GraphicDisplay();
             input = new GraphicInput();
 
         }

@@ -5,7 +5,7 @@ import com.codecool.battleship.exception.WrongSquareException;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.ship.ShipType;
-import com.codecool.battleship.utils.Display;
+import com.codecool.battleship.utils.display.Display;
 import com.codecool.battleship.utils.input.Input;
 
 import java.util.*;

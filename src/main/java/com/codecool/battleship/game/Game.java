@@ -5,7 +5,7 @@ import com.codecool.battleship.board.Board;
 import com.codecool.battleship.board.BoardFactory;
 import com.codecool.battleship.board.Square;
 import com.codecool.battleship.player.Player;
-import com.codecool.battleship.utils.Display;
+import com.codecool.battleship.utils.display.Display;
 import com.codecool.battleship.utils.input.Input;
 
 import static com.codecool.battleship.game.GameMode.PvAI;

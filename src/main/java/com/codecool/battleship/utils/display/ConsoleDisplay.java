@@ -1,8 +1,7 @@
-package com.codecool.battleship.utils;
+package com.codecool.battleship.utils.display;
 
-
-import com.codecool.battleship.game.InterfaceMode;
 import com.codecool.battleship.board.SquareStatus;
+import com.codecool.battleship.game.InterfaceMode;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
 
@@ -10,13 +9,8 @@ import java.util.StringJoiner;
 
 import static com.codecool.battleship.utils.Constans.*;
 
-public class Display {
+public class ConsoleDisplay implements Display{
 
-     private final InterfaceMode interfaceMode;
-    public Display(InterfaceMode interfaceMode) {
-        this.interfaceMode = interfaceMode;
-    }
-//TODO need to create methods for GUI display
     public void printMenu(String label, String[] menu) {
         printTitle(label);
         System.out.println();
@@ -97,6 +91,4 @@ public class Display {
                                     highScore[i].getPlayerName(), highScore[i].getValue()).replace(' ', '.'));
         }
     }
-
-
 }

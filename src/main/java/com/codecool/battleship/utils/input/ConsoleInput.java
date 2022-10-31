@@ -2,8 +2,8 @@ package com.codecool.battleship.utils.input;
 
 import com.codecool.battleship.board.Square;
 import com.codecool.battleship.board.SquareStatus;
-import com.codecool.battleship.game.InterfaceMode;
-import com.codecool.battleship.utils.Display;
+import com.codecool.battleship.utils.display.ConsoleDisplay;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +56,7 @@ public class ConsoleInput implements Input {
 
     @Override
     public String readInput(String msg) {
-        new Display(InterfaceMode.Console).printGameMessage(msg);
+        new ConsoleDisplay().printGameMessage(msg);
         return scanner.nextLine();
     }
 }
