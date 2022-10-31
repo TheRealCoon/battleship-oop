@@ -6,6 +6,7 @@ import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
 import com.codecool.battleship.utils.Display;
 import com.codecool.battleship.utils.input.ConsoleInput;
+import com.codecool.battleship.utils.input.GraphicInput;
 import com.codecool.battleship.utils.input.Input;
 
 import java.io.IOException;
