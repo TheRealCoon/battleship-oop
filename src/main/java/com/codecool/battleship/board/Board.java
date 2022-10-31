@@ -35,7 +35,7 @@ public class Board {
                 }
             }
         }
-        throw new WrongSquareException("You can't place that ship there!");
+        throw new WrongSquareException("Couldn't find square in position (" + y + ", " + x + ")!");
     }
 
     public Square getSquareByPosition(Square square) {

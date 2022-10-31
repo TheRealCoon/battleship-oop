@@ -78,6 +78,7 @@ public class BoardFactory {
                     try {
                         ship.setBody(manualPlacement(ship.getType(), board));
                     } catch (WrongSquareException | NoSuchElementException e) {
+                        display.printErrorMessage("You can't place that ship there!");
                         display.printErrorMessage(e.getMessage());
                     }
                 } else {
@@ -113,7 +114,7 @@ public class BoardFactory {
         //TODO change error msg if user wants to put the ship outside of the board or on another ship (Couldn't find square in position)
 
         List<Square> shipBody = new ArrayList<>();
-        String inputMessageForShipPlacement = "Ship starts from ('a1' - 'j10'):";
+        String inputMessageForShipPlacement = "Ship starts from ('A1' - '" + (char) ('A' + BOARD_SIZE) + "10'):";
         String shipStartInput = input.readInput(inputMessageForShipPlacement);
         shipStartInput = getShipStartInput(inputMessageForShipPlacement, shipStartInput);
         Square firstBodySquare = convertInputToSquare(shipStartInput, board);
