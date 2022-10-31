@@ -204,6 +204,8 @@ public class Battleship {
                     e.printStackTrace();
                 }
             }
+            displayHighScore();
+            input.readInput("Hit Enter to continue to main menu!");
         }
     }
 

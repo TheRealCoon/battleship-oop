@@ -73,7 +73,6 @@ public class Game {
         currentPlayer = switchPlayer();
         display.printTheOutcomeOfTheGame(currentPlayer);
         input.readInput("Hit enter to continue!");
-        display.printGameMessage("Returning to main menu...");
     }
 
 
