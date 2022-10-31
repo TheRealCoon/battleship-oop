@@ -4,13 +4,9 @@ import com.codecool.battleship.board.ShipPlacement;
 import com.codecool.battleship.board.Board;
 import com.codecool.battleship.board.BoardFactory;
 import com.codecool.battleship.board.Square;
-import com.codecool.battleship.board.SquareStatus;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.utils.Display;
 import com.codecool.battleship.utils.Input;
-
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 import static com.codecool.battleship.game.GameMode.PvAI;
 import static com.codecool.battleship.player.PlayerType.AI;
@@ -35,20 +31,41 @@ public class Game {
 
 
     public void play() {
-        BoardFactory boardFactory = new BoardFactory(BOARD_SIZE, input, display);
-        setUpPlayers(boardFactory.getBoard());
+        BoardFactory boardFactory = new BoardFactory(input, display);
+        setUpPlayers();
         currentPlayer = player1;
-        boardFactory.putShipsOnBoard(shipPlacement, player1);
-        boardFactory.putShipsOnBoard(shipPlacement, player2);
+
+        if (shipPlacement.equals(ShipPlacement.MANUAL)) {
+            display.printGameMessage(player1.getName() + ", place your ships on Board!");
+            boardFactory.putShipsOnBoard(shipPlacement, player1);
+            input.readInput("Hit enter to continue!");
+            display.printGameMessage(player2.getName() + ", place your ships on Board!");
+            boardFactory.putShipsOnBoard(shipPlacement, player2);
+        }else{
+            boardFactory.putShipsOnBoard(shipPlacement, player1);
+            input.readInput("Hit enter to continue!");
+            boardFactory.putShipsOnBoard(shipPlacement, player2);
+        }
         display.printGameMessage("Ships have been placed! The game begins!");
-        while (!hasWon(switchPlayer())) {
-            display.printBoard(boardFactory.getBoard().getCharBoard());
-            Square targetedSquare = getMove(boardFactory.getBoard());
+        input.readInput("Hit enter to continue!");
+
+        while (!hasWon(currentPlayer)) {
+            display.printBoard(switchPlayer().getBoard().getStringBoard(), false); //Shows the enemy board without ships, we will mark shots on this
+            display.printGameMessage("It's " + currentPlayer.getName() + "'s turn!");
+            display.printGameMessage(currentPlayer.getName() + "'s score: " + currentPlayer.getPoints());
+            Square targetedSquare = getMove(switchPlayer().getBoard());
             currentPlayer = switchPlayer();
-            currentPlayer.handlingShots(targetedSquare);
+            String results = currentPlayer.handlingShots(targetedSquare, switchPlayer());
+            display.printGameMessage("Results:");
+            display.printGameMessage(results);
+            display.printBoard(currentPlayer.getBoard().getStringBoard(), false);
+            input.readInput("Hit enter to continue!");
         }
         currentPlayer = switchPlayer();
+        currentPlayer.addToPoints(REWARD_FOR_WINNING);
+        display.printGameMessage("Congratulations! +" + REWARD_FOR_WINNING + " pts for winning!");
         display.printTheOutcomeOfTheGame(currentPlayer);
+        input.readInput("Hit enter to continue!");
     }
 
 
@@ -64,32 +81,28 @@ public class Game {
         Square targetedSquare = null;
         do {
             inputPos = input.readInput("Aim at: ");
-            if (input.isPositionFormatValid(inputPos)) {
-                try {
-                    targetedSquare = board.getSquareByPosition(convertToSquare(inputPos));
-                } catch (NoSuchElementException e) {
-                    display.printErrorMessage(e.getMessage());
-                }
+            if (input.isValidCoordinate(inputPos)) {
+                targetedSquare = board.getSquareByPosition(convertToSquare(inputPos));
             }
-        } while (!input.isValidInput(targetedSquare));
+        } while (!input.isValidCoordinate(inputPos));
         return targetedSquare;
     }
 
     private Square convertToSquare(String inputPos) {
-        return new Square(Integer.parseInt(inputPos.substring(1)) - INDEX_CORRECTION, inputPos.charAt(0) - ASCII_DEC_CODE_UPPERCASE_LETTER_A, null);
+        return new Square(Integer.parseInt(inputPos.substring(1)) - INDEX_CORRECTION, Character.toUpperCase(inputPos.charAt(0)) - ASCII_DEC_CODE_UPPERCASE_LETTER_A, null);
     }
 
-    private void setUpPlayers(Board board) {
-        player1 = new Player(board, HUMAN, "Player1");
+    private void setUpPlayers() {
+        player1 = new Player(new Board(BOARD_SIZE), HUMAN, "Player1");
         if (gameMode.equals(PvAI)) {
-            player2 = new Player(board, HUMAN, "Player2");
+            player2 = new Player(new Board(BOARD_SIZE), AI, "Computer");
         } else {
-            player2 = new Player(board, AI, "Computer");
+            player2 = new Player(new Board(BOARD_SIZE), HUMAN, "Player2");
         }
     }
 
     private boolean hasWon(Player player) {
-        return player.getPlayerShipList().size() == 0;
+        return !player.isAlive();
     }
 
     public Player getPlayer1() {
@@ -103,25 +116,4 @@ public class Game {
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
-
-    public void handlingShots(Square square) {
-        int x;
-        int y;
-        currentPlayer = player1;
-        while(currentPlayer.isAlive()){
-            Scanner scannerX = new Scanner(System.in);
-            x = scannerX.nextInt();
-            Scanner scannerY = new Scanner(System.in);
-            y = scannerY.nextInt();
-
-            if (x == square.getX() && y == square.getY()) {
-                square.setStatus(SquareStatus.HIT);
-            } else {
-                square.setStatus(SquareStatus.MISS);
-                switchPlayer();
-            }
-        }
-    }
-
-
 }

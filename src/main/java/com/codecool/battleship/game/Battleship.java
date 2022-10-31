@@ -2,8 +2,6 @@ package com.codecool.battleship.game;
 
 import com.codecool.battleship.board.ShipPlacement;
 import com.codecool.battleship.dao.BattleshipDAO;
-import com.codecool.battleship.game.Game;
-import com.codecool.battleship.game.GameMode;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
 import com.codecool.battleship.utils.Display;
@@ -28,10 +26,16 @@ public class Battleship {
 
     private Score[] highScore = new Score[HIGH_SCORE_LENGTH];
 
-
     public Battleship(InterfaceMode interfaceMode) {
         display = new Display(interfaceMode);
         input = new Input(interfaceMode, display);
+        try {
+            highScore = BattleshipDAO.readHighScoreFromFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NullPointerException e) {
+            display.printErrorMessage(e.getMessage());
+        }
     }
 
     public void printTitle(String title) {
@@ -192,7 +196,7 @@ public class Battleship {
         Player winner = game.getCurrentPlayer();
         if (winner.getPlayerType().equals(HUMAN)) {
             if (hasPlayerBeatenTheHighScore(winner)) {
-                game.getCurrentPlayer().setName(input.readInput("You beat the Highscore! What's your name?"));
+                game.getCurrentPlayer().setName(input.readInput("You beat the High score! What's your name?"));
                 addScoreToHighScore(new Score(winner.getName(), winner.getPoints()));
                 try {
                     BattleshipDAO.writeHighScoreToFile(highScore);
@@ -200,6 +204,8 @@ public class Battleship {
                     e.printStackTrace();
                 }
             }
+            displayHighScore();
+            input.readInput("Hit Enter to continue to main menu!");
         }
     }
 

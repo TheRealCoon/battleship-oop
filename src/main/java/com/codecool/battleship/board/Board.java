@@ -1,11 +1,10 @@
 package com.codecool.battleship.board;
 
-import com.codecool.battleship.ship.Ship;
+import com.codecool.battleship.exception.WrongSquareException;
 
 import java.util.*;
 
 import static com.codecool.battleship.utils.Constans.BOARD_SIZE;
-import static com.codecool.battleship.utils.Constans.INDENT_SIZE;
 
 public class Board {
     private Square[][] ocean;
@@ -28,7 +27,7 @@ public class Board {
         return ocean;
     }
 
-    public Square getSquareByPosition(int y, int x) throws NoSuchElementException {
+    public Square getSquareByPosition(int y, int x) throws WrongSquareException {
         for (Square[] row : ocean) {
             for (Square square : row) {
                 if (square.getY() == y && square.getX() == x) {
@@ -36,10 +35,10 @@ public class Board {
                 }
             }
         }
-        throw new NoSuchElementException("Couldn't find square in position (" + y + ", " + x + ")!");
+        throw new WrongSquareException("Couldn't find square in position (" + y + ", " + x + ")!");
     }
 
-    public Square getSquareByPosition(Square square) throws NoSuchElementException {
+    public Square getSquareByPosition(Square square) {
         int y = square.getY();
         int x = square.getX();
         return getSquareByPosition(y, x);
@@ -73,14 +72,14 @@ public class Board {
         return true;
     }
 
-    public char[][] getCharBoard() {
-        char[][] charBoard = new char[BOARD_SIZE][BOARD_SIZE];
+    public String[][] getStringBoard() {
+        String[][] stringBoard = new String[BOARD_SIZE][BOARD_SIZE];
         for (int i = 0; i < BOARD_SIZE; i++) {
             for (int j = 0; j < BOARD_SIZE; j++) {
-                charBoard[i][j] = ocean[i][j].getStatus().getCharacter();
+                stringBoard[i][j] = ocean[i][j].getStatus().getColor();
             }
         }
-        return charBoard;
+        return stringBoard;
     }
 
 }
