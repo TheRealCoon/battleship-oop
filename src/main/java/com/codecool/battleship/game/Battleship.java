@@ -206,9 +206,9 @@ public class Battleship {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                displayHighScore();
+                input.readInput("Hit Enter to continue to main menu!");
             }
-            displayHighScore();
-            input.readInput("Hit Enter to continue to main menu!");
         }
     }
 
