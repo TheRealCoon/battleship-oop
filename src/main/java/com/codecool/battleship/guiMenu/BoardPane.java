@@ -60,7 +60,7 @@ public class BoardPane extends JFrame {
         for (int i = 0; i <= dimX; i++) {
             for (int j = 0; j <= dimY; j++) {
                 if (i == 0 && j != 0) {
-                    label = new JLabel(Character.toString(j + 64), SwingConstants.CENTER);
+                    label = new JLabel(Character.toString(j + 64), SwingConstants.CENTER); //64 = 'A'-1
                     label.setFont(new Font("Arial", Font.BOLD, 40));
                     label1 = new JLabel(Character.toString(j + 64), SwingConstants.CENTER);
                     label1.setFont(new Font("Arial", Font.BOLD, 40));

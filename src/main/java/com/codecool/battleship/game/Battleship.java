@@ -2,6 +2,7 @@ package com.codecool.battleship.game;
 
 import com.codecool.battleship.board.ShipPlacement;
 import com.codecool.battleship.dao.BattleshipDAO;
+import com.codecool.battleship.guiMenu.BoardPane;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
 import com.codecool.battleship.utils.display.ConsoleDisplay;
@@ -28,6 +29,8 @@ public class Battleship {
     private Input input;
     private Game game;
 
+    private BoardPane boardPane;
+
     private Score[] highScore = new Score[HIGH_SCORE_LENGTH];
 
     public Battleship(InterfaceMode interfaceMode) {
@@ -37,7 +40,7 @@ public class Battleship {
         }else{
             display = new GraphicDisplay();
             input = new GraphicInput();
-
+            this.boardPane = new BoardPane();
         }
         try {
             highScore = BattleshipDAO.readHighScoreFromFile();
