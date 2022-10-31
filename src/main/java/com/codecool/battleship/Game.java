@@ -50,6 +50,7 @@ public class Game {
             boardFactory.putShipsOnBoard(shipPlacement, player2);
         }else{
             boardFactory.putShipsOnBoard(shipPlacement, player1);
+            input.readInput("Hit enter to continue!");
             boardFactory.putShipsOnBoard(shipPlacement, player2);
         }
         display.printGameMessage("Ships have been placed! The game begins!");
@@ -71,6 +72,8 @@ public class Game {
         }
         currentPlayer = switchPlayer();
         display.printTheOutcomeOfTheGame(currentPlayer);
+        input.readInput("Hit enter to continue!");
+        display.printGameMessage("Returning to main menu...");
     }
 
 

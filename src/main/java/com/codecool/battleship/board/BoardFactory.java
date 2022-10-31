@@ -89,10 +89,6 @@ public class BoardFactory {
             } while (ship.getBody().size() == 0);
             updateNeighbouringSquares(ship, board);
         }
-        if (shipPlacement.equals(RANDOMIZED)) {
-            display.printGameMessage(player.getName() + "'s final board:");
-            display.printBoard(board.getStringBoard(), true);
-        }
     }
 
 
