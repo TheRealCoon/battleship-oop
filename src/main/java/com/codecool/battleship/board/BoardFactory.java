@@ -90,6 +90,8 @@ public class BoardFactory {
             } while (ship.getBody().size() == 0);
             updateNeighbouringSquares(ship, board);
         }
+        display.printGameMessage(player.getName() + "'s final board:");
+        display.printBoard(board.getStringBoard(), true);
     }
 
 
@@ -114,7 +116,7 @@ public class BoardFactory {
         //TODO change error msg if user wants to put the ship outside of the board or on another ship (Couldn't find square in position)
 
         List<Square> shipBody = new ArrayList<>();
-        String inputMessageForShipPlacement = "Ship starts from ('A1' - '" + (char) ('A' + BOARD_SIZE) + "10'):";
+        String inputMessageForShipPlacement = "Ship starts from ('A1' - '" + (char) ('A' + BOARD_SIZE - 1) + "10'):";
         String shipStartInput = input.readInput(inputMessageForShipPlacement);
         shipStartInput = getShipStartInput(inputMessageForShipPlacement, shipStartInput);
         Square firstBodySquare = convertInputToSquare(shipStartInput, board);
