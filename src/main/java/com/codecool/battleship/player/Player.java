@@ -44,39 +44,43 @@ public class Player {
         return playerShipList.size() > 0;
     }
 
-    public void handlingShots(Square targetedSquare, Player player) throws GameMessage{
+    public String handlingShots(Square targetedSquare, Player player) {
+        StringBuilder results = new StringBuilder();
         switch (targetedSquare.getStatus()) {
             case HIT -> {
                 player.addToPoints(PENALTY_FOR_MISSING);
-                throw new GameMessage("You already hit a ship on this square!");
+                results.append("You already hit a ship on this square! " + PENALTY_FOR_MISSING + " pts");
             }
             case MISS -> {
                 player.addToPoints(PENALTY_FOR_MISSING);
-                throw new GameMessage("You already tried this square, and missed!");
+                results.append("You already tried this square, and missed! " + PENALTY_FOR_MISSING + " pts");
             }
             case SHIP -> {
-                StringBuilder msg = new StringBuilder();
                 targetedSquare.setStatus(SquareStatus.HIT);
                 for (Ship ship : playerShipList) {
                     if (ship.getBody().contains(targetedSquare)) {
                         player.addToPoints(REWARD_FOR_HITTING_SHIP);
-                        msg.append("You hit a ship!");
+                        results.append("You hit a ship! +" + REWARD_FOR_HITTING_SHIP + " pts")
+                                .append(System.lineSeparator());
                         if (ship.isSunk()) {
                             player.addToPoints(REWARD_FOR_SINKING_SHIP);
                             playerShipList.remove(ship);
-                            msg.append(" You sank a ")
+                            results.append(" ".repeat(INDENT_SIZE))
+                                    .append("You sank a ")
                                     .append(ship.getType().toString().toLowerCase())
-                                    .append("!");
+                                    .append("! +" + REWARD_FOR_SINKING_SHIP + " pts");
                         }
-                        throw new GameMessage(msg.toString());
+                        break;
                     }
                 }
             }
             case EMPTY, NEIGHBOUR -> {
                 player.addToPoints(PENALTY_FOR_MISSING);
                 targetedSquare.setStatus(SquareStatus.MISS);
+                results.append("You missed! " + PENALTY_FOR_MISSING + " pts");
             }
         }
+        return results.toString();
     }
 
     public String getName() {
@@ -99,7 +103,7 @@ public class Player {
         return points;
     }
 
-    public void addToPoints(int reward){
+    public void addToPoints(int reward) {
         points += reward;
     }
 

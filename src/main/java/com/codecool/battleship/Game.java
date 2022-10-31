@@ -59,18 +59,18 @@ public class Game {
         while (!hasWon(currentPlayer)) {
             display.printBoard(switchPlayer().getBoard().getStringBoard(), false); //Shows the enemy board without ships, we will mark shots on this
             display.printGameMessage("It's " + currentPlayer.getName() + "'s turn!");
+            display.printGameMessage(currentPlayer.getName() + "'s score: " + currentPlayer.getPoints());
             Square targetedSquare = getMove(switchPlayer().getBoard());
             currentPlayer = switchPlayer();
+            String results = currentPlayer.handlingShots(targetedSquare, switchPlayer());
             display.printGameMessage("Results:");
-            try {
-                currentPlayer.handlingShots(targetedSquare, switchPlayer());
-            } catch (GameMessage e) {
-                display.printGameMessage(e.getMessage());
-            }
+            display.printGameMessage(results);
             display.printBoard(currentPlayer.getBoard().getStringBoard(), false);
             input.readInput("Hit enter to continue!");
         }
         currentPlayer = switchPlayer();
+        currentPlayer.addToPoints(REWARD_FOR_WINNING);
+        display.printGameMessage("Congratulations! +" + REWARD_FOR_WINNING + " pts for winning!");
         display.printTheOutcomeOfTheGame(currentPlayer);
         input.readInput("Hit enter to continue!");
     }
