@@ -2,6 +2,7 @@ package com.codecool.battleship.utils;
 
 public class Constans {
     public static final String DATA_FILE = "src/main/resources/highScore.csv";
+    public static final String ICONS_DIRECTORY = "/src/main/resources/icons/";
     public static final String GAME_TITLE = "Battleship";
     public static final String HIGH_SCORE = "High score";
     public static final String COLUMN_SEPARATOR = ";";
@@ -26,5 +27,5 @@ public class Constans {
     public static final char ASCII_DEC_CODE_UPPERCASE_LETTER_A = 'A';
     public static final int FIELD_SIZE_IN_PIXEL = 60;
     public static final int GUI_PLAYER_INPUT_SWITCH = 400;
-    public static final int CHARACTER_TO_BOARD_CORRECTION=64;
+    public static final int CHARACTER_TO_BOARD_CORRECTION = 64;
 }

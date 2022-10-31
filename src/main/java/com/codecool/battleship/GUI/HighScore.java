@@ -1,7 +1,6 @@
-package com.codecool.battleship.guiMenu;
+package com.codecool.battleship.GUI;
 
 import com.codecool.battleship.dao.BattleshipDAO;
-import com.codecool.battleship.game.InterfaceMode;
 import com.codecool.battleship.player.Score;
 import com.codecool.battleship.utils.display.Display;
 import com.codecool.battleship.utils.display.GraphicDisplay;
@@ -11,6 +10,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+
+import static com.codecool.battleship.utils.Constans.ICONS_DIRECTORY;
 
 public class HighScore extends JLayeredPane {
     JLabel highScoreLabel;
@@ -58,7 +59,7 @@ public class HighScore extends JLayeredPane {
         add(highScoreLabel, Integer.valueOf(2));
         highScoreLabel.setVisible(true);
 
-        ImageIcon highScoreBackgroundIMG = new ImageIcon("src/main/java/com/codecool/battleship/iconsOfComponents/HSBackground.png");
+        ImageIcon highScoreBackgroundIMG = new ImageIcon(ICONS_DIRECTORY + "HSBackground.png");
         JLabel backGround = new JLabel(highScoreBackgroundIMG);
         backGround.setBounds(0, 0, 1600, 800);
         backGround.setLayout(null);
