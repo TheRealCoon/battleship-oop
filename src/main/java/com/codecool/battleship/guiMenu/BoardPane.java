@@ -25,7 +25,8 @@ public class BoardPane extends JFrame {
     private Input input;
 
     public BoardPane(int dimX, int dimY) {
-        input = new Input();
+
+        input=new Input(); //TODO change it to GraphicInput
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         this.setBounds(0, 0, 1600, 800);
         this.setLayout(null);

@@ -6,9 +6,12 @@ import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
 import com.codecool.battleship.utils.Display;
 import com.codecool.battleship.utils.Input;
+import com.codecool.battleship.utils.input.ConsoleInput;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static com.codecool.battleship.game.GameMode.PvAI;
