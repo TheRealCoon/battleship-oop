@@ -50,7 +50,6 @@ public class BoardFactory {
             if (square.getY() > endY) endY = square.getY();
             if (square.getX() > endX) endX = square.getX();
         }
-        //map needs an "effective" final variable
         int finalStartY = startY - 1;
         int finalStartX = startX - 1;
         int finalEndY = endY + 1;
@@ -112,7 +111,6 @@ public class BoardFactory {
     }
 
     public List<Square> manualPlacement(ShipType shipType, Board board) throws WrongSquareException, NoSuchElementException, NoSuchDirectionException {
-        //TODO change error msg if user wants to put the ship outside of the board or on another ship (Couldn't find square in position)
 
         List<Square> shipBody = new ArrayList<>();
         String inputMessageForShipPlacement = "Ship starts from ('A1' - '" + (char) ('A' + BOARD_SIZE - 1) + "10'):";

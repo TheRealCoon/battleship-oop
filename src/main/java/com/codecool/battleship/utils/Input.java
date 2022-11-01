@@ -20,7 +20,8 @@ public class Input {
         int XIntValue = X.toUpperCase().charAt(0);
         if (XIntValue < 'A' || XIntValue > 'A' + BOARD_SIZE) return false;
         String Y = input.substring(1);
-        return Y.chars().allMatch(Character::isDigit) && Integer.parseInt(Y) >= 1 && Integer.parseInt(Y) <= BOARD_SIZE;
+        return Y.chars().allMatch(Character::isDigit) &&
+                Integer.parseInt(Y) >= 1 && Integer.parseInt(Y) <= BOARD_SIZE;
     }
 
     public boolean isValidDirectionInput(String input) {
