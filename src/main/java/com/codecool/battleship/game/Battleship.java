@@ -1,5 +1,6 @@
 package com.codecool.battleship.game;
 
+import com.codecool.battleship.GUI.GUI;
 import com.codecool.battleship.board.ShipPlacement;
 import com.codecool.battleship.dao.BattleshipDAO;
 import com.codecool.battleship.GUI.BoardPane;
@@ -28,7 +29,7 @@ public class Battleship {
     private Input input;
     private Game game;
 
-    private BoardPane boardPane;
+    private GUI boardPane;
 
     private Score[] highScore = new Score[HIGH_SCORE_LENGTH];
 
@@ -39,7 +40,7 @@ public class Battleship {
         } else {
             display = new GraphicDisplay();
             input = new GraphicInput();
-            this.boardPane = new BoardPane(input, display);
+            this.boardPane = new GUI();
         }
         try {
             highScore = BattleshipDAO.readHighScoreFromFile();
@@ -121,7 +122,7 @@ public class Battleship {
 
     private void displayGameModeMenu() {
         String[] menuElements = {
-                "Back to Main Menu",
+                "Back to Main Menu2",
                 "Player vs Player",
                 "Player vs AI"
         };

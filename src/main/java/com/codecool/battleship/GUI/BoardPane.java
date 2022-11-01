@@ -5,14 +5,13 @@ import com.codecool.battleship.utils.display.Display;
 import com.codecool.battleship.utils.input.Input;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
 import static com.codecool.battleship.utils.Constans.*;
 
 public class BoardPane extends JFrame {
-    private Menu menu;
+    private Menu2 menu2;
     private GameBoard gameBoard;
     private HighScore highScore;
 
@@ -33,11 +32,11 @@ public class BoardPane extends JFrame {
         highScore = new HighScore(this);
         this.add(highScore);
 
-        menu = new Menu(this);
-        this.add(menu);
+        menu2 = new Menu2(this);
+        this.add(menu2);
 
         highScore.setVisible(false);
-        menu.setVisible(true);
+        menu2.setVisible(true);
 
         this.add(gameBoard);
         this.update(this.getGraphics());
@@ -129,8 +128,8 @@ public class BoardPane extends JFrame {
         return gameBoard;
     }
 
-    public Menu getMainMenu() {
-        return menu;
+    public Menu2 getMainMenu() {
+        return menu2;
     }
 
     public HighScore getHighScore() {

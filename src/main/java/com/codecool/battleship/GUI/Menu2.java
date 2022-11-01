@@ -9,13 +9,13 @@ import java.awt.event.ActionListener;
 import static com.codecool.battleship.utils.Constans.ICONS_DIRECTORY;
 
 
-public class Menu extends JLayeredPane {
+public class Menu2 extends JLayeredPane {
 
     private String menuTitle;
     BoardPane boardPane;
     JLabel lblMenuContainer;
 
-    Menu(BoardPane boardPane) {
+    Menu2(BoardPane boardPane) {
         this.boardPane = boardPane;
         this.setBounds(0, 0, 1600, 800);
 
