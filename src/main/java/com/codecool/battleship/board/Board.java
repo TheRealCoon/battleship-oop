@@ -35,7 +35,7 @@ public class Board {
                 }
             }
         }
-        throw new WrongSquareException("Couldn't find square in position (" + y + ", " + x + ")!");
+        throw new WrongSquareException("One or more square is outside of the board!");
     }
 
     public Square getSquareByPosition(Square square) {

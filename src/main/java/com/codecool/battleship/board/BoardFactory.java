@@ -113,7 +113,7 @@ public class BoardFactory {
     public List<Square> manualPlacement(ShipType shipType, Board board) throws WrongSquareException, NoSuchElementException, NoSuchDirectionException {
 
         List<Square> shipBody = new ArrayList<>();
-        String inputMessageForShipPlacement = "Ship starts from ('A1' - '" + (char) ('A' + BOARD_SIZE - 1) + "10'):";
+        String inputMessageForShipPlacement = "Ship starting coordinate ('A1' - '" + (char) ('A' + BOARD_SIZE - 1) + BOARD_SIZE + "'):";
         String shipStartInput = input.readInput(inputMessageForShipPlacement);
         shipStartInput = getShipStartInput(inputMessageForShipPlacement, shipStartInput);
         Square firstBodySquare = convertInputToSquare(shipStartInput, board);
