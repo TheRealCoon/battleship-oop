@@ -22,18 +22,13 @@ public class Input {
     public boolean isValidCoordinate(String input) {
         if (input.length() < 2) return false;
         String X = input.substring(0, 1);
-        int XintValue = X.toUpperCase().charAt(0);
-        if (XintValue < 'A' || XintValue > 'A' + BOARD_SIZE) return false;
+        int XIntValue = X.toUpperCase().charAt(0);
+        if (XIntValue < 'A' || XIntValue > 'A' + BOARD_SIZE) return false;
         String Y = input.substring(1);
-        return Y.chars().allMatch(Character::isDigit) && Integer.parseInt(Y) >= 1 && Integer.parseInt(Y) <= BOARD_SIZE;
+        return Y.chars().allMatch(Character::isDigit) &&
+                Integer.parseInt(Y) >= 1 && Integer.parseInt(Y) <= BOARD_SIZE;
     }
 
-
-    public Square turnInputIntoSquare(String coordinate, SquareStatus status) {
-        int x = (coordinate.substring(0, 1).toUpperCase().charAt(0) - CHARACTER_TO_BOARD_CORRECTION) * FIELD_SIZE_IN_PIXEL;
-        int y = Integer.parseInt(coordinate.substring(1)) * FIELD_SIZE_IN_PIXEL;
-        return new Square(y, x, status);
-    }
 
     public int[] guiInputToPositionInPixel(String coordinate) {
         int x = (coordinate.substring(0, 1).toUpperCase().charAt(0) - CHARACTER_TO_BOARD_CORRECTION) * FIELD_SIZE_IN_PIXEL;
@@ -57,9 +52,4 @@ public class Input {
         return scanner.nextLine();
     }
 
-    public boolean isPositionFormatValid(String inputPos) {
-        //TODO
-        throw new RuntimeException("Not implemented yet!");
-//        return false;
-    }
 }
