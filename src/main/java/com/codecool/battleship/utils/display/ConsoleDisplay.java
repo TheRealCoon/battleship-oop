@@ -1,13 +1,12 @@
 package com.codecool.battleship.utils.display;
 
 import com.codecool.battleship.board.SquareStatus;
-import com.codecool.battleship.game.InterfaceMode;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
 
 import java.util.StringJoiner;
 
-import static com.codecool.battleship.utils.Constans.*;
+import static com.codecool.battleship.utils.Constants.*;
 
 public class ConsoleDisplay implements Display{
 

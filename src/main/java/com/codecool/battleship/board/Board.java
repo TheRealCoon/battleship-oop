@@ -4,7 +4,7 @@ import com.codecool.battleship.exception.WrongSquareException;
 
 import java.util.*;
 
-import static com.codecool.battleship.utils.Constans.BOARD_SIZE;
+import static com.codecool.battleship.utils.Constants.BOARD_SIZE;
 
 public class Board {
     private Square[][] ocean;

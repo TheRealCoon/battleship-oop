@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.codecool.battleship.utils.Constans.*;
-import static com.codecool.battleship.utils.Constans.FIELD_SIZE_IN_PIXEL;
+import static com.codecool.battleship.utils.Constants.*;
+import static com.codecool.battleship.utils.Constants.FIELD_SIZE_IN_PIXEL;
 
 public class ConsoleInput implements Input {
     private Scanner scanner;

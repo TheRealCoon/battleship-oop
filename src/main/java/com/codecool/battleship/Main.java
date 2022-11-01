@@ -2,7 +2,7 @@ package com.codecool.battleship;
 
 import com.codecool.battleship.game.Battleship;
 import com.codecool.battleship.game.InterfaceMode;
-import com.codecool.battleship.utils.Constans;
+import com.codecool.battleship.utils.Constants;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,7 +11,7 @@ public class Main {
                 InterfaceMode.GUI :
                 InterfaceMode.Console;
         Battleship battleship = new Battleship(ifm);
-        battleship.printTitle(Constans.GAME_TITLE);
+        battleship.printTitle(Constants.GAME_TITLE);
         battleship.mainMenu();
     }
 }

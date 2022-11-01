@@ -3,7 +3,6 @@ package com.codecool.battleship.game;
 import com.codecool.battleship.GUI.GUI;
 import com.codecool.battleship.board.ShipPlacement;
 import com.codecool.battleship.dao.BattleshipDAO;
-import com.codecool.battleship.GUI.BoardPane;
 import com.codecool.battleship.player.Player;
 import com.codecool.battleship.player.Score;
 import com.codecool.battleship.utils.display.ConsoleDisplay;
@@ -22,7 +21,7 @@ import static com.codecool.battleship.game.GameMode.PvP;
 import static com.codecool.battleship.board.ShipPlacement.MANUAL;
 import static com.codecool.battleship.board.ShipPlacement.RANDOMIZED;
 import static com.codecool.battleship.player.PlayerType.HUMAN;
-import static com.codecool.battleship.utils.Constans.*;
+import static com.codecool.battleship.utils.Constants.*;
 
 public class Battleship {
     private Display display;

@@ -1,6 +1,6 @@
 package com.codecool.battleship.utils;
 
-public class Constans {
+public class Constants {
     public static final String DATA_FILE = "src/main/resources/highScore.csv";
     public static final String ICONS_DIRECTORY = "src/main/resources/icons/";
     public static final String GAME_TITLE = "Battleship";

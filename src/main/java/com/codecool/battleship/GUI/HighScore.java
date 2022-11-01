@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
-import static com.codecool.battleship.utils.Constans.ICONS_DIRECTORY;
+import static com.codecool.battleship.utils.Constants.ICONS_DIRECTORY;
 
 public class HighScore extends JLayeredPane {
     JLabel highScoreLabel;

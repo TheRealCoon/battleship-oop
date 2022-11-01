@@ -11,7 +11,7 @@ import com.codecool.battleship.utils.input.Input;
 import java.util.*;
 
 import static com.codecool.battleship.board.ShipPlacement.MANUAL;
-import static com.codecool.battleship.utils.Constans.*;
+import static com.codecool.battleship.utils.Constants.*;
 
 
 

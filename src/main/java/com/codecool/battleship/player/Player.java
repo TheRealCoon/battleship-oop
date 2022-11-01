@@ -2,17 +2,14 @@ package com.codecool.battleship.player;
 
 import com.codecool.battleship.board.Square;
 import com.codecool.battleship.board.SquareStatus;
-import com.codecool.battleship.exception.GameMessage;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.board.Board;
 import com.codecool.battleship.ship.ShipType;
-import com.codecool.battleship.utils.Constans;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-import static com.codecool.battleship.utils.Constans.*;
+import static com.codecool.battleship.utils.Constants.*;
 
 public class Player {
     private Board board;

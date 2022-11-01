@@ -11,7 +11,7 @@ import com.codecool.battleship.utils.input.Input;
 import static com.codecool.battleship.game.GameMode.PvAI;
 import static com.codecool.battleship.player.PlayerType.AI;
 import static com.codecool.battleship.player.PlayerType.HUMAN;
-import static com.codecool.battleship.utils.Constans.*;
+import static com.codecool.battleship.utils.Constants.*;
 
 public class Game {
     private Player player1;

@@ -4,8 +4,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
-import static com.codecool.battleship.utils.Constans.BOARD_SIZE;
-import static com.codecool.battleship.utils.Constans.ICONS_DIRECTORY;
+import static com.codecool.battleship.utils.Constants.BOARD_SIZE;
+import static com.codecool.battleship.utils.Constants.ICONS_DIRECTORY;
 
 public class GameBoard extends JLayeredPane {
     public GameBoard() {
