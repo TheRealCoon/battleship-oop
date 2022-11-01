@@ -27,5 +27,10 @@ public class Constans {
     public static final char ASCII_DEC_CODE_UPPERCASE_LETTER_A = 'A';
     public static final int FIELD_SIZE_IN_PIXEL = 60;
     public static final int GUI_PLAYER_INPUT_SWITCH = 400;
+    public static final int GUI_STARTING_X = 100;
+    public static final int GUI_STARTING_Y = 100;
+    public static final int GUI_WIDTH = 1600;
+    public static final int GUI_HEIGHT = 800;
+
     public static final int CHARACTER_TO_BOARD_CORRECTION = 64;
 }

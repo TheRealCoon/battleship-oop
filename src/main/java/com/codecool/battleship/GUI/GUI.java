@@ -1,6 +1,6 @@
 package com.codecool.battleship.GUI;
 
-import com.codecool.battleship.utils.Constans;
+import static com.codecool.battleship.utils.Constans.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,28 +13,30 @@ public class GUI extends JFrame {
         layeredPane = initLayeredPane();
 
 
-        ImageIcon icon = new ImageIcon(Constans.ICONS_DIRECTORY + "gameIcon.png");
+        ImageIcon icon = new ImageIcon(ICONS_DIRECTORY + "gameIcon.png");
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLayout(null);
-        this.setBounds(100, 100, 1600, 800);
+        this.setBounds(GUI_STARTING_X, GUI_STARTING_Y, GUI_WIDTH, GUI_HEIGHT);
         this.setResizable(false);
-        this.setTitle(Constans.GAME_TITLE);
+        this.setTitle(GAME_TITLE);
         this.setIconImage(icon.getImage());
-        this.getContentPane().setBackground(new Color(0,130,130));
+        this.getContentPane().setBackground(new Color(0, 130, 130));
 
         this.add(layeredPane);
         this.setVisible(true);
     }
 
     private JLayeredPane initLayeredPane() {
-        MainMenu mainMainMenuPanel = new MainMenu();
+        JLayeredPane layeredPane = new JLayeredPane();
+
+        Menu menuPanel = new Menu();
         GamePanel gamePanel = new GamePanel();
         HighScorePanel highScorePanel = new HighScorePanel();
 
-        layeredPane.add(mainMainMenuPanel, Integer.valueOf(2));
+        layeredPane.setBounds(0, 0, GUI_WIDTH, GUI_HEIGHT);
+        layeredPane.add(menuPanel, Integer.valueOf(2));
         layeredPane.add(gamePanel, Integer.valueOf(1));
         layeredPane.add(highScorePanel, Integer.valueOf(0));
-
         return layeredPane;
     }
 
