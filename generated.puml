@@ -1,7 +1,7 @@
 @startuml
 
 class com.codecool.battleship.Battleship {
-	{field} +highScore : [Lcom.codecool.battleship.player.Score;
+	{field} -highScore : [Lcom.codecool.battleship.player.Score;
 	{method} -addScoreToHighScore ( paramScore1 : com.codecool.battleship.player.Score ) : void
 	{method} -displayGameModeMenu () : void
 	{method} +displayHighScore () : void
@@ -17,11 +17,6 @@ class com.codecool.battleship.Battleship {
 	{method} +printTitle ( paramString1 : String ) : void
 	{method} -shipPlacementMenu () : com.codecool.battleship.ShipPlacement
 	{method} +startGame () : void
-}
-
-
-class com.codecool.battleship.GUI {
-	{method}  {static} +main ( paramString;1 : [Ljava.lang.String; ) : void
 }
 
 
@@ -53,7 +48,7 @@ enum com.codecool.battleship.ShipPlacement {
 
 
 class com.codecool.battleship.board.Board {
-	{field} +ocean : [[Lcom.codecool.battleship.board.Square;
+	{field} -ocean : [[Lcom.codecool.battleship.board.Square;
 	{field} -size : int
 	{method} +createEmptyBoard () : [[Lcom.codecool.battleship.board.Square;
 	{method} +getSquareByPosition ( paramSquare1 : com.codecool.battleship.board.Square ) : com.codecool.battleship.board.Square
@@ -102,10 +97,6 @@ class com.codecool.battleship.dao.BattleshipDAO {
 }
 
 
-class com.codecool.battleship.exception.GameMessage {
-}
-
-
 class com.codecool.battleship.exception.NoSuchDirectionException {
 }
 
@@ -114,42 +105,11 @@ class com.codecool.battleship.exception.WrongSquareException {
 }
 
 
-class com.codecool.battleship.guiMenu.BoardPane {
-	{field} -fieldMove : javax.swing.JTextField
-	{field} -gameBoard : javax.swing.JLayeredPane
-	{field} -labelMissileToLeft : javax.swing.JLabel
-	{field} -labelShip2 : javax.swing.JLabel
-	{field} -player1Board : javax.swing.JLayeredPane
-	{field} -player2Board : javax.swing.JLayeredPane
-	{method} +drawSquaresOnPlayersBoard ( paramJLabel1 : javax.swing.JLabel , paramJLabel2 : javax.swing.JLabel , paramJLayeredPane3 : javax.swing.JLayeredPane , paramJLayeredPane4 : javax.swing.JLayeredPane ) : void
-	{method} -lambda$new$0 ( paramActionEvent1 : java.awt.event.ActionEvent ) : void
-}
-
-
-class com.codecool.battleship.guiMenu.GameModeMenu {
-	{field} ~PvsAI : javax.swing.JRadioButton
-	{field} ~PvsP : javax.swing.JRadioButton
-	{field} ~buttonContainer : javax.swing.JLabel
-	{field} ~manualPlacement : javax.swing.JRadioButton
-	{field} ~randomPlacement : javax.swing.JRadioButton
-}
-
-
-class com.codecool.battleship.guiMenu.HighScore {
-	{field} ~highScore : [Lcom.codecool.battleship.player.Score;
-	{field} ~highScoreLabel : javax.swing.JLabel
-}
-
-
-class com.codecool.battleship.guiMenu.MainMenu {
-	{field} ~mainMenuContainer : javax.swing.JLabel
-}
-
-
 class com.codecool.battleship.player.Player {
 	{field} +name : String
 	{field} -points : int
-	{method} +handlingShots ( paramSquare1 : com.codecool.battleship.board.Square ) : void
+	{method} +addToPoints ( paramint1 : int ) : void
+	{method} +handlingShots ( paramSquare1 : com.codecool.battleship.board.Square , paramPlayer2 : com.codecool.battleship.player.Player ) : String
 	{method} +isAlive () : boolean
 }
 
@@ -161,8 +121,8 @@ enum com.codecool.battleship.player.PlayerType {
 
 
 class com.codecool.battleship.player.Score {
-	{field} +playerName : String
-	{field} +value : int
+	{field} -playerName : String
+	{field} -value : int
 	{method} +toTableRow () : [Ljava.lang.String;
 }
 
@@ -242,23 +202,24 @@ class com.codecool.battleship.utils.ConsoleColors {
 }
 
 
-class com.codecool.battleship.utils.Constans {
+class com.codecool.battleship.utils.Constants {
 	{field} {static} +ASCII_DEC_CODE_UPPERCASE_LETTER_A : char
 	{field} {static} +BOARD_SIZE : int
-	{field} {static} +CHARACTER_TO_BOARD_CORRECTION : int
 	{field} {static} +COLUMN_SEPARATOR : String
 	{field} {static} +DATA_FILE : String
 	{field} {static} +END_X : String
 	{field} {static} +END_Y : String
-	{field} {static} +FIELD_SIZE_IN_PIXEL : int
 	{field} {static} +GAME_TITLE : String
-	{field} {static} +GUI_PLAYER_INPUT_SWITCH : int
 	{field} {static} +HIGH_SCORE : String
 	{field} {static} +HIGH_SCORE_LENGTH : int
 	{field} {static} +INDENT_SIZE : int
 	{field} {static} +INDEX_CORRECTION : int
 	{field} {static} +MENU_ITEM_INDENT_SIZE : int
 	{field} {static} +NAME_TABLE_INDEX : int
+	{field} {static} +PENALTY_FOR_MISSING : int
+	{field} {static} +REWARD_FOR_HITTING_SHIP : int
+	{field} {static} +REWARD_FOR_SINKING_SHIP : int
+	{field} {static} +REWARD_FOR_WINNING : int
 	{field} {static} +SCORE_TABLE_INDEX : int
 	{field} {static} +START_X : String
 	{field} {static} +START_Y : String
@@ -282,12 +243,9 @@ class com.codecool.battleship.utils.Display {
 
 class com.codecool.battleship.utils.Input {
 	{field} -scanner : java.util.Scanner
-	{method} +guiInputToPositionInPixel ( paramString1 : String ) : [I
-	{method} +isPositionFormatValid ( paramString1 : String ) : boolean
 	{method} +isValidCoordinate ( paramString1 : String ) : boolean
 	{method} +isValidDirectionInput ( paramString1 : String ) : boolean
 	{method} +readInput ( paramString1 : String ) : String
-	{method} +turnInputIntoSquare ( paramString1 : String , paramSquareStatus2 : com.codecool.battleship.board.SquareStatus ) : com.codecool.battleship.board.Square
 }
 
 
@@ -307,14 +265,6 @@ com.codecool.battleship.board.Board "1" o-- "0..*"  com.codecool.battleship.boar
 com.codecool.battleship.board.BoardFactory -->  com.codecool.battleship.utils.Display : display
 com.codecool.battleship.board.BoardFactory -->  com.codecool.battleship.utils.Input : input
 com.codecool.battleship.board.Square -->  com.codecool.battleship.board.SquareStatus : status
-com.codecool.battleship.guiMenu.BoardPane -->  com.codecool.battleship.guiMenu.BoardPane : display
-com.codecool.battleship.guiMenu.BoardPane -->  com.codecool.battleship.guiMenu.GameModeMenu : gameModeMenu
-com.codecool.battleship.guiMenu.BoardPane -->  com.codecool.battleship.guiMenu.HighScore : highScore
-com.codecool.battleship.guiMenu.BoardPane -->  com.codecool.battleship.guiMenu.MainMenu : mainMenu
-com.codecool.battleship.guiMenu.BoardPane -->  com.codecool.battleship.utils.Input : input
-com.codecool.battleship.guiMenu.GameModeMenu -->  com.codecool.battleship.guiMenu.BoardPane : display
-com.codecool.battleship.guiMenu.HighScore -->  com.codecool.battleship.utils.Display : errorMsg
-com.codecool.battleship.guiMenu.MainMenu -->  com.codecool.battleship.guiMenu.BoardPane : display
 com.codecool.battleship.player.Player "1" o-- "0..*"  com.codecool.battleship.ship.Ship : playerShipList
 com.codecool.battleship.player.Player -->  com.codecool.battleship.board.Board : board
 com.codecool.battleship.player.Player -->  com.codecool.battleship.player.PlayerType : playerType
