@@ -30,6 +30,7 @@ public class Menu extends JLayeredPane {
 
         ImageIcon backgroundImage = new ImageIcon(ICONS_DIRECTORY + "menuBackground.png");
         lblbackground = new JLabel(backgroundImage);
+        lblbackground.setOpaque(false);
         lblbackground.setVisible(true);
 
 
@@ -37,7 +38,7 @@ public class Menu extends JLayeredPane {
         this.add(shipPlacementMenu, Integer.valueOf(1));
         this.add(gameModeMenu, Integer.valueOf(2));
         this.add(mainMenu, Integer.valueOf(3));
-        this.setOpaque(true);
+        this.setOpaque(false);
         this.setVisible(true);
 
     }
