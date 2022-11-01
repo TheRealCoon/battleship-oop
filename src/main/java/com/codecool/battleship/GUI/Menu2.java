@@ -87,7 +87,7 @@ public class Menu2 extends JLayeredPane {
             }
         });
 
-//        ImageIcon MainMenuIMG= new ImageIcon(ICONS_DIRECTORY + "highcScoreBackground2.png");
+//        ImageIcon MainMenuIMG= new ImageIcon(ICONS_DIRECTORY + "menuBackground.png");
 //        JLabel MainMenuBackground= new JLabel(MainMenuIMG);
 //        MainMenuBackground.setBounds(0,0,1600,800);
 //        MainMenuBackground.setLayout(null);
