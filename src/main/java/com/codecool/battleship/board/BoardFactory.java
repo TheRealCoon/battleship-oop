@@ -13,8 +13,7 @@ import com.codecool.battleship.utils.Input;
 import java.util.*;
 
 import static com.codecool.battleship.ShipPlacement.MANUAL;
-import static com.codecool.battleship.ShipPlacement.RANDOMIZED;
-import static com.codecool.battleship.utils.Constans.*;
+import static com.codecool.battleship.utils.Constants.*;
 
 public class BoardFactory {
     private Input input;

@@ -13,16 +13,8 @@ public class Score {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
-
     public String getPlayerName() {
         return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
     }
 
     public String[] toTableRow() {

@@ -4,7 +4,7 @@ import com.codecool.battleship.exception.WrongSquareException;
 
 import java.util.*;
 
-import static com.codecool.battleship.utils.Constans.BOARD_SIZE;
+import static com.codecool.battleship.utils.Constants.BOARD_SIZE;
 
 public class Board {
     private Square[][] ocean;
@@ -43,23 +43,6 @@ public class Board {
         int x = square.getX();
         return getSquareByPosition(y, x);
     }
-
-    public Square[][] getOcean() {
-        return ocean;
-    }
-
-    public void setOcean(Square[][] ocean) {
-        this.ocean = ocean;
-    }
-
-    public Set<Square> getShipSquares() {
-        return shipSquares;
-    }
-
-    public void setShipSquares(Set<Square> shipSquares) {
-        this.shipSquares = shipSquares;
-    }
-
 
     public boolean isPlacementOk(List<Square> shipBody) {
         for (Square body : shipBody) {

@@ -3,22 +3,14 @@ package com.codecool.battleship;
 import com.codecool.battleship.board.Board;
 import com.codecool.battleship.board.BoardFactory;
 import com.codecool.battleship.board.Square;
-import com.codecool.battleship.board.SquareStatus;
-import com.codecool.battleship.dao.BattleshipDAO;
-import com.codecool.battleship.exception.GameMessage;
 import com.codecool.battleship.player.Player;
-import com.codecool.battleship.player.PlayerType;
-import com.codecool.battleship.utils.Constans;
 import com.codecool.battleship.utils.Display;
 import com.codecool.battleship.utils.Input;
-
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 import static com.codecool.battleship.GameMode.PvAI;
 import static com.codecool.battleship.player.PlayerType.AI;
 import static com.codecool.battleship.player.PlayerType.HUMAN;
-import static com.codecool.battleship.utils.Constans.*;
+import static com.codecool.battleship.utils.Constants.*;
 
 public class Game {
     private Player player1;
@@ -35,7 +27,6 @@ public class Game {
         this.gameMode = gameMode;
         this.shipPlacement = shipPlacement;
     }
-
 
     public void play() {
         BoardFactory boardFactory = new BoardFactory(input, display);
@@ -96,7 +87,10 @@ public class Game {
     }
 
     private Square convertToSquare(String inputPos) {
-        return new Square(Integer.parseInt(inputPos.substring(1)) - INDEX_CORRECTION, Character.toUpperCase(inputPos.charAt(0)) - ASCII_DEC_CODE_UPPERCASE_LETTER_A, null);
+        return new Square(
+                Integer.parseInt(inputPos.substring(1)) - INDEX_CORRECTION,
+                Character.toUpperCase(inputPos.charAt(0)) - ASCII_DEC_CODE_UPPERCASE_LETTER_A,
+                null);
     }
 
     private void setUpPlayers() {
@@ -110,14 +104,6 @@ public class Game {
 
     private boolean hasWon(Player player) {
         return !player.isAlive();
-    }
-
-    public Player getPlayer1() {
-        return player1;
-    }
-
-    public Player getPlayer2() {
-        return player2;
     }
 
     public Player getCurrentPlayer() {

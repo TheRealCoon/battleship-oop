@@ -1,6 +1,6 @@
 package com.codecool.battleship.utils;
 
-public class Constans {
+public class Constants {
     public static final String DATA_FILE = "src/main/resources/highScore.csv";
     public static final String GAME_TITLE = "Battleship";
     public static final String HIGH_SCORE = "High score";
@@ -25,6 +25,5 @@ public class Constans {
     public static final int INDEX_CORRECTION = 1;
     public static final char ASCII_DEC_CODE_UPPERCASE_LETTER_A = 'A';
     public static final int FIELD_SIZE_IN_PIXEL = 60;
-    public static final int GUI_PLAYER_INPUT_SWITCH = 400;
     public static final int CHARACTER_TO_BOARD_CORRECTION=64;
 }

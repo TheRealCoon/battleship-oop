@@ -15,8 +15,8 @@ import static com.codecool.battleship.GameMode.PvP;
 import static com.codecool.battleship.ShipPlacement.MANUAL;
 import static com.codecool.battleship.ShipPlacement.RANDOMIZED;
 import static com.codecool.battleship.player.PlayerType.HUMAN;
-import static com.codecool.battleship.utils.Constans.HIGH_SCORE;
-import static com.codecool.battleship.utils.Constans.HIGH_SCORE_LENGTH;
+import static com.codecool.battleship.utils.Constants.HIGH_SCORE;
+import static com.codecool.battleship.utils.Constants.HIGH_SCORE_LENGTH;
 
 public class Battleship {
     private Display display;
@@ -235,14 +235,5 @@ public class Battleship {
         }
         display.printHighScore(HIGH_SCORE, highScore);
     }
-
-    public Score[] getHighScore() {
-        return highScore;
-    }
-
-    public void setHighScore(Score[] highScore) {
-        this.highScore = highScore;
-    }
-
 
 }

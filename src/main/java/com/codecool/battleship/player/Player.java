@@ -2,17 +2,14 @@ package com.codecool.battleship.player;
 
 import com.codecool.battleship.board.Square;
 import com.codecool.battleship.board.SquareStatus;
-import com.codecool.battleship.exception.GameMessage;
 import com.codecool.battleship.ship.Ship;
 import com.codecool.battleship.board.Board;
 import com.codecool.battleship.ship.ShipType;
-import com.codecool.battleship.utils.Constans;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-import static com.codecool.battleship.utils.Constans.*;
+import static com.codecool.battleship.utils.Constants.*;
 
 public class Player {
     private Board board;
@@ -26,17 +23,17 @@ public class Player {
         this.playerType = playerType;
         this.name = name;
         playerShipList = new ArrayList<>() {{
-//            add(new Ship(ShipType.CARRIER));
-//            add(new Ship(ShipType.BATTLESHIP));
-//            add(new Ship(ShipType.CRUISER));
-//            add(new Ship(ShipType.CRUISER));
-//            add(new Ship(ShipType.SUBMARINE));
-//            add(new Ship(ShipType.SUBMARINE));
+            add(new Ship(ShipType.CARRIER));
+            add(new Ship(ShipType.BATTLESHIP));
+            add(new Ship(ShipType.CRUISER));
+            add(new Ship(ShipType.CRUISER));
+            add(new Ship(ShipType.SUBMARINE));
+            add(new Ship(ShipType.SUBMARINE));
             add(new Ship(ShipType.SUBMARINE));
             add(new Ship(ShipType.DESTROYER));
-//            add(new Ship(ShipType.DESTROYER));
-//            add(new Ship(ShipType.DESTROYER));
-//            add(new Ship(ShipType.DESTROYER));
+            add(new Ship(ShipType.DESTROYER));
+            add(new Ship(ShipType.DESTROYER));
+            add(new Ship(ShipType.DESTROYER));
         }};
     }
 

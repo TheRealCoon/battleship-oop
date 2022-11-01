@@ -6,7 +6,7 @@ import com.codecool.battleship.player.Score;
 
 import java.util.StringJoiner;
 
-import static com.codecool.battleship.utils.Constans.*;
+import static com.codecool.battleship.utils.Constants.*;
 
 public class Display {
     public Display() {
@@ -48,7 +48,6 @@ public class Display {
         }
         return String.format(" %2d%s%2d", lineIndex, sj, lineIndex);
     }
-
 
     private String getHeader() {
         StringJoiner sjHeader = new StringJoiner("  ", " ", "");
@@ -92,6 +91,5 @@ public class Display {
                                     highScore[i].getPlayerName(), highScore[i].getValue()).replace(' ', '.'));
         }
     }
-
 
 }

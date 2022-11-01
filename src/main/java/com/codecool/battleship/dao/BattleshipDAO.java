@@ -2,11 +2,10 @@ package com.codecool.battleship.dao;
 
 import com.codecool.battleship.player.Score;
 
-import static com.codecool.battleship.utils.Constans.*;
+import static com.codecool.battleship.utils.Constants.*;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class BattleshipDAO {
