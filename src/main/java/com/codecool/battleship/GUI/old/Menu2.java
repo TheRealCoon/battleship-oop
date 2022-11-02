@@ -1,5 +1,7 @@
-package com.codecool.battleship.GUI;
+package com.codecool.battleship.GUI.old;
 
+
+import com.codecool.battleship.GUI.old.BoardPane;
 
 import javax.swing.*;
 import java.awt.*;

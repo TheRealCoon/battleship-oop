@@ -43,12 +43,12 @@ public class GUI extends JFrame {
 //        layeredPane.setBounds(0, 0, GUI_WIDTH, GUI_HEIGHT);
         layeredPane.add(menuPanel, BorderLayout.CENTER);
         layeredPane.setLayer(menuPanel, JLayeredPane.DRAG_LAYER);
-        Border border = BorderFactory.createLineBorder(Color.red, 3);
-        layeredPane.setBorder(border);
 
 //        layeredPane.add(gamePanel, Integer.valueOf(1));
 //        layeredPane.add(highScorePanel, Integer.valueOf(0));;
 //        layeredPane.setVisible(true);
+        Border border = BorderFactory.createLineBorder(Color.red, 3);
+        layeredPane.setBorder(border);
         return layeredPane;
     }
 

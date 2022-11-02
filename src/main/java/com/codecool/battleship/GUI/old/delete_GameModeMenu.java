@@ -1,4 +1,4 @@
-package com.codecool.battleship.GUI;
+package com.codecool.battleship.GUI.old;
 
 
 import javax.swing.*;

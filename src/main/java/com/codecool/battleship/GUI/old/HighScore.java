@@ -1,5 +1,6 @@
-package com.codecool.battleship.GUI;
+package com.codecool.battleship.GUI.old;
 
+import com.codecool.battleship.GUI.old.BoardPane;
 import com.codecool.battleship.dao.BattleshipDAO;
 import com.codecool.battleship.player.Score;
 import com.codecool.battleship.utils.display.Display;
