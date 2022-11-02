@@ -121,7 +121,7 @@ public class Battleship {
 
     private void displayGameModeMenu() {
         String[] menuElements = {
-                "Back to Main Menu2",
+                "Back to Main Menu",
                 "Player vs Player",
                 "Player vs AI"
         };
