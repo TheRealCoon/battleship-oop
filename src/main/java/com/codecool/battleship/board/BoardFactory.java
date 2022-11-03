@@ -108,8 +108,8 @@ public class BoardFactory {
     }
 
     private Square convertInputToSquare(String input, Board board) {
-        return board.getSquareByPosition(Integer.parseInt(input.substring(1)) - 1,
-                Character.toUpperCase(input.charAt(0)) - ASCII_DEC_CODE_UPPERCASE_LETTER_A);
+            return board.getSquareByPosition(Integer.parseInt(input.substring(1)) - 1,
+                    Character.toUpperCase(input.charAt(0)) - ASCII_DEC_CODE_UPPERCASE_LETTER_A);
     }
 
     public List<Square> manualPlacement(ShipType shipType, Board board) throws WrongSquareException, NoSuchElementException, NoSuchDirectionException {
