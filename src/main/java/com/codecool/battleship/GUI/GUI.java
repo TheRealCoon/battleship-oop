@@ -25,7 +25,7 @@ public class GUI extends JFrame {
         this.getContentPane().setBackground(new Color(0, 130, 130));
 
 
-        this.add(layeredPane, BorderLayout.CENTER);
+        this.getContentPane().add(layeredPane, BorderLayout.CENTER);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -39,8 +39,12 @@ public class GUI extends JFrame {
 
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setLayout(new BorderLayout());
-        layeredPane.setPreferredSize(this.getSize());
+//        layeredPane.setPreferredSize(this.getSize());
+//        layeredPane.setLayout(null);
 //        layeredPane.setBounds(0, 0, GUI_WIDTH, GUI_HEIGHT);
+//        layeredPane.setOpaque(true);
+//        layeredPane.setVisible(true);
+
         layeredPane.add(menuPanel, BorderLayout.CENTER);
         layeredPane.setLayer(menuPanel, JLayeredPane.DRAG_LAYER);
 
