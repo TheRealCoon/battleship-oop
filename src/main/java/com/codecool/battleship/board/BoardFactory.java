@@ -25,7 +25,7 @@ public class BoardFactory {
     }
 
     private void updateNeighbouringSquares(Ship ship, Board board) {
-        List<Square> body = ship.getBody().stream().sorted(Comparator.comparing(Square::getY)).toList();
+        List<Square> body = ship.getBody();
         Map<String, Integer> coordinates = getCoordinatesForNeighbouringFields(body);
         for (int y = coordinates.get(START_Y); y <= coordinates.get(END_Y); y++) {
             for (int x = coordinates.get(START_X); x <= coordinates.get(END_X); x++) {
