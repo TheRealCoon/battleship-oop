@@ -16,18 +16,18 @@ public class GUI extends JFrame {
         ImageIcon icon = new ImageIcon(ICONS_DIRECTORY + "gameIcon.png");
 //        ImageIcon icon2 = new ImageIcon(ICONS_DIRECTORY + "menuBackGround.png");
 
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setLayout(new BorderLayout());
-        this.setSize(GUI_WIDTH, GUI_HEIGHT);
-//        this.setResizable(false);
-        this.setTitle(GAME_TITLE);
-        this.setIconImage(icon.getImage());
-        this.getContentPane().setBackground(new Color(0, 130, 130));
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+        setSize(GUI_WIDTH, GUI_HEIGHT);
+//      setResizable(false);
+        setTitle(GAME_TITLE);
+        setIconImage(icon.getImage());
+        getContentPane().setBackground(new Color(0, 130, 130));
 
 
-        this.getContentPane().add(layeredPane, BorderLayout.CENTER);
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
+        getContentPane().add(layeredPane, BorderLayout.CENTER);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     private JLayeredPane initLayeredPane() {
