@@ -23,7 +23,7 @@ public class Input {
         if (input.length() < 2) return false;
         String X = input.substring(0, 1);
         int XIntValue = X.toUpperCase().charAt(0);
-        if (XIntValue < 'A' || XIntValue > 'A' + BOARD_SIZE) return false;
+        if (XIntValue < 'A' || XIntValue > 'A' + BOARD_SIZE - 1) return false;
         String Y = input.substring(1);
         return Y.chars().allMatch(Character::isDigit) &&
                 Integer.parseInt(Y) >= 1 && Integer.parseInt(Y) <= BOARD_SIZE;
